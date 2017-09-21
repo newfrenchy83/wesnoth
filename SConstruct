@@ -18,7 +18,7 @@ from os import access, F_OK
 AddOption('--option-cache', dest='option_cache', nargs=1, type = 'string', action = 'store', metavar = 'FILE', help='file with cached construction variables', default = '.scons-option-cache')
 if os.path.exists(GetOption("option_cache")):
     optfile = file(GetOption("option_cache"))
-    print("Saved options:", optfile.read().replace("\n", ", ")[:-2])
+    print("Saved options: {}".format(optfile.read().replace("\n", ", ")[:-2]))
     optfile.close()
 
 #
@@ -122,7 +122,7 @@ for repo in Dir(".").repositories:
   # source code root and supplying this path with -Y option.
   toolpath.append(repo.abspath + "/scons")
 sys.path = toolpath + sys.path
-env = Environment(tools=["tar", "gettext", "install", "python_devel", "scanreplace"], options = opts, toolpath = toolpath)
+env = Environment(tools=["tar", "gettext_tool", "install", "python_devel", "scanreplace"], options = opts, toolpath = toolpath)
 
 if env["lockfile"]:
     print("Creating lockfile")
@@ -306,7 +306,7 @@ def Warning(message):
 
 from metasconf import init_metasconf
 configure_args = dict(
-    custom_tests = init_metasconf(env, ["ieee_754", "cplusplus", "python_devel", "sdl", "boost", "cairo", "pango", "pkgconfig", "gettext", "lua"]),
+    custom_tests = init_metasconf(env, ["ieee_754", "cplusplus", "python_devel", "sdl", "boost", "cairo", "pango", "pkgconfig", "gettext_tool", "lua"]),
     config_h = "$build_dir/config.h",
     log_file="$build_dir/config.log", conf_dir="$build_dir/sconf_temp")
 
