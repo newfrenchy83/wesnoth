@@ -358,7 +358,7 @@ function wml_actions.unit_mp_overlay(cfg)
 			u:add_modification("object", {
 				id = cfg.object_id,
 				wml.tag.effect {
-					apply_to = "overlay",
+					apply_to = "overlays",
 					add = img,
 				}
 			})
