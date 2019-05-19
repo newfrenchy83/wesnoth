@@ -1,5 +1,5 @@
 ## Version 1.15.0-dev
- ### AI
+ ### AI 
    * Micro AIs 
      * Add [avoid] tag functionality to Multipack Wolves, Wolves, Swarm and Goto Micro AIs
      * Support named locations for [micro_ai] tag location keys
