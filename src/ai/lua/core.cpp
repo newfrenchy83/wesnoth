@@ -219,7 +219,7 @@ static int ai_attack(lua_State *L, bool exec)
 		}
 	}
 
-	//TODO: Right now, aggression is used by the attack execution functions to determine the weapon to be used.
+	// Note: Right now, aggression is used by the attack execution functions to determine the weapon to be used.
 	// If a decision is made to expand the function that determines the weapon, this block must be refactored
 	// to parse aggression if a single int is on the stack, or create a table of parameters, if a table is on the
 	// stack.
@@ -280,7 +280,6 @@ static int ai_recruit(lua_State *L, bool exec)
 		where.set_wml_x(lua_tonumber(L, 2));
 		where.set_wml_y(lua_tonumber(L, 3));
 	}
-	//TODO fendrin: talk to Crab about the from argument.
 	map_location from = map_location::null_location();
 	ai::recruit_result_ptr recruit_result = ai::actions::execute_recruit_action(side,exec,std::string(unit_name),where,from);
 	return transform_ai_action(L,recruit_result);
@@ -305,7 +304,6 @@ static int ai_recall(lua_State *L, bool exec)
 		where.set_wml_x(lua_tonumber(L, 2));
 		where.set_wml_y(lua_tonumber(L, 3));
 	}
-	//TODO fendrin: talk to Crab about the from argument.
 	map_location from = map_location::null_location();
 	ai::recall_result_ptr recall_result = ai::actions::execute_recall_action(side,exec,std::string(unit_id),where,from);
 	return transform_ai_action(L,recall_result);
@@ -374,14 +372,6 @@ static int cfun_ai_get_aggression(lua_State *L)
 	DEPRECATED_ASPECT_MESSAGE("aggression");
 	double aggression = get_readonly_context(L).get_aggression();
 	lua_pushnumber(L, aggression);
-	return 1;
-}
-
-static int cfun_ai_get_attack_depth(lua_State *L)
-{
-	DEPRECATED_ASPECT_MESSAGE("attack_depth");
-	int attack_depth = get_readonly_context(L).get_attack_depth();
-	lua_pushnumber(L, attack_depth);
 	return 1;
 }
 
@@ -897,7 +887,6 @@ static int impl_ai_get(lua_State* L)
 			// Aspects
 			{ "get_aggression", &cfun_ai_get_aggression },
 			{ "get_avoid", &cfun_ai_get_avoid },
-			{ "get_attack_depth", &cfun_ai_get_attack_depth },
 			{ "get_attacks", &cfun_ai_get_attacks },
 			{ "get_caution", &cfun_ai_get_caution },
 			{ "get_grouping", &cfun_ai_get_grouping },

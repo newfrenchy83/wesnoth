@@ -19,11 +19,6 @@ function helper.get_sides(cfg)
 	return f, { i = 0 }
 end
 
---! Interrupts the current execution and displays a chat message that looks like a WML error.
-function helper.wml_error(m)
-	error("~wml:" .. m, 0)
-end
-
 --! Returns an iterator over teams that can be used in a for-in loop.
 function helper.all_teams()
 	local function f(s)
@@ -33,70 +28,6 @@ function helper.all_teams()
 		return team
 	end
 	return f, { i = 1 }
-end
-
---! Modifies all the units satisfying the given @a filter.
---! @param vars key/value pairs that need changing.
---! @note Usable only during WML actions.
-function helper.modify_unit(filter, vars)
-	wml_actions.store_unit({
-		[1] = { "filter", filter },
-		variable = "LUA_modify_unit",
-		kill = true
-	})
-	for i = 0, wml.variables["LUA_modify_unit.length"] - 1 do
-		local u = string.format("LUA_modify_unit[%d]", i)
-		for k, v in pairs(vars) do
-			wml.variables[u .. '.' .. k] = v
-		end
-		wml_actions.unstore_unit({
-			variable = u,
-			find_vacant = false
-		})
-	end
-	wml.variables["LUA_modify_unit"] = nil
-end
-
---! Fakes the move of a unit satisfying the given @a filter to position @a x, @a y.
---! @note Usable only during WML actions.
-function helper.move_unit_fake(filter, to_x, to_y)
-	wml_actions.store_unit({
-		[1] = { "filter", filter },
-		variable = "LUA_move_unit",
-		kill = false
-	})
-	local from_x = wml.variables["LUA_move_unit.x"]
-	local from_y = wml.variables["LUA_move_unit.y"]
-
-	wml_actions.scroll_to({ x=from_x, y=from_y })
-
-	if to_x < from_x then
-		wml.variables["LUA_move_unit.facing"] = "sw"
-	elseif to_x > from_x then
-		wml.variables["LUA_move_unit.facing"] = "se"
-	end
-	wml.variables["LUA_move_unit.x"] = to_x
-	wml.variables["LUA_move_unit.y"] = to_y
-
-	wml_actions.kill({
-		x = from_x,
-		y = from_y,
-		animate = false,
-		fire_event = false
-	})
-
-	wml_actions.move_unit_fake({
-		type      = "$LUA_move_unit.type",
-		gender    = "$LUA_move_unit.gender",
-		variation = "$LUA_move_unit.variation",
-		side      = "$LUA_move_unit.side",
-		x         = from_x .. ',' .. to_x,
-		y         = from_y .. ',' .. to_y
-	})
-
-	wml_actions.unstore_unit({ variable="LUA_move_unit", find_vacant=true })
-	wml_actions.redraw({})
-	wml.variables["LUA_move_unit"] = nil
 end
 
 -- Metatable that redirects access to wml.variables_proxy
@@ -135,33 +66,6 @@ local proxy_tag_mt = {
 
 function helper.set_wml_tag_metatable(t)
 	return setmetatable(t, proxy_tag_mt)
-end
-
---! Displays a WML message box with attributes from table @attr and options
---! from table @options.
---! @return the index of the selected option.
---! @code
---! local result = helper.get_user_choice({ speaker = "narrator" },
---!     { "Choice 1", "Choice 2" })
---! @endcode
-function helper.get_user_choice(attr, options)
-	local result = 0
-	function wesnoth.__user_choice_helper(i)
-		result = i
-	end
-	local msg = {}
-	for k,v in pairs(attr) do
-		msg[k] = attr[k]
-	end
-	for k,v in ipairs(options) do
-		table.insert(msg, { "option", { message = v,
-			{ "command", { { "lua", {
-				code = string.format("wesnoth.__user_choice_helper(%d)", k)
-			}}}}}})
-	end
-	wml_actions.message(msg)
-	wesnoth.__user_choice_helper = nil
-	return result
 end
 
 --! Returns an iterator over adjacent locations that can be used in a for-in loop.
@@ -325,6 +229,9 @@ if wesnoth.kernel_type() == "Game Lua Kernel" then
 	helper.get_variable_array = wesnoth.deprecate_api('helper.get_variable_array', ' wml.array_access.get', 1, nil, wml.array_access.get)
 	helper.set_variable_array = wesnoth.deprecate_api('helper.set_variable_array', 'wml.array_access.set', 1, nil, wml.array_access.set)
 	helper.get_variable_proxy_array = wesnoth.deprecate_api('helper.get_variable_proxy_array', 'wml.array_access.get_proxy', 1, nil, wml.array_access.get_proxy)
+	helper.wml_error = wesnoth.deprecate_api('helper.wml_error', 'wml.error', 1, nil, wml.error)
+	helper.move_unit_fake = wesnoth.deprecate_api('helper.move_unit_fake', 'wesnoth.interface.move_unit_fake', 1, nil, wesnoth.interface.move_unit_fake)
+	helper.modify_unit = wesnoth.deprecate_api('helper.modify_unit', 'wesnoth.units.modify', 1, nil, wesnoth.units.modify)
 end
 helper.literal = wesnoth.deprecate_api('helper.literal', 'wml.literal', 1, nil, wml.literal)
 helper.parsed = wesnoth.deprecate_api('helper.parsed', 'wml.parsed', 1, nil, wml.parsed)
@@ -332,5 +239,6 @@ helper.shallow_literal = wesnoth.deprecate_api('helper.shallow_literal', 'wml.sh
 helper.shallow_parsed = wesnoth.deprecate_api('helper.shallow_parsed', 'wml.shallow_parsed', 1, nil, wml.shallow_parsed)
 helper.set_wml_var_metatable = wesnoth.deprecate_api('helper.set_wml_var_metatable', 'wml.variable.proxy', 2, nil, helper.set_wml_var_metatable)
 helper.set_wml_tag_metatable = wesnoth.deprecate_api('helper.set_wml_tag_metatable', 'wml.tag', 2, nil, helper.set_wml_tag_metatable)
+helper.get_user_choice = wesnoth.deprecate_api('helper.get_user_choice', 'gui.get_user_choice', 1, nil, gui.get_user_choice)
 
 return helper

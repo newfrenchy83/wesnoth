@@ -19,7 +19,8 @@ local function add_overlay(x, y, cfg)
 			filter_team = cfg.filter_team,
 			visible_in_fog = cfg.visible_in_fog,
 			redraw = cfg.redraw,
-			name = cfg.name
+			name = cfg.name,
+			z_order = cfg.z_order,
 		})
 end
 
@@ -103,14 +104,20 @@ function wml_actions.store_items(cfg)
 	end
 end
 
-local methods = { remove = remove_overlay }
+wesnoth.interface.remove_item = remove_overlay
 
-function methods.place_image(x, y, name)
+function wesnoth.interface.add_item_image(x, y, name)
 	add_overlay(x, y, { x = x, y = y, image = name })
 end
 
-function methods.place_halo(x, y, name)
+function wesnoth.interface.add_item_halo(x, y, name)
 	add_overlay(x, y, { x = x, y = y, halo = name })
 end
+
+local methods = {
+	remove = wesnoth.deprecate_api('items.remove', 'wesnoth.interface.remove_item', 1, nil, remove_overlay),
+	place_image = wesnoth.deprecate_api('items.place_image', 'wesnoth.interface.add_item_image', 1, nil, wesnoth.interface.add_item_image),
+	place_halo = wesnoth.deprecate_api('items.place_halo', 'wesnoth.interface.add_item_halo', 1, nil, wesnoth.interface.add_item_halo)
+}
 
 return methods

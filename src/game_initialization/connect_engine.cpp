@@ -51,24 +51,6 @@ static const std::string controller_names[] {
 	"reserved"
 };
 
-static const std::string attributes_to_trim[] {
-	"side",
-	"type",
-	"gender",
-	"recruit",
-	"player_id",
-	"previous_recruits",
-	"controller",
-	"current_player",
-	"team_name",
-	"user_team_name",
-	"color",
-	"gold",
-	"income",
-	"allow_changes",
-	"faction"
-};
-
 namespace ng {
 
 connect_engine::connect_engine(saved_game& state, const bool first_scenario, mp_campaign_info* campaign_info)
@@ -508,7 +490,7 @@ void connect_engine::start_game()
 	send_to_server(config("start_game"));
 }
 
-void connect_engine::start_game_commandline(const commandline_options& cmdline_opts)
+void connect_engine::start_game_commandline(const commandline_options& cmdline_opts, const config& game_config)
 {
 	DBG_MP << "starting a new game in commandline mode" << std::endl;
 
@@ -550,9 +532,10 @@ void connect_engine::start_game_commandline(const commandline_options& cmdline_o
 			}
 		}
 
-		// Set AI algorithm to RCA AI for all sides,
+		// Set AI algorithm to default for all sides,
 		// then override if commandline option was given.
-		side->set_ai_algorithm("ai_default_rca");
+		std::string ai_algorithm = game_config.child("ais")["default_ai_algorithm"].str();
+		side->set_ai_algorithm(ai_algorithm);
 		if(cmdline_opts.multiplayer_algorithm) {
 			for(const mp_option& option : *cmdline_opts.multiplayer_algorithm) {
 
@@ -1065,8 +1048,17 @@ config side_engine::new_config() const
 	}
 
 	if(controller_ == CNTR_COMPUTER && allow_player_) {
-		// Do not import default ai cfg otherwise - all is set by scenario config.
-		res.add_child_at("ai", config {"ai_algorithm", ai_algorithm_}, 0);
+		// If this is a saved game and "use_saved" (the default) was chosen for the
+		// AI algorithm, we do nothing. Otherwise we add the chosen AI and if this
+		// is a saved game, we also remove the old stages from the AI config.
+		if(ai_algorithm_ != "use_saved") {
+			if(parent_.params_.saved_game == mp_game_settings::SAVED_GAME_MODE::MIDGAME) {
+				for (config &ai_config : res.child_range("ai")) {
+					ai_config.clear_children("stage");
+				}
+			}
+			res.add_child_at("ai", config {"ai_algorithm", ai_algorithm_}, 0);
+		}
 	}
 
 	// A side's "current_player" is the player which has currently taken that side or the one for which it is reserved.
@@ -1175,19 +1167,14 @@ config side_engine::new_config() const
 		res["income"] = income_;
 	}
 
+
 	if(parent_.params_.use_map_settings && parent_.params_.saved_game != mp_game_settings::SAVED_GAME_MODE::MIDGAME) {
-		config trimmed = cfg_;
-
-		for(const std::string& attribute : attributes_to_trim) {
-			trimmed.remove_attribute(attribute);
+		if(cfg_.has_attribute("name")){
+			res["name"] = cfg_["name"];
 		}
-
-		if(controller_ != CNTR_COMPUTER) {
-			// Only override names for computer controlled players.
-			trimmed.remove_attribute("user_description");
+		if(cfg_.has_attribute("user_description") && controller_ == CNTR_COMPUTER){
+			res["user_description"] = cfg_["user_description"];
 		}
-
-		res.merge_with(trimmed);
 	}
 
 	return res;

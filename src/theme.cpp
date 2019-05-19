@@ -16,6 +16,8 @@
 
 #include "theme.hpp"
 
+#include "desktop/battery_info.hpp"
+#include "display.hpp"
 #include "gettext.hpp"
 #include "hotkey/hotkey_command.hpp"
 #include "hotkey/hotkey_item.hpp"
@@ -23,6 +25,9 @@
 #include "sdl/rect.hpp"
 #include "serialization/string_utils.hpp"
 #include "wml_exception.hpp"
+
+#include <sstream>
+#include <utility>
 
 static lg::log_domain log_display("display");
 #define DBG_DP LOG_STREAM(debug, log_display)
@@ -578,13 +583,38 @@ theme::theme(const config& cfg, const SDL_Rect& screen)
 	, unit_image_()
 	, palette_()
 	, border_()
+	, screen_dimensions_(screen)
 {
 	do_resolve_rects(expand_partialresolution(cfg), cfg_);
 	set_resolution(screen);
 }
 
+theme& theme::operator=(theme&& other)
+{
+	theme_reset_event_ = other.theme_reset_event_;
+	cur_theme = std::move(other.cur_theme);
+	cfg_ = std::move(other.cfg_);
+	panels_ = std::move(other.panels_);
+	labels_ = std::move(other.labels_);
+	menus_ = std::move(other.menus_);
+	actions_ = std::move(other.actions_);
+	sliders_ = std::move(other.sliders_);
+	context_ = other.context_;
+	action_context_ = other.action_context_;
+	status_ = std::move(other.status_);
+	main_map_ = other.main_map_;
+	mini_map_ = other.mini_map_;
+	unit_image_ = other.unit_image_;
+	palette_ = other.palette_;
+	border_ = other.border_;
+
+	return *this;
+}
+
 bool theme::set_resolution(const SDL_Rect& screen)
 {
+	screen_dimensions_ = screen;
+
 	bool result = false;
 
 	int current_rating = 1000000;
@@ -668,7 +698,7 @@ void theme::add_object(const config& cfg)
 
 	if(const config& status_cfg = cfg.child("status")) {
 		for(const config::any_child& i : status_cfg.all_children_range()) {
-			status_.emplace(i.key, status_item(i.cfg));
+			status_[i.key].reset(new status_item(i.cfg));
 		}
 		if(const config& unit_image_cfg = status_cfg.child("unit_image")) {
 			unit_image_ = object(unit_image_cfg);
@@ -727,40 +757,57 @@ void theme::add_object(const config& cfg)
 	if(const config& c = cfg.child("main_map_border")) {
 		border_ = border_t(c);
 	}
+
+	// Battery charge indicator is always hidden if there isn't enough horizontal space
+	// (GitHub issue #3714)
+	static const int BATTERY_ICON_MIN_WIDTH = 1152;
+	if(!desktop::battery_info::does_device_have_battery() || screen_dimensions_.w < BATTERY_ICON_MIN_WIDTH) {
+		if(const config& c = cfg.child("no_battery")) {
+			modify(c);
+		}
+	}
 }
 
 void theme::remove_object(const std::string& id)
 {
-	for(std::vector<theme::panel>::iterator p = panels_.begin(); p != panels_.end(); ++p) {
+	if(status_.erase(id) > 0u) {
+		return;
+	}
+
+	for(auto p = panels_.begin(); p != panels_.end(); ++p) {
 		if(p->get_id() == id) {
 			panels_.erase(p);
 			return;
 		}
 	}
-	for(std::vector<theme::label>::iterator l = labels_.begin(); l != labels_.end(); ++l) {
+	for(auto l = labels_.begin(); l != labels_.end(); ++l) {
 		if(l->get_id() == id) {
 			labels_.erase(l);
 			return;
 		}
 	}
-	for(std::vector<theme::menu>::iterator m = menus_.begin(); m != menus_.end(); ++m) {
+	for(auto m = menus_.begin(); m != menus_.end(); ++m) {
 		if(m->get_id() == id) {
 			menus_.erase(m);
 			return;
 		}
 	}
-	for(std::vector<theme::action>::iterator a = actions_.begin(); a != actions_.end(); ++a) {
+	for(auto a = actions_.begin(); a != actions_.end(); ++a) {
 		if(a->get_id() == id) {
 			actions_.erase(a);
 			return;
 		}
 	}
-	for(std::vector<theme::slider>::iterator s = sliders_.begin(); s != sliders_.end(); ++s) {
+	for(auto s = sliders_.begin(); s != sliders_.end(); ++s) {
 		if(s->get_id() == id) {
 			sliders_.erase(s);
 			return;
 		}
 	}
+
+	std::stringstream stream;
+	stream << "theme object " << id << " not found";
+	throw config::error(stream.str());
 }
 
 void theme::set_object_location(theme::object& element, std::string rect_str, std::string ref_id)
@@ -825,6 +872,12 @@ theme::object& theme::find_element(const std::string& id)
 {
 	static theme::object empty_object;
 	theme::object* res = &empty_object;
+
+	auto status_item_it = status_.find(id);
+	if(status_item_it != status_.end()) {
+		res = status_item_it->second.get();
+	}
+
 	for(std::vector<theme::panel>::iterator p = panels_.begin(); p != panels_.end(); ++p) {
 		if(p->get_id() == id) {
 			res = &(*p);
@@ -862,9 +915,9 @@ theme::object& theme::find_element(const std::string& id)
 
 const theme::status_item* theme::get_status_item(const std::string& key) const
 {
-	const std::map<std::string, status_item>::const_iterator i = status_.find(key);
+	const auto& i = status_.find(key);
 	if(i != status_.end())
-		return &i->second;
+		return i->second.get();
 	else
 		return nullptr;
 }

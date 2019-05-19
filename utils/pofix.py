@@ -146,8 +146,6 @@ game_stringfixes = {
 # fixes added in 1.14.3+dev
 ("Whatever.... I still think we should make an effort", "Whatever... I still think we should make an effort"),
 ("That is so very encouraging....","That is so very encouraging..."),
-# fixes added in 1.14.4+dev
-("can now aid those around her in the art of combat.", "can aid those around her in the art of combat."),
 ),
 
 "wesnoth-low" : (
@@ -179,6 +177,11 @@ game_stringfixes = {
 ("Welcome to my laboratory, Ardonna of Tarynth", "Welcome to my laboratory, Ardonna of Tarrynth"),
 # fixes added in 1.14.3+dev
 ("others.... An altar serves", "others... An altar serves"),
+),
+
+# fixes added in 1.13.13+dev
+"wesnoth-sota" : (
+("Welcome to my laboratory, Ardonna of Tarynth", "Welcome to my laboratory, Ardonna of Tarrynth"),
 ),
 
 "wesnoth-sotbe" : (
@@ -294,6 +297,7 @@ except ImportError:
 def process_file(path):
     before = io.open(path, "r", encoding="utf-8").read()
     decommented = re.sub("#.*", "", before)
+    decommented_msgids = re.sub(r'^msgstr .*?' + '\n\n', '', decommented, flags = re.MULTILINE | re.DOTALL)
     lines = before.split('\n')
     if website_mode:
         stringfixes = website_stringfixes
@@ -314,7 +318,7 @@ def process_file(path):
             #lead to "real" probs not found, the real check would be "does replacing
             #old with new lead to duplicate msgids? (including old ones marked with #~)"
             #which is not easily done in the current design...
-            elif new in decommented and old in decommented and not new in old:
+            elif new in decommented_msgids and old in decommented_msgids and not new in old:
                 print ("pofix: %s already includes the new string\n\t\"%s\"\nbut also the old\n\t\"%s\"\nthis needs handfixing for now since it likely creates duplicate msgids." % (path, new, old))
             else:
                 for (i, line) in enumerate(lines):

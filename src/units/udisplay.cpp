@@ -80,6 +80,7 @@ void teleport_unit_between(const map_location& a, const map_location& b, unit& t
 	const bool a_visible = temp_unit.is_visible_to_team(a, viewing_team, false);
 	const bool b_visible = temp_unit.is_visible_to_team(b, viewing_team, false);
 
+	temp_unit.set_location(a);
 	if ( a_visible ) { // teleport
 		disp.invalidate(a);
 		temp_unit.set_facing(a.get_relative_dir(b));
@@ -93,6 +94,7 @@ void teleport_unit_between(const map_location& a, const map_location& b, unit& t
 		animator.wait_for_end();
 	}
 
+	temp_unit.set_location(b);
 	if ( b_visible ) { // teleport
 		disp.invalidate(b);
 		temp_unit.set_facing(a.get_relative_dir(b));
@@ -778,8 +780,11 @@ void unit_healing(unit &healed, const std::vector<unit *> &healers, int healing,
 {
 	game_display* disp = game_display::get_singleton();
 	const map_location& healed_loc = healed.get_location();
+	const bool some_healer_is_unfogged =
+		(healers.end() != std::find_if_not(healers.begin(), healers.end(),
+			[&](unit* h) { return disp->fogged(h->get_location()); }));
 
-	if(do_not_show_anims(disp) || disp->fogged(healed_loc)) {
+	if(do_not_show_anims(disp) || (disp->fogged(healed_loc) && !some_healer_is_unfogged)) {
 		return;
 	}
 

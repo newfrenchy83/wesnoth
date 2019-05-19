@@ -237,7 +237,6 @@ const std::string holder::get_ai_overview()
 	std::stringstream s;
 	s << "advancements:  " << this->ai_->get_advancements().get_value() << std::endl;
 	s << "aggression:  " << this->ai_->get_aggression() << std::endl;
-	s << "attack_depth:  " << this->ai_->get_attack_depth() << std::endl;
 	s << "caution:  " << this->ai_->get_caution() << std::endl;
 	s << "grouping:  " << this->ai_->get_grouping() << std::endl;
 	s << "leader_aggression:  " << this->ai_->get_leader_aggression() << std::endl;
@@ -491,7 +490,7 @@ bool manager::should_intercept( const std::string& str ) const
 //this is stub code to allow testing of basic 'history', 'repeat-last-command', 'add/remove/replace ai' capabilities.
 //yes, it doesn't look nice. but it is usable.
 //to be refactored at earliest opportunity
-///@todo 1.9 extract to separate class which will use fai or lua parser
+// TODO: extract to separate class which will use fai or lua parser
 const std::string manager::internal_evaluate_command( side_number side, const std::string& str ){
 	const int MAX_HISTORY_VISIBLE = 30;
 
@@ -605,7 +604,6 @@ const std::string manager::internal_evaluate_command( side_number side, const st
 // ADD, CREATE AIs, OR LIST AI TYPES
 // =======================================================================
 
-///@todo 1.9 add error reporting
 bool manager::add_ai_for_side_from_file( side_number side, const std::string& file, bool replace )
 {
 	config cfg;
@@ -627,20 +625,6 @@ bool manager::add_ai_for_side_from_config( side_number side, const config& cfg, 
 
 	std::stack<holder>& ai_stack_for_specific_side = get_or_create_ai_stack_for_side(side);
 	ai_stack_for_specific_side.emplace(side, parsed_cfg);
-	return true;
-}
-
-
-///@todo 1.9 add error reporting
-bool manager::add_ai_for_side( side_number side, const std::string& ai_algorithm_type, bool replace )
-{
-	if (replace) {
-		remove_ai_for_side (side);
-	}
-	config cfg;
-	cfg["ai_algorithm"] = ai_algorithm_type;
-	std::stack<holder>& ai_stack_for_specific_side = get_or_create_ai_stack_for_side(side);
-	ai_stack_for_specific_side.emplace(side, cfg);
 	return true;
 }
 
@@ -740,7 +724,6 @@ void manager::play_turn( side_number side ){
 	last_interact_ = 0;
 	num_interact_ = 0;
 	const int turn_start_time = SDL_GetTicks();
-	/*hack. @todo 1.9 rework via extended event system*/
 	get_ai_info().recent_attacks.clear();
 	ai_composite& ai_obj = get_active_ai_for_side(side);
 	resources::game_events->pump().fire("ai_turn");

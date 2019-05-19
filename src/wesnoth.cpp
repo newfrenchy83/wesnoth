@@ -46,7 +46,7 @@
 #include "serialization/parser.hpp"         // for read
 #include "serialization/preprocessor.hpp"   // for preproc_define, etc
 #include "serialization/unicode_cast.hpp"
-#include "serialization/validator.hpp" // for strict_validation_enabled
+#include "serialization/schema_validator.hpp" // for strict_validation_enabled and schema_validator
 #include "sound.hpp"                   // for commit_music_changes, etc
 #include "statistics.hpp"              // for fresh_stats
 #include "utils/functional.hpp"
@@ -333,6 +333,30 @@ static void handle_preprocess_command(const commandline_options& cmdline_opts)
 	std::cerr << "preprocessing finished. Took " << SDL_GetTicks() - startTime << " ticks.\n";
 }
 
+static int handle_validate_command(const std::string& file, abstract_validator& validator, const std::vector<std::string>& defines) {
+	preproc_map defines_map;
+	for(const std::string& define : defines) {
+		if(define.empty()) {
+			std::cerr << "empty define supplied\n";
+			continue;
+		}
+
+		LOG_PREPROC << "adding define: " << define << '\n';
+		defines_map.emplace(define, preproc_define(define));
+	}
+	std::cout << "Validating " << file << " against schema " << validator.name_ << std::endl;
+	lg::set_strict_severity(0);
+	filesystem::scoped_istream stream = preprocess_file(file, &defines_map);
+	config result;
+	read(result, *stream, &validator);
+	if(lg::broke_strict()) {
+		std::cout << "validation failed\n";
+	} else {
+		std::cout << "validation succeeded\n";
+	}
+	return lg::broke_strict();
+}
+
 /** Process commandline-arguments */
 static int process_command_args(const commandline_options& cmdline_opts)
 {
@@ -445,11 +469,6 @@ static int process_command_args(const commandline_options& cmdline_opts)
 		return 0;
 	}
 
-	if(cmdline_opts.path) {
-		std::cout << game_config::path << "\n";
-		return 0;
-	}
-
 	if(cmdline_opts.log_precise_timestamps) {
 		lg::precise_timestamps(true);
 	}
@@ -478,12 +497,30 @@ static int process_command_args(const commandline_options& cmdline_opts)
 		std::cout << "\n========= BUILD INFORMATION =========\n\n" << game_config::full_build_report();
 		return 0;
 	}
+	
+	if(cmdline_opts.validate_schema) {
+		schema_validation::schema_self_validator validator;
+		validator.set_create_exceptions(false); // Don't crash if there's an error, just go ahead anyway
+		return handle_validate_command(*cmdline_opts.validate_schema, validator, {});
+	}
 
 	// Options changing their behavior dependent on some others should be checked below.
 
 	if(cmdline_opts.preprocess) {
 		handle_preprocess_command(cmdline_opts);
 		return 0;
+	}
+	
+	if(cmdline_opts.validate_wml) {
+		std::string schema_path;
+		if(cmdline_opts.validate_with) {
+			schema_path = *cmdline_opts.validate_with;
+		} else {
+			schema_path = filesystem::get_wml_location("schema/game_config.cfg");
+		}
+		schema_validation::schema_validator validator(schema_path);
+		validator.set_create_exceptions(false); // Don't crash if there's an error, just go ahead anyway
+		return handle_validate_command(*cmdline_opts.validate_wml, validator, boost::get_optional_value_or(cmdline_opts.preprocess_defines, {}));
 	}
 
 	// Not the most intuitive solution, but I wanted to leave current semantics for now
@@ -994,7 +1031,6 @@ int main(int argc, char** argv)
 		if(args[k] == "--wconsole" ||
 		   args[k] == "--help" ||
 		   args[k] == "--logdomains" ||
-		   args[k] == "--path" ||
 		   args[k] == "--render-image" ||
 		   args[k] == "--report" ||
 		   args[k] == "-R" ||
@@ -1002,6 +1038,8 @@ int main(int argc, char** argv)
 		   args[k] == "--data-path" ||
 		   args[k] == "--userdata-path" ||
 		   args[k] == "--userconfig-path" ||
+		   args[k].compare(0, 11, "--validate=") == 0  ||
+		   args[k].compare(0, 17, "--validate-schema") == 0  ||
 		   args[k] == "--version"
 		) {
 			lg::enable_native_console_output();
@@ -1035,6 +1073,14 @@ int main(int argc, char** argv)
 	sigaction(SIGTERM, &terminate_handler, nullptr);
 	sigaction(SIGINT, &terminate_handler, nullptr);
 #endif
+
+	// Mac's touchpad generates touch events too.
+	// Ignore them until Macs have a touchscreen: https://forums.libsdl.org/viewtopic.php?p=45758
+#if defined(__APPLE__) && !defined(__IPHONEOS__) 
+	SDL_EventState(SDL_FINGERMOTION, SDL_DISABLE);
+	SDL_EventState(SDL_FINGERDOWN, SDL_DISABLE);
+	SDL_EventState(SDL_FINGERUP, SDL_DISABLE);
+#endif	
 
 	// declare this here so that it will always be at the front of the event queue.
 	events::event_context global_context;

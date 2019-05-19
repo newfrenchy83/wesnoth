@@ -35,7 +35,8 @@ projectfiles/Xcode/**/Wesnoth.dmgCanvas
 projectfiles/Xcode/**/*.mode1v3
 projectfiles/Xcode/**/*.pbxuser
 projectfiles/Xcode/**/xcuserdata
-projectfiles/Xcode/**/project.xcworkspace
+projectfiles/Xcode/**/*.xcworkspace
+!projectfiles/Xcode/**/project.pbxproj
 
 # CodeBlocks
 projectfiles/**/.clang
@@ -67,6 +68,11 @@ src/**/*.vcproj
 /WindowsTimeout.pdb
 .vscode
 /.vs
+
+# CLion
+/.idea
+cmake-build-debug
+cmake-build-release
 
 # eclipse
 .settings

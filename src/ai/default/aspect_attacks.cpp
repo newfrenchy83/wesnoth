@@ -140,9 +140,8 @@ void aspect_attacks_base::do_attack_analysis(
 	// This function is called fairly frequently, so interact with the user here.
 
 	ai::manager::get_singleton().raise_user_interact();
-	const int default_attack_depth = 5;
-	if(cur_analysis.movements.size() >= std::size_t(default_attack_depth)) {
-		//std::cerr << "ANALYSIS " << cur_analysis.movements.size() << " >= " << get_attack_depth() << "\n";
+	const int max_attack_depth = 5;
+	if(cur_analysis.movements.size() >= std::size_t(max_attack_depth)) {
 		return;
 	}
 	const gamemap &map_ = resources::gameboard->map();
@@ -260,8 +259,7 @@ void aspect_attacks_base::do_attack_analysis(
 				}
 			}
 
-			unit_ability_list abil = unit_itor->get_abilities("leadership",tiles[j]);
-			int best_leadership_bonus = abil.highest("value").first;
+			int best_leadership_bonus = under_leadership(*unit_itor, tiles[j]);
 			double leadership_bonus = static_cast<double>(best_leadership_bonus+100)/100.0;
 			if (leadership_bonus > 1.1) {
 				LOG_AI << unit_itor->name() << " is getting leadership " << leadership_bonus << "\n";

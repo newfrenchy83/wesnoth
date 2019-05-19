@@ -20,8 +20,8 @@ include_directories(SYSTEM ${PANGOCAIRO_INCLUDE_DIRS} )
 include_directories(SYSTEM ${GETTEXT_INCLUDE_DIR} )
 include_directories(SYSTEM ${LIBDBUS_INCLUDE_DIRS} )
 include_directories(SYSTEM ${VORBISFILE_INCLUDE_DIR} )
-include_directories(SYSTEM ${GLEW_INCLUDE_DIRS})
-include_directories(SYSTEM ${OPENGL_INCLUDE_DIR})
+#include_directories(SYSTEM ${GLEW_INCLUDE_DIRS})
+#include_directories(SYSTEM ${OPENGL_INCLUDE_DIR})
 
 include_directories(SYSTEM ${SDL2_INCLUDE_DIR} )
 set(sdl-lib ${SDL2_LIBRARY})
@@ -80,12 +80,13 @@ set(game-external-libs
 	${sdl_image-lib}
 	${sdl_mixer-lib}
 	${sdl_ttf-lib}
+	${GOBJECT_LIBRARIES}
 	${PANGOCAIRO_LIBRARIES}
 	${FONTCONFIG_LIBRARIES}
 	${LIBDBUS_LIBRARIES}
 	${VORBISFILE_LIBRARIES}
-	${OPENGL_LIBRARIES}
-	${GLEW_LIBRARIES}
+#	${OPENGL_LIBRARIES}
+#	${GLEW_LIBRARIES}
 )
 
 if(ENABLE_HISTORY AND HISTORY_FOUND)
@@ -114,6 +115,9 @@ if(X11_FOUND)
 	set(game-external-libs ${game-external-libs} ${X11_LIBRARIES})
 endif(X11_FOUND)
 
+if(APPLE)
+	set(game-external-libs ${game-external-libs} "-framework IOKit")
+endif(APPLE)
 ########### Set Library mode ###############
 
 if(ENABLE_SHARED_LIBRARIES)
@@ -253,11 +257,12 @@ endif(ENABLE_GAME OR ENABLE_TESTS)
 
 GetSources("libwesnoth" libwesnoth-game_STAT_SRC)
 
-# On windows only, this file needs to be linked, as its header is included #ifdef win32.
+# On windows only, these files need to be linked, as their headers are included #ifdef win32.
 if(WIN32)
 	set(libwesnoth-game_STAT_SRC
 		${libwesnoth-game_STAT_SRC}
 		desktop/windows_tray_notification.cpp
+		desktop/windows_battery_info.cpp
 	)
 endif(WIN32)
 
@@ -265,6 +270,7 @@ endif(WIN32)
 if(APPLE)
 	set(libwesnoth-game_STAT_SRC
 		${libwesnoth-game_STAT_SRC}
+		desktop/apple_battery_info.mm
 		desktop/apple_notification.mm
 		desktop/apple_version.mm
 	)
@@ -274,7 +280,7 @@ endif(APPLE)
 if(LIBDBUS_FOUND)
 	set(libwesnoth-game_STAT_SRC
 		${libwesnoth-game_STAT_SRC}
-		desktop/dbus_notification.cpp
+		desktop/dbus_features.cpp
 	)
 endif(LIBDBUS_FOUND)
 

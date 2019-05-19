@@ -1765,8 +1765,8 @@ int game_lua_kernel::intf_find_path(lua_State *L)
 	}
 	else if (lua_isfunction(L, arg))
 	{
+		deprecated_message("wesnoth.find_path with cost_function as last argument", DEP_LEVEL::FOR_REMOVAL, {1, 17, 0}, "Use calculate=cost_function inside the path options table instead.");
 		calc.reset(new lua_pathfind_cost_calculator(L, arg));
-		ignore_teleport = lua_isnoneornil(L, arg + 1) || luaW_toboolean(L, arg + 1);
 	}
 
 	const team& viewing_team = viewing_side
@@ -2280,7 +2280,7 @@ int game_lua_kernel::intf_put_recall_unit(lua_State *L)
 	lua_unit *lu = nullptr;
 	unit_ptr u = unit_ptr();
 	int side = lua_tointeger(L, 2);
-	if (unsigned(side) > teams().size()) side = 0;
+	if (static_cast<unsigned>(side) > teams().size()) side = 0;
 
 	if(luaW_isunit(L, 1)) {
 		lu = luaW_checkunit_ref(L, 1);
@@ -3668,7 +3668,16 @@ static int intf_debug_ai(lua_State *L)
 /// Allow undo sets the flag saying whether the event has mutated the game to false.
 int game_lua_kernel::intf_allow_end_turn(lua_State * L)
 {
-	gamedata().set_allow_end_turn(luaW_toboolean(L, 1));
+	bool allow;
+	t_string reason;
+	// The extra iststring is required to prevent totstring from converting a bool value
+	if(luaW_iststring(L, 1) && luaW_totstring(L, 1, reason)) {
+		allow = false;
+	} else {
+		allow = luaW_toboolean(L, 1);
+		luaW_totstring(L, 2, reason);
+	}
+	gamedata().set_allow_end_turn(allow, reason);
 	return 0;
 }
 

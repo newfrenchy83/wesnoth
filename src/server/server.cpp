@@ -1353,12 +1353,6 @@ void server::handle_create_game(socket_ptr socket, simple_wml::node& create_game
 	player_connections_.modify(
 		player_connections_.find(socket), std::bind(&server::create_game, this, _1, std::ref(create_game)));
 
-	simple_wml::document diff;
-	if(make_change_diff(games_and_users_list_.root(), nullptr, "user",
-			   player_connections_.find(socket)->info().config_address(), diff)) {
-		send_to_lobby(diff);
-	}
-
 	return;
 }
 
@@ -1600,11 +1594,10 @@ void server::handle_player_in_game(socket_ptr socket, std::shared_ptr<simple_wml
 		g.update_side_data();
 		g.describe_slots();
 
-		assert(games_and_users_list_.child("gamelist")->children("game").empty() == false);
-
 		// Send the update of the game description to the lobby.
 		simple_wml::document diff;
 		make_add_diff(*games_and_users_list_.child("gamelist"), "gamelist", "game", diff);
+		make_change_diff(games_and_users_list_.root(), nullptr, "user", player_connections_.find(socket)->info().config_address(), diff);
 
 		send_to_lobby(diff);
 
@@ -2067,7 +2060,8 @@ void server::shut_down_handler(
 	} else {
 		// Graceful shut down.
 		graceful_restart = true;
-		acceptor_.close();
+		acceptor_v6_.close();
+		acceptor_v4_.close();
 
 		timer_.expires_from_now(boost::posix_time::seconds(10));
 		timer_.async_wait(std::bind(&server::handle_graceful_timeout, this, _1));
@@ -2098,7 +2092,8 @@ void server::restart_handler(const std::string& issuer_name,
 		*out << "No restart_command configured! Not restarting.";
 	} else {
 		graceful_restart = true;
-		acceptor_.close();
+		acceptor_v6_.close();
+		acceptor_v4_.close();
 		timer_.expires_from_now(boost::posix_time::seconds(10));
 		timer_.async_wait(std::bind(&server::handle_graceful_timeout, this, _1));
 

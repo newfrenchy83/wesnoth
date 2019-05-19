@@ -67,6 +67,7 @@ commandline_options::commandline_options (const std::vector<std::string>& args) 
 	campaign_scenario(),
 	campaign_skip_story(false),
 	clock(false),
+	core_id(),
 	data_path(false),
 	data_dir(),
 	debug(false),
@@ -107,7 +108,6 @@ commandline_options::commandline_options (const std::vector<std::string>& args) 
 	nomusic(false),
 	nosound(false),
 	new_widgets(false),
-	path(false),
 	preprocess(false),
 	preprocess_defines(),
 	preprocess_input_macros(),
@@ -119,14 +119,19 @@ commandline_options::commandline_options (const std::vector<std::string>& args) 
 	server(),
 	username(),
 	password(),
+	render_image(),
+	render_image_dst(),
 	screenshot(false),
 	screenshot_map_file(),
 	screenshot_output_file(),
+	script_file(),
+	plugin_file(),
 	script_unsafe_mode(false),
 	strict_validation(false),
 	test(),
 	unit_test(),
 	headless_unit_test(false),
+	timeout(),
 	noreplaycheck(false),
 	mptest(false),
 	userconfig_path(false),
@@ -134,10 +139,16 @@ commandline_options::commandline_options (const std::vector<std::string>& args) 
 	userdata_path(false),
 	userdata_dir(),
 	validcache(false),
+	validate_core(false),
+	validate_addon(),
+	validate_schema(),
+	validate_wml(),
+	validate_with(),
 	version(false),
 	report(false),
 	windowed(false),
 	with_replay(false),
+	translation_percent(),
 	args_(args.begin() + 1 , args.end()),
 	args0_(*args.begin()),
 	all_(),
@@ -175,9 +186,8 @@ commandline_options::commandline_options (const std::vector<std::string>& args) 
 		("nomusic", "runs the game without music.")
 		("nosound", "runs the game without sounds and music.")
 		("password", po::value<std::string>(), "uses <password> when connecting to a server, ignoring other preferences.")
-		("path", "prints the path to the data directory and exits.")
-		("plugin", po::value<std::string>(), "(experimental) load a script which defines a wesnoth plugin. similar to --script below, but lua file should return a function which will be run as a coroutine and periodically woken up with updates.")
-		("render-image", po::value<two_strings>()->multitoken(), "takes two arguments: <image> <output>. Like screenshot, but instead of a map, takes a valid wesnoth 'image path string' with image path functions, and writes it to a .png file."
+		("plugin", po::value<std::string>(), "(experimental) load a script which defines a wesnoth plugin. similar to --script below, but Lua file should return a function which will be run as a coroutine and periodically woken up with updates.")
+		("render-image", po::value<two_strings>()->multitoken(), "takes two arguments: <image> <output>. Like screenshot, but instead of a map, takes a valid Wesnoth 'image path string' with image path functions, and writes it to a .png file."
 #ifdef _WIN32
 		 " Implies --wconsole."
 #endif // _WIN32
@@ -193,11 +203,11 @@ commandline_options::commandline_options (const std::vector<std::string>& args) 
 		 " Implies --wconsole."
 #endif // _WIN32
 		 )
-		("script", po::value<std::string>(), "(experimental) file containing a lua script to control the client")
+		("script", po::value<std::string>(), "(experimental) file containing a Lua script to control the client")
 		("server,s", po::value<std::string>()->implicit_value(std::string()), "connects to the host <arg> if specified or to the first host in your preferences.")
 		("strict-validation", "makes validation errors fatal")
 		("translations-over", po::value<unsigned int>(), "Specify the standard for determining whether a translation is complete.")
-		("unsafe-scripts", "makes the \'package\' package available to lua scripts, so that they can load arbitrary packages. Do not do this with untrusted scripts! This action gives lua the same permissions as the wesnoth executable.")
+		("unsafe-scripts", "makes the \'package\' package available to Lua scripts, so that they can load arbitrary packages. Do not do this with untrusted scripts! This action gives ua the same permissions as the Wesnoth executable.")
 		("userconfig-dir", po::value<std::string>(), "sets the path of the user config directory to $HOME/<arg> or My Documents\\My Games\\<arg> for Windows. You can specify also an absolute path outside the $HOME or My Documents\\My Games directory. Defaults to $HOME/.config/wesnoth on X11 and to the userdata-dir on other systems.")
 		("userconfig-path", "prints the path of the user config directory and exits.")
 		("userdata-dir", po::value<std::string>(), "sets the path of the userdata directory to $HOME/<arg> or My Documents\\My Games\\<arg> for Windows. You can specify also an absolute path outside the $HOME or My Documents\\My Games directory.")
@@ -255,7 +265,7 @@ commandline_options::commandline_options (const std::vector<std::string>& args) 
 		("parm", po::value<std::vector<std::string>>()->composing(), "sets additional parameters for this side. <arg> should have format side:name:value.")
 		("scenario", po::value<std::string>(), "selects a multiplayer scenario. The default scenario is \"multiplayer_The_Freelands\".")
 		("side", po::value<std::vector<std::string>>()->composing(), "selects a faction of the current era for this side by id. <arg> should have format side:value.")
-		("turns", po::value<std::string>(), "sets the number of turns. The default is \"50\".")
+                ("turns", po::value<std::string>(), "sets the number of turns. By default no turn limit is set.")
 		;
 
 	po::options_description testing_opts("Testing options");
@@ -267,6 +277,11 @@ commandline_options::commandline_options (const std::vector<std::string>& args) 
 		("log-strict", po::value<std::string>(), "sets the strict level of the logger. any messages sent to log domains of this level or more severe will cause the unit test to fail regardless of the victory result.")
 		("noreplaycheck", "don't try to validate replay of unit test.")
 		("mp-test", "load the test mp scenarios.")
+		("use-schema,S", po::value<std::string>(), "specify a schema to validate WML against (defaults to the core schema)")
+		("validate,V", po::value<std::string>(), "validate a specified WML file against a schema")
+		("validate-addon", po::value<std::string>(), "validate the specified addon's WML against the schema")
+		("validate-core", "validate the core WML against the schema")
+		("validate-schema", po::value<std::string>(), "validate a specified WML schema")
 		;
 
 	po::options_description preprocessor_opts("Preprocessor mode options");
@@ -408,8 +423,6 @@ commandline_options::commandline_options (const std::vector<std::string>& args) 
 		nogui = true;
 	if (vm.count("parm"))
 		multiplayer_parm = parse_to_uint_string_string_tuples_(vm["parm"].as<std::vector<std::string>>());
-	if (vm.count("path"))
-		path = true;
 	if (vm.count("preprocess"))
 	{
 		preprocess = true;
@@ -482,6 +495,16 @@ commandline_options::commandline_options (const std::vector<std::string>& args) 
 		userdata_path = true;
 	if (vm.count("validcache"))
 		validcache = true;
+	if (vm.count("validate"))
+		validate_wml = vm["validate"].as<std::string>();
+	if (vm.count("validate-core"))
+		validate_core = true;
+	if (vm.count("validate-addon"))
+		validate_addon = vm["validate-addon"].as<std::string>();
+	if (vm.count("validate-schema"))
+		validate_schema = vm["validate-schema"].as<std::string>();
+	if (vm.count("use-schema"))
+		validate_with = vm["use-schema"].as<std::string>();;
 	if (vm.count("version"))
 		version = true;
 	if (vm.count("windowed"))

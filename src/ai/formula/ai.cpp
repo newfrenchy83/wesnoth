@@ -191,7 +191,7 @@ wfl::variant formula_ai::make_action(wfl::const_formula_ptr formula_, const wfl:
 		throw formula_error("null formula passed to make_action","","formula",0);
 	}
 	LOG_AI << "do move...\n";
-	const variant var = formula_->evaluate(variables);///@todo 1.9 add formula_debugger
+	const variant var = formula_->evaluate(variables);
 	variant res;
 
 	if (ai_ptr_) {
@@ -291,10 +291,6 @@ variant formula_ai::get_value(const std::string& key) const
 	if(key == "aggression")
 	{
 		return variant(get_aggression()*1000,variant::DECIMAL_VARIANT);
-
-	} else if(key == "attack_depth")
-	{
-		return variant(get_attack_depth());
 
 	} else if(key == "avoid")
 	{

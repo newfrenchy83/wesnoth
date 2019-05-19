@@ -491,6 +491,7 @@ int intf_set_dialog_value(lua_State* L)
 			selectable->set_value(luaL_checkinteger(L, 1) -1);
 		}
 	} else if (gui2::text_box* text_box = dynamic_cast<gui2::text_box*>(w)) {
+		w->get_window()->invalidate_layout();
 		const t_string& text = luaW_checktstring(L, 1);
 		text_box->set_value(text.str());
 	} else if (gui2::slider* slider = dynamic_cast<gui2::slider*>(w)) {
@@ -527,6 +528,7 @@ int intf_set_dialog_value(lua_State* L)
 			}
 		}
 	} else if(gui2::unit_preview_pane* unit_preview_pane = dynamic_cast<gui2::unit_preview_pane*>(w)) {
+		w->get_window()->invalidate_layout();
 		if(const unit_type* ut = luaW_tounittype(L, 1)) {
 			unit_preview_pane->set_displayed_type(*ut);
 		} else if(unit* u = luaW_tounit(L, 1)) {
@@ -561,6 +563,7 @@ int intf_set_dialog_value(lua_State* L)
 			}
 		}
 	} else {
+		w->get_window()->invalidate_layout();
 		t_string v = luaW_checktstring(L, 1);
 		gui2::styled_widget* c = dynamic_cast<gui2::styled_widget*>(w);
 		if(!c) {
@@ -568,6 +571,23 @@ int intf_set_dialog_value(lua_State* L)
 		}
 		c->set_label(v);
 	}
+
+	return 0;
+}
+/**
+ * Sets the value of a widget on the current dialog.
+ * - Arg 1: text.
+ * - Args 2..n: path of strings and integers.
+ */
+int intf_set_dialog_tooltip(lua_State* L)
+{
+	t_string v = luaW_checktstring(L, 1);
+	gui2::widget *w = find_widget(L, 2, false);
+	gui2::styled_widget* c = dynamic_cast<gui2::styled_widget*>(w);
+	if(!c) {
+		return luaL_argerror(L, lua_gettop(L), "unsupported widget");
+	}
+	c->set_tooltip(v);
 
 	return 0;
 }
@@ -713,10 +733,12 @@ namespace { // helpers of intf_set_dialog_callback()
 	/** Helper struct for intf_set_dialog_callback. */
 	struct dialog_callback_wrapper
 	{
-		void forward(gui2::widget* widget)
+		void forward(gui2::widget* widget, bool& handled, bool& halt)
 		{
 			assert(widget);
 			dialog_callback(*widget);
+			handled = true;
+			halt = true;
 		}
 	};
 }//unnamed namespace for helpers of intf_set_dialog_callback()
@@ -747,14 +769,14 @@ int intf_set_dialog_callback(lua_State* L)
 
 	if(gui2::clickable_item* c = dynamic_cast<gui2::clickable_item*>(w)) {
 		static dialog_callback_wrapper wrapper;
-		c->connect_click_handler(std::bind(&dialog_callback_wrapper::forward, wrapper, w));
+		c->connect_click_handler(std::bind(&dialog_callback_wrapper::forward, wrapper, w, _3, _4));
 	} else if(gui2::selectable_item* si = dynamic_cast<gui2::selectable_item*>(w)) {
 		connect_signal_notify_modified(dynamic_cast<gui2::widget&>(*si), std::bind(dialog_callback, _1));
 	} else if(gui2::integer_selector* is = dynamic_cast<gui2::integer_selector*>(w)) {
 		connect_signal_notify_modified(dynamic_cast<gui2::widget&>(*is), std::bind(dialog_callback, _1));
 	} else if(gui2::listbox* l = dynamic_cast<gui2::listbox*>(w)) {
 		static dialog_callback_wrapper wrapper;
-		connect_signal_notify_modified(*l, std::bind(&dialog_callback_wrapper::forward, wrapper, w));
+		connect_signal_notify_modified(*l, std::bind(&dialog_callback_wrapper::forward, wrapper, w, _3, _4));
 	} else if(gui2::tree_view* tv = dynamic_cast<gui2::tree_view*>(w)) {
 		tv->set_selection_change_callback(&dialog_callback);
 	} else {
@@ -806,7 +828,7 @@ int intf_set_dialog_canvas(lua_State* L)
 	}
 
 	std::vector<gui2::canvas> &cv = c->get_canvases();
-	if(i < 1 || unsigned(i) > cv.size()) {
+	if(i < 1 || static_cast<unsigned>(i) > cv.size()) {
 		return luaL_argerror(L, 1, "out of bounds");
 	}
 

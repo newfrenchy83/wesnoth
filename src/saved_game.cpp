@@ -373,6 +373,7 @@ void saved_game::expand_mp_events()
 		mods.clear();
 
 		while(starting_point_.has_child("load_resource")) {
+			assert(starting_point_.child_count("load_resource") > 0);
 			std::string id = starting_point_.child("load_resource")["id"];
 			size_t pos = starting_point_.find_total_first_of("load_resource");
 			starting_point_.remove_child("load_resource", 0);
@@ -427,10 +428,10 @@ void saved_game::expand_random_scenario()
 			const cursor::setter cursor_setter(cursor::WAIT);
 
 			config scenario_new =
-				random_generate_scenario(starting_point_["scenario_generation"], starting_point_.child("generator"));
+				random_generate_scenario(starting_point_["scenario_generation"], starting_point_.child("generator"), &carryover_.child_or_empty("variables"));
 
 			post_scenario_generation(starting_point_, scenario_new);
-			starting_point_ = scenario_new;
+			starting_point_ = std::move(scenario_new);
 
 			update_label();
 			set_defaults();
@@ -448,7 +449,7 @@ void saved_game::expand_random_scenario()
 			const cursor::setter cursor_setter(cursor::WAIT);
 
 			starting_point_["map_data"] =
-				random_generate_map(starting_point_["map_generation"], starting_point_.child("generator"));
+				random_generate_map(starting_point_["map_generation"], starting_point_.child("generator"), &carryover_.child_or_empty("variables"));
 		}
 	}
 }

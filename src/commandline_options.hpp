@@ -143,8 +143,6 @@ public:
 	bool nosound;
 	/// True if --new-widgets was given on the command line. Hidden option to enable the new widget toolkit.
 	bool new_widgets;
-	/// True if --path was given on the command line. Prints the path to data directory and exits.
-	bool path;
 	/// True if --preprocess was given on the command line. Starts Wesnoth in preprocessor-only mode.
 	bool preprocess;
 	/// Defines that were given to the --preprocess option.
@@ -207,6 +205,16 @@ public:
 	boost::optional<std::string> userdata_dir;
 	/// True if --validcache was given on the command line. Makes Wesnoth assume the cache is valid.
 	bool validcache;
+	/// True if --validate-core was given on the command line. Makes Wesnoth validate the core WML.
+	bool validate_core;
+	/// Non-empty if --validate-addon was given on the command line. Makes Wesnoth validate an addon's WML.
+	boost::optional<std::string> validate_addon;
+	/// Non-empty if --validate-schema was given on the command line. Makes Wesnoth validate a WML schema.
+	boost::optional<std::string> validate_schema;
+	/// Non-empty if --validate was given on the command line. Makes Wesnoth validate a WML file against a schema.
+	boost::optional<std::string> validate_wml;
+	/// Non-empty if --use-schema was given on the command line. Specifies the schema for use with --validate.
+	boost::optional<std::string> validate_with;
 	/// True if --version was given on the command line. Prints version and exits.
 	bool version;
 	/// True if --report was given on the command line. Prints a bug report-style info dump and exits.

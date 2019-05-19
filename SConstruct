@@ -112,6 +112,7 @@ opts.AddVariables(
     EnumVariable('cxx_std', 'Target c++ std version', '14', ['14', '17']),
     ('sanitize', 'Enable clang and GCC sanitizer functionality. A comma separated list of sanitize suboptions must be passed as value.', ''),
     BoolVariable("fast", "Make scons faster at cost of less precise dependency tracking.", False),
+    BoolVariable("autorevision", 'Use autorevision tool to fetch current git revision that will be embedded in version string', True),
     BoolVariable("lockfile", "Create a lockfile to prevent multiple instances of scons from being run at the same time on this working copy.", False),
     BoolVariable("OS_ENV", "Forward the entire OS environment to scons", False),
     BoolVariable("history", "Clear to disable GNU history support in lua console", True)
@@ -386,19 +387,20 @@ if env["prereqs"]:
 
     client_env = env.Clone()
     conf = client_env.Configure(**configure_args)
-    have_client_prereqs = have_server_prereqs & have_sdl_other() & \
-        (('TRAVIS' in os.environ and os.environ["TRAVIS_OS_NAME"] == "osx") or (conf.CheckLib("vorbisfile") & \
-        conf.CheckOgg())) & \
-        conf.CheckPNG() & \
-        conf.CheckJPG() & \
-        conf.CheckOpenGL() and \
-        conf.CheckGLEW() and \
-        conf.CheckCairo(min_version = "1.10") & \
-        conf.CheckPango("cairo", require_version = "1.22.0") & \
-        conf.CheckPKG("fontconfig") & \
-        conf.CheckBoost("program_options", require_version = boost_version) & \
-        conf.CheckBoost("regex") \
-            or Warning("Client prerequisites are not met. wesnoth cannot be built")
+    have_client_prereqs = have_server_prereqs & have_sdl_other()
+    have_client_prereqs = have_client_prereqs & conf.CheckLib("vorbisfile") & conf.CheckOgg()
+    have_client_prereqs = have_client_prereqs & conf.CheckPNG()
+    have_client_prereqs = have_client_prereqs & conf.CheckJPG()
+#    have_client_prereqs = have_client_prereqs & conf.CheckOpenGL()
+#    have_client_prereqs = have_client_prereqs & conf.CheckGLEW()
+    have_client_prereqs = have_client_prereqs & conf.CheckPKG("gobject-2.0")
+    have_client_prereqs = have_client_prereqs & conf.CheckCairo(min_version = "1.10")
+    have_client_prereqs = have_client_prereqs & conf.CheckPango("cairo", require_version = "1.22.0")
+    have_client_prereqs = have_client_prereqs & conf.CheckPKG("fontconfig")
+    have_client_prereqs = have_client_prereqs & conf.CheckBoost("program_options", require_version = boost_version)
+    have_client_prereqs = have_client_prereqs & conf.CheckBoost("regex")
+    if not have_client_prereqs:
+        Warning("Client prerequisites are not met. wesnoth cannot be built.")
 
     have_X = False
     if have_client_prereqs:
@@ -418,10 +420,21 @@ if env["prereqs"]:
             client_env.Append(CPPDEFINES = ["HAVE_HISTORY"])
 
     if env["forum_user_handler"]:
-        mysql_config = check_output(["mysql_config", "--libs", "--cflags"]).replace("\n", " ").replace("-DNDEBUG", "")
-        mysql_flags = env.ParseFlags(mysql_config)
-        env.Append(CPPDEFINES = ["HAVE_MYSQLPP"])
-        env.MergeFlags(mysql_flags)
+        found_connector = False
+        for sql_config in ["mariadb_config", "mysql_config"]:
+            try:
+                mysql_config = check_output([sql_config, "--libs", "--cflags"]).replace("\n", " ").replace("-DNDEBUG", "")
+                mysql_flags = env.ParseFlags(mysql_config)
+                env.Append(CPPDEFINES = ["HAVE_MYSQLPP"])
+                env.MergeFlags(mysql_flags)
+                found_connector = True
+                break
+            except OSError:
+                print("Failed to run script '%s'" % sql_config)
+
+        if not found_connector:
+            Exit("Failed to find sql connector library but forum user handler support is requested.")
+            have_server_prereqs = False
 
     client_env = conf.Finish()
 
@@ -622,17 +635,19 @@ for env in [test_env, client_env, env]:
     if env["PLATFORM"] == 'darwin':            # Mac OS X
         env.Append(FRAMEWORKS = "Cocoa")            # Cocoa GUI
         env.Append(FRAMEWORKS = "Security")         # commonCrypto (after OpenSSL replacement on Mac)
+        env.Append(FRAMEWORKS = "IOKit")            # IOKit
 
 if not env['static_test']:
     test_env.Append(CPPDEFINES = "BOOST_TEST_DYN_LINK")
 
-try:
-    if call(env.subst("utils/autorevision.sh -t h > $build_dir/revision.h"), shell=True) == 0:
-        env["have_autorevision"] = True
-        if not call(env.subst("cmp -s $build_dir/revision.h src/revision.h"), shell=True) == 0:
-            call(env.subst("cp $build_dir/revision.h src/revision.h"), shell=True)
-except:
-    pass
+if env['autorevision']:
+    try:
+        if call(env.subst("utils/autorevision.sh -t h > $build_dir/revision.h"), shell=True) == 0:
+            env["have_autorevision"] = True
+            if not call(env.subst("cmp -s $build_dir/revision.h src/revision.h"), shell=True) == 0:
+                call(env.subst("cp $build_dir/revision.h src/revision.h"), shell=True)
+    except:
+        pass
 
 Export(Split("env client_env test_env have_client_prereqs have_server_prereqs have_test_prereqs"))
 SConscript(dirs = Split("po doc packaging/windows packaging/systemd"))

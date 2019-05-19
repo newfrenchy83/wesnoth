@@ -14,6 +14,7 @@
 
 #include "actions/attack.hpp"
 #include "attack_prediction.hpp"
+#include "desktop/battery_info.hpp"
 #include "font/pango/escape.hpp"
 #include "font/text_formatting.hpp"
 #include "formatter.hpp"
@@ -35,6 +36,8 @@
 #include <ctime>
 #include <iomanip>
 #include <boost/dynamic_bitset.hpp>
+#include <boost/format.hpp>
+#include <boost/lexical_cast.hpp>
 
 static void add_text(config &report, const std::string &text,
 	const std::string &tooltip, const std::string &help = "")
@@ -246,12 +249,25 @@ static config unit_level(const unit* u)
 	std::ostringstream str, tooltip;
 	str << u->level();
 	tooltip << _("Level: ") << "<b>" << u->level() << "</b>\n";
-	const std::vector<std::string> &adv_to = u->advances_to_translated();
-	if (adv_to.empty())
+	const std::vector<std::string> &adv_to_types = u->advances_to_translated();
+	const std::vector<config> &adv_to_mods = u->get_modification_advances();
+	const bool has_advancements = !adv_to_types.empty() || !adv_to_mods.empty();
+	if(has_advancements) {
+		tooltip << _("Advancements:") << "\n<b>\t";
+		if(!adv_to_types.empty())
+			tooltip << utils::join(adv_to_types, "\n\t");
+		if(!adv_to_mods.empty()) {
+			if(!adv_to_types.empty())
+				tooltip << "\n\t";
+			std::vector<std::string> descriptions;
+			for(const config& adv : adv_to_mods)
+				descriptions.push_back(adv["description"].str());
+			tooltip << utils::join(descriptions, "\n\t");
+		}
+		tooltip << "</b>";
+	} else {
 		tooltip << _("No advancement");
-	else
-		tooltip << _("Advances to:") << "\n<b>\t"
-			<< utils::join(adv_to, "\n\t") << "</b>";
+	}
 	return text_report(str.str(), tooltip.str());
 }
 REPORT_GENERATOR(unit_level, rc)
@@ -571,14 +587,25 @@ static config unit_defense(reports::context & rc, const unit* u, const map_locat
 REPORT_GENERATOR(unit_defense,rc)
 {
 	const unit *u = get_visible_unit(rc);
+	const team &viewing_team = rc.teams()[rc.screen().viewing_team()];
+	const map_location& mouseover_hex = rc.screen().mouseover_hex();
 	const map_location& displayed_unit_hex = rc.screen().displayed_unit_hex();
-	return unit_defense(rc, u, displayed_unit_hex);
+	const map_location& hex = (mouseover_hex.valid() && !viewing_team.shrouded(mouseover_hex)) ? mouseover_hex : displayed_unit_hex; 
+	return unit_defense(rc, u, hex);
 }
 REPORT_GENERATOR(selected_unit_defense, rc)
 {
 	const unit *u = get_selected_unit(rc);
-	const map_location& selected_hex = rc.screen().selected_hex();
-	return unit_defense(rc, u, selected_hex);
+	const map_location& attack_indicator_src = game_display::get_singleton()->get_attack_indicator_src();
+	if(attack_indicator_src.valid())
+		return unit_defense(rc, u, attack_indicator_src);
+
+	const map_location& mouseover_hex = rc.screen().mouseover_hex();
+	const unit *visible_unit = get_visible_unit(rc);
+	if(visible_unit && u && visible_unit->id() != u->id() && mouseover_hex.valid())
+		return unit_defense(rc, u, mouseover_hex);
+	else
+		return unit_defense(rc, u, u->get_location());
 }
 
 static config unit_vision(const unit* u)
@@ -1034,7 +1061,7 @@ REPORT_GENERATOR(highlighted_unit_weapons, rc)
 	const unit *u = get_selected_unit(rc);
 	const unit *sec_u = get_visible_unit(rc);
 
-	if (!u) return config();
+	if (!u) return report_unit_weapons(rc);
 	if (!sec_u || u == sec_u) return unit_weapons(rc, sec_u, rc.screen().mouseover_hex());
 
 	map_location highlighted_hex = rc.screen().displayed_unit_hex();
@@ -1092,17 +1119,12 @@ REPORT_GENERATOR(unit_profile, rc)
 	return image_report(u->small_profile());
 }
 
-REPORT_GENERATOR(tod_stats, rc)
+static config tod_stats_at(reports::context & rc, const map_location& hex)
 {
 	std::ostringstream tooltip;
 	std::ostringstream text;
 
-	const map_location& selected_hex = rc.screen().selected_hex();
-	const map_location& mouseover_hex = rc.screen().mouseover_hex();
-
-	const map_location& hex = mouseover_hex.valid() ? mouseover_hex : selected_hex;
-
-	const map_location& tod_schedule_hex = display::get_singleton()->shrouded(hex) ? map_location::null_location() : hex;
+	const map_location& tod_schedule_hex = (hex.valid() && !display::get_singleton()->shrouded(hex)) ? hex : map_location::null_location();
 	const std::vector<time_of_day>& schedule = rc.tod().times(tod_schedule_hex);
 
 	int current = rc.tod().get_current_time(tod_schedule_hex);
@@ -1119,6 +1141,21 @@ REPORT_GENERATOR(tod_stats, rc)
 
 	return text_report(text.str(), tooltip.str(), "..schedule");
 }
+REPORT_GENERATOR(tod_stats, rc)
+{
+	map_location mouseover_hex = rc.screen().mouseover_hex();
+	if (mouseover_hex.valid()) return tod_stats_at(rc, mouseover_hex);
+	return tod_stats_at(rc, rc.screen().selected_hex());
+}
+REPORT_GENERATOR(selected_tod_stats, rc)
+{
+	const unit *u = get_selected_unit(rc);
+	if(!u) return tod_stats_at(rc, map_location::null_location());
+	const map_location& attack_indicator_src = game_display::get_singleton()->get_attack_indicator_src();
+	const map_location& hex =
+		attack_indicator_src.valid() ? attack_indicator_src : u->get_location();
+	return tod_stats_at(rc, hex);
+}
 
 static config time_of_day_at(reports::context & rc, const map_location& mouseover_hex)
 {
@@ -1126,7 +1163,7 @@ static config time_of_day_at(reports::context & rc, const map_location& mouseove
 	time_of_day tod = get_visible_time_of_day_at(rc, mouseover_hex);
 
 	int b = tod.lawful_bonus;
-
+	int l = generic_combat_modifier(b, unit_type::ALIGNMENT::LIMINAL, false, rc.tod().get_max_liminal_bonus());
 	std::string  lawful_color("white");
 	std::string chaotic_color("white");
 	std::string liminal_color("white");
@@ -1134,7 +1171,9 @@ static config time_of_day_at(reports::context & rc, const map_location& mouseove
 	if (b != 0) {
 		lawful_color  = (b > 0) ? "green" : "red";
 		chaotic_color = (b < 0) ? "green" : "red";
-		liminal_color = "red";
+	}
+	if (l != 0) {
+		liminal_color = (l > 0) ? "green" : "red";
 	}
 	tooltip << tod.name << '\n'
 		<< _("Lawful units: ") << "<span foreground=\"" << lawful_color  << "\">"
@@ -1143,7 +1182,7 @@ static config time_of_day_at(reports::context & rc, const map_location& mouseove
 		<< _("Chaotic units: ") << "<span foreground=\"" << chaotic_color << "\">"
 		<< utils::signed_percent(-b) << "</span>\n"
 		<< _("Liminal units: ") << "<span foreground=\"" << liminal_color << "\">"
-		<< utils::signed_percent(-(std::abs(b))) << "</span>\n";
+		<< utils::signed_percent(l) << "</span>\n";
 
 	std::string tod_image = tod.image;
 	if(tod.bonus_modified > 0) {
@@ -1160,6 +1199,15 @@ REPORT_GENERATOR(time_of_day, rc)
 	if (mouseover_hex.valid()) return time_of_day_at(rc, mouseover_hex);
 	return time_of_day_at(rc, rc.screen().selected_hex());
 }
+REPORT_GENERATOR(selected_time_of_day, rc)
+{
+	const unit *u = get_selected_unit(rc);
+	if(!u) return time_of_day_at(rc, map_location::null_location());
+	const map_location& attack_indicator_src = game_display::get_singleton()->get_attack_indicator_src();
+	const map_location& hex =
+		attack_indicator_src.valid() ? attack_indicator_src : u->get_location();
+	return time_of_day_at(rc, hex);
+}
 
 static config unit_box_at(reports::context & rc, const map_location& mouseover_hex)
 {
@@ -1168,6 +1216,7 @@ static config unit_box_at(reports::context & rc, const map_location& mouseover_h
 	time_of_day local_tod = get_visible_time_of_day_at(rc, mouseover_hex);
 
 	int bonus = local_tod.lawful_bonus;
+	int l = generic_combat_modifier(bonus, unit_type::ALIGNMENT::LIMINAL, false, rc.tod().get_max_liminal_bonus());
 
 	std::string  lawful_color("white");
 	std::string chaotic_color("white");
@@ -1176,7 +1225,9 @@ static config unit_box_at(reports::context & rc, const map_location& mouseover_h
 	if (bonus != 0) {
 		lawful_color  = (bonus > 0) ? "green" : "red";
 		chaotic_color = (bonus < 0) ? "green" : "red";
-		liminal_color = "red";
+	}
+	if (l != 0) {
+		liminal_color = (l > 0) ? "green" : "red";
 	}
 	tooltip << local_tod.name << '\n'
 		<< _("Lawful units: ") << "<span foreground=\"" << lawful_color  << "\">"
@@ -1185,7 +1236,7 @@ static config unit_box_at(reports::context & rc, const map_location& mouseover_h
 		<< _("Chaotic units: ") << "<span foreground=\"" << chaotic_color << "\">"
 		<< utils::signed_percent(-bonus) << "</span>\n"
 		<< _("Liminal units: ") << "<span foreground=\"" << liminal_color << "\">"
-		<< utils::signed_percent(-(std::abs(bonus))) << "</span>\n";
+		<< utils::signed_percent(l) << "</span>\n";
 
 	std::string local_tod_image  = "themes/classic/" + local_tod.image;
 	std::string global_tod_image = "themes/classic/" + global_tod.image;
@@ -1540,6 +1591,9 @@ REPORT_GENERATOR(edit_left_button_function)
 
 REPORT_GENERATOR(report_clock, /*rc*/)
 {
+	config report;
+	add_image(report, game_config::images::time_icon, "");
+
 	std::ostringstream ss;
 
 	const char* format = preferences::use_twelve_hour_clock_format()
@@ -1548,8 +1602,20 @@ REPORT_GENERATOR(report_clock, /*rc*/)
 
 	std::time_t t = std::time(nullptr);
 	ss << std::put_time(std::localtime(&t), format);
+	add_text(report, ss.str(), _("Clock"));
 
-	return text_report(ss.str(), _("Clock"));
+	return report;
+}
+
+
+REPORT_GENERATOR(battery, /*rc*/)
+{
+	config report;
+
+	add_image(report, game_config::images::battery_icon, "");
+	add_text(report, (boost::format("%.0f %%") % desktop::battery_info::get_battery_percentage()).str(), _("Battery"));
+
+	return report;
 }
 
 REPORT_GENERATOR(report_countdown, rc)

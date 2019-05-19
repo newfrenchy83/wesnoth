@@ -266,6 +266,8 @@ void display::set_theme(config theme_cfg) {
 	action_buttons_.clear();
 	create_buttons();
 	invalidate_theme();
+	rebuild_all();
+	redraw_everything();
 }
 
 void display::init_flags() {
@@ -1753,7 +1755,8 @@ void display::announce(const std::string& message, const color_t& color, const a
 	font::floating_label flabel(message);
 	flabel.set_font_size(font::SIZE_XLARGE);
 	flabel.set_color(color);
-	flabel.set_position(map_outside_area().w/2, map_outside_area().h/3);
+	flabel.set_position(map_outside_area().x + map_outside_area().w/2,
+		map_outside_area().y + map_outside_area().h/3);
 	flabel.set_lifetime(options.lifetime);
 	flabel.set_clip_rect(map_outside_area());
 

@@ -40,7 +40,6 @@
 #include "log.hpp"                   // for LOG_STREAM, logger, etc
 #include "map/map.hpp"                   // for gamemap
 #include "pathfind/pathfind.hpp"        // for paths::dest_vect, paths, etc
-#include "recall_list_manager.hpp"   // for recall_list_manager
 #include "resources.hpp"             // for units, gameboard, etc
 #include "serialization/string_utils.hpp"  // for split, etc
 #include "team.hpp"                     // for team
@@ -184,7 +183,6 @@ readonly_context_impl::readonly_context_impl(side_context &context, const config
 		known_aspects_(),
 		advancements_(),
 		aggression_(),
-		attack_depth_(),
 		aspects_(),
 		attacks_(),
 		avoid_(),
@@ -229,7 +227,6 @@ readonly_context_impl::readonly_context_impl(side_context &context, const config
 
 		add_known_aspect("advancements", advancements_);
 		add_known_aspect("aggression",aggression_);
-		add_known_aspect("attack_depth",attack_depth_);
 		add_known_aspect("attacks",attacks_);
 		add_known_aspect("avoid",avoid_);
 		add_known_aspect("caution",caution_);
@@ -387,7 +384,7 @@ void readonly_context_impl::calculate_moves(const unit_map& units, std::map<map_
 			dstsrc.insert(trivial_mv);
 		}
 		/**
-		 * @todo This is where support for a speculative unit map is incomplete.
+		 * TODO: This is where support for a speculative unit map is incomplete.
 		 *       There are several places (deep) within the paths constructor
 		 *       where resources::gameboard->units() is assumed to be the unit map. Rather
 		 *       than introduce a new parameter to numerous functions, a better
@@ -542,15 +539,6 @@ double readonly_context_impl::get_aggression() const
 }
 
 
-int readonly_context_impl::get_attack_depth() const
-{
-	if (attack_depth_) {
-		return std::max<int>(1,attack_depth_->get()); ///@todo 1.9: add validators, such as minmax filters to aspects
-	}
-	return 1;
-}
-
-
 const aspect_map& readonly_context_impl::get_aspects() const
 {
 	return aspects_;
@@ -578,7 +566,7 @@ const wfl::variant& readonly_context_impl::get_attacks_as_variant() const
 	if (attacks_) {
 		return attacks_->get_variant();
 	}
-	static wfl::variant v;///@todo 1.9: replace with variant::null_variant;
+	static wfl::variant v;
 	return v;
 }
 
@@ -654,7 +642,6 @@ engine_ptr readonly_context_impl::get_engine_by_cfg(const config& cfg)
 		return *en;
 	}
 
-	//TODO: fix, removing some code duplication
 	engine_factory::factory_map::iterator eng = engine_factory::get_list().find(engine_name);
 	if (eng == engine_factory::get_list().end()){
 		ERR_AI << "side "<<get_side()<<" : UNABLE TO FIND engine["<<
@@ -769,13 +756,6 @@ const moves_map& readonly_context_impl::get_possible_moves() const
 		recalculate_move_maps();
 	}
 	return possible_moves_;
-}
-
-
-const std::vector<unit_ptr>& readonly_context_impl::get_recall_list() const
-{
-	///@todo 1.9: check for (level_["disallow_recall"]))
-	return current_team().recall_list().recall_list_; //TODO: Refactor ai so that friend of ai context is not required of recall_list_manager at this line
 }
 
 
@@ -1183,7 +1163,6 @@ void readonly_context_impl::recalculate_move_maps() const
 					++it;
 				}
 			}
-		///@todo: shall possible moves be modified as well ?
 		}
 	}
 	move_maps_valid_ = true;

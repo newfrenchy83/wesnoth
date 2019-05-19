@@ -136,7 +136,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;libcrypto.lib;cairo.lib;winmm.lib;ws2_32.lib;pango-1.0.lib;pangocairo-1.0.lib;gobject-2.0.lib;glib-2.0.lib;libpng.lib;$(IntDir)liblua.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;libcrypto.lib;cairo.lib;winmm.lib;ws2_32.lib;pango-1.0.lib;pangocairo-1.0.lib;gobject-2.0.lib;glib-2.0.lib;libpng.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;$(IntDir)liblua.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\..\external\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>MSVCR90;MSVCRT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
@@ -175,7 +175,7 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <Link>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;libcrypto.lib;cairo.lib;winmm.lib;ws2_32.lib;pango-1.0.lib;pangocairo-1.0.lib;gobject-2.0.lib;glib-2.0.lib;libpng.lib;$(IntDir)liblua.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;libcrypto.lib;cairo.lib;winmm.lib;ws2_32.lib;pango-1.0.lib;pangocairo-1.0.lib;gobject-2.0.lib;glib-2.0.lib;libpng.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;$(IntDir)liblua.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\..\external\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -215,7 +215,7 @@
       <PreprocessorDefinitions>_MSC_VER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;libcrypto.lib;cairo.lib;winmm.lib;ws2_32.lib;pango-1.0.lib;pangocairo-1.0.lib;gobject-2.0.lib;glib-2.0.lib;libpng.lib;Debug\liblua.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;libcrypto.lib;cairo.lib;winmm.lib;ws2_32.lib;pango-1.0.lib;pangocairo-1.0.lib;gobject-2.0.lib;glib-2.0.lib;libpng.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;Debug\liblua.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)test.exe</OutputFile>
       <AdditionalLibraryDirectories>..\..\..\external\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
@@ -254,7 +254,7 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <Link>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;libcrypto.lib;cairo.lib;winmm.lib;ws2_32.lib;pango-1.0.lib;pangocairo-1.0.lib;gobject-2.0.lib;glib-2.0.lib;libpng.lib;Release\liblua.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;libcrypto.lib;cairo.lib;winmm.lib;ws2_32.lib;pango-1.0.lib;pangocairo-1.0.lib;gobject-2.0.lib;glib-2.0.lib;libpng.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;Release\liblua.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)test.exe</OutputFile>
       <AdditionalLibraryDirectories>..\..\..\external\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -300,7 +300,7 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <Link>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;libcrypto.lib;cairo.lib;winmm.lib;ws2_32.lib;pango-1.0.lib;pangocairo-1.0.lib;gobject-2.0.lib;glib-2.0.lib;libpng.lib;$(IntDir)liblua.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;libcrypto.lib;cairo.lib;winmm.lib;ws2_32.lib;pango-1.0.lib;pangocairo-1.0.lib;gobject-2.0.lib;glib-2.0.lib;libpng.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;$(IntDir)liblua.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\..\external\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -741,6 +741,13 @@
     <ClCompile Include="..\..\src\countdown_clock.cpp" />
     <ClCompile Include="..\..\src\cursor.cpp" />
     <ClCompile Include="..\..\src\deprecation.cpp" />
+    <ClCompile Include="..\..\src\desktop\battery_info.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)Desktop\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='ReleaseDEBUG|Win32'">$(IntDir)Desktop\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)Desktop\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Test_Debug|Win32'">$(IntDir)Desktop\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Test_Release|Win32'">$(IntDir)Desktop\</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="..\..\src\desktop\clipboard.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)Desktop\</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='ReleaseDEBUG|Win32'">$(IntDir)Desktop\</ObjectFileName>
@@ -770,6 +777,13 @@
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Test_Release|Win32'">$(IntDir)Desktop\</ObjectFileName>
     </ClCompile>
     <ClCompile Include="..\..\src\desktop\version.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)Desktop\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='ReleaseDEBUG|Win32'">$(IntDir)Desktop\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)Desktop\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Test_Debug|Win32'">$(IntDir)Desktop\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Test_Release|Win32'">$(IntDir)Desktop\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\src\desktop\windows_battery_info.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)Desktop\</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='ReleaseDEBUG|Win32'">$(IntDir)Desktop\</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)Desktop\</ObjectFileName>
@@ -2809,13 +2823,6 @@
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Test_Release|Win32'">$(IntDir)SDL\</ObjectFileName>
     </ClCompile>
     <ClCompile Include="..\..\src\seed_rng.cpp" />
-    <ClCompile Include="..\..\src\serialization\tag.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)Serialization\</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='ReleaseDEBUG|Win32'">$(IntDir)Serialization\</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)Serialization\</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Test_Debug|Win32'">$(IntDir)Serialization\</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Test_Release|Win32'">$(IntDir)Serialization\</ObjectFileName>
-    </ClCompile>
     <ClCompile Include="..\..\src\show_dialog.cpp" />
     <ClCompile Include="..\..\src\side_filter.cpp" />
     <ClCompile Include="..\..\src\sound.cpp" />
@@ -3354,6 +3361,13 @@
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Test_Debug|Win32'">$(IntDir)utils\</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Test_Release|Win32'">$(IntDir)utils\</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="..\..\src\utils\parse_network_address.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)utils\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='ReleaseDEBUG|Win32'">$(IntDir)utils\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)utils\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Test_Debug|Win32'">$(IntDir)utils\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Test_Release|Win32'">$(IntDir)utils\</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="..\..\src\variable.cpp" />
     <ClCompile Include="..\..\src\variable_info.cpp" />
     <ClCompile Include="..\..\src\video.cpp" />
@@ -3574,11 +3588,13 @@
     <ClInclude Include="..\..\src\countdown_clock.hpp" />
     <ClInclude Include="..\..\src\cursor.hpp" />
     <ClInclude Include="..\..\src\deprecation.hpp" />
+    <ClInclude Include="..\..\src\desktop\battery_info.hpp" />
     <ClInclude Include="..\..\src\desktop\clipboard.hpp" />
     <ClInclude Include="..\..\src\desktop\notifications.hpp" />
     <ClInclude Include="..\..\src\desktop\open.hpp" />
     <ClInclude Include="..\..\src\desktop\paths.hpp" />
     <ClInclude Include="..\..\src\desktop\version.hpp" />
+    <ClInclude Include="..\..\src\desktop\windows_battery_info.hpp" />
     <ClInclude Include="..\..\src\desktop\windows_tray_notification.hpp" />
     <ClInclude Include="..\..\src\display.hpp" />
     <ClInclude Include="..\..\src\display_chat_manager.hpp" />
@@ -4033,7 +4049,6 @@
     <ClInclude Include="..\..\src\theme.hpp" />
     <ClInclude Include="..\..\src\time_of_day.hpp" />
     <ClInclude Include="..\..\src\tod_manager.hpp" />
-    <ClInclude Include="..\..\src\serialization\tag.hpp" />
     <ClInclude Include="..\..\src\tooltips.hpp" />
     <ClInclude Include="..\..\src\units\abilities.hpp" />
     <ClInclude Include="..\..\src\units\animation.hpp" />
@@ -4064,6 +4079,7 @@
     <ClInclude Include="..\..\src\utils\math.hpp" />
     <ClInclude Include="..\..\src\utils\name_generator.hpp" />
     <ClInclude Include="..\..\src\utils\name_generator_factory.hpp" />
+    <ClInclude Include="..\..\src\utils\parse_network_address.hpp" />
     <ClInclude Include="..\..\src\utils\reference_counter.hpp" />
     <ClInclude Include="..\..\src\utils\scope_exit.hpp" />
     <ClInclude Include="..\..\src\variable.hpp" />

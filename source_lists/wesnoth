@@ -67,6 +67,7 @@ commandline_options.cpp
 config_cache.cpp
 controller_base.cpp
 countdown_clock.cpp
+desktop/battery_info.cpp
 desktop/notifications.cpp
 desktop/open.cpp
 desktop/paths.cpp
@@ -366,6 +367,7 @@ utils/context_free_grammar_generator.cpp
 utils/irdya_datetime.cpp
 utils/markov_generator.cpp
 utils/name_generator_factory.cpp
+utils/parse_network_address.cpp
 variable.cpp
 variable_info.cpp
 wesnothd_connection.cpp
