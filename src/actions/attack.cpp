@@ -205,7 +205,7 @@ battle_context_unit_stats::battle_context_unit_stats(const unit& u,
 			resources::gameboard->units(), resources::gameboard->map(), u_loc, u.alignment(), u.is_fearless());
 
 	// Leadership bonus.
-	int leader_bonus = under_leadership(u, u_loc, weapon, opp_weapon);
+	int leader_bonus = weapon->combat_ability("leadership", 0, backstab_pos).first;
 	if(leader_bonus != 0) {
 		damage_multiplier += leader_bonus;
 	}
