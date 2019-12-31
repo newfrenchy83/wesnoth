@@ -143,10 +143,8 @@ battle_context_unit_stats::battle_context_unit_stats(const unit& u,
 	petrifies = weapon->bool_ability("petrifies");
 	poisons = !opp.get_state("unpoisonable") && weapon->bool_ability("poison") && !opp.get_state(unit::STATE_POISONED);
 	backstab_pos = is_attacker && backstab_check(u_loc, opp_loc, units, resources::gameboard->teams());
-	rounds = weapon->get_specials("berserk").highest("value", 1).first;
-	if(weapon->combat_ability("berserk", 1).second) {
-		rounds = weapon->combat_ability("berserk", 1).first;
-	}
+	rounds = weapon->get_special_ability("berserk").highest("value", 1).first;
+
 	firststrike = weapon->bool_ability("firststrike");
 
 	{
@@ -157,6 +155,10 @@ battle_context_unit_stats::battle_context_unit_stats(const unit& u,
 
 	// Handle plague.
 	unit_ability_list plague_specials = weapon->get_specials("plague");
+	unit_ability_list alt_plague_specials = weapon->list_ability("plague");
+	if(!alt_plague_specials.empty() && plague_specials.empty()){
+		plague_specials = alt_plague_specials;
+	}
 	plagues = !opp.get_state("unplagueable") && !plague_specials.empty() &&
 		opp.undead_variation() != "null" && !resources::gameboard->map().is_village(opp_loc);
 
@@ -174,13 +176,10 @@ battle_context_unit_stats::battle_context_unit_stats(const unit& u,
 
 	cth = utils::clamp(cth, 0, 100);
 
-	unit_ability_list cth_specials = weapon->get_specials("chance_to_hit");
+	unit_ability_list cth_specials = weapon->get_special_ability("chance_to_hit");
 	unit_abilities::effect cth_effects(cth_specials, cth, backstab_pos);
 	cth = cth_effects.get_composite_value();
 
-	cth = utils::clamp(cth, 0, 100);
-
-	cth = weapon->combat_ability("chance_to_hit", cth, backstab_pos).first;
 
 	if(opp.get_state("invulnerable")) {
 		cth = 0;
@@ -199,7 +198,7 @@ battle_context_unit_stats::battle_context_unit_stats(const unit& u,
 			resources::gameboard->units(), resources::gameboard->map(), u_loc, u.alignment(), u.is_fearless());
 
 	// Leadership bonus.
-	int leader_bonus = under_leadership(u, u_loc, weapon, opp_weapon);
+	int leader_bonus = weapon->under_leadership();
 	if(leader_bonus != 0) {
 		damage_multiplier += leader_bonus;
 	}
@@ -217,19 +216,14 @@ battle_context_unit_stats::battle_context_unit_stats(const unit& u,
 
 	// Compute drain amounts only if draining is possible.
 	if(drains) {
-		if (weapon->get_special_bool("drains")) {
-			unit_ability_list drain_specials = weapon->get_specials("drains");
-			// Compute the drain percent (with 50% as the base for backward compatibility)
-			unit_abilities::effect drain_percent_effects(drain_specials, 50, backstab_pos);
-			drain_percent = drain_percent_effects.get_composite_value();
-		}
-		if (weapon->combat_ability("drains", 50, backstab_pos).second) {
-			drain_percent = weapon->combat_ability("drains", 50, backstab_pos).first;
-		}
+		unit_ability_list drain_specials = weapon->get_special_ability("drains");
+		// Compute the drain percent (with 50% as the base for backward compatibility)
+		unit_abilities::effect drain_percent_effects(drain_specials, 50, backstab_pos);
+		drain_percent = drain_percent_effects.get_composite_value();
 	}
 
 	// Add heal_on_hit (the drain constant)
-	unit_ability_list heal_on_hit_specials = weapon->get_specials("heal_on_hit");
+	unit_ability_list heal_on_hit_specials = weapon->get_special_ability("heal_on_hit");
 	unit_abilities::effect heal_on_hit_effects(heal_on_hit_specials, 0, backstab_pos);
 	drain_constant += heal_on_hit_effects.get_composite_value();
 
