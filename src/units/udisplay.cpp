@@ -617,6 +617,13 @@ void unit_attack(display * disp, game_board & board,
 	assert(def.valid());
 	unit &defender = *def;
 	int def_hitpoints = defender.hitpoints();
+	const_attack_ptr weapon = attack.shared_from_this();
+	auto ctx = weapon->specials_context(&attacker, &defender, a, b, true, secondary_attack);
+	boost::optional<decltype(ctx)> opp_ctx;
+
+	if(secondary_attack) {
+		opp_ctx.emplace(secondary_attack->specials_context(&defender, &attacker, b, a, false, weapon));
+	}
 
 	att->set_facing(a.get_relative_dir(b));
 	def->set_facing(b.get_relative_dir(a));
@@ -637,16 +644,16 @@ void unit_attack(display * disp, game_board & board,
 	unit_animator animator;
 
 	animator.add_animation(&attacker, "attack", att->get_location(), def->get_location(), damage, true, text_2,
-		(drain_amount >= 0) ? color_t(0, 255, 0) : color_t(255, 0, 0), hit_type, attack.shared_from_this(),
+		(drain_amount >= 0) ? color_t(0, 255, 0) : color_t(255, 0, 0), hit_type, weapon,
 		secondary_attack, swing);
 
 	// note that we take an anim from the real unit, we'll use it later
 	const unit_animation* defender_anim = def->anim_comp().choose_animation(*disp, def->get_location(), "defend",
-		att->get_location(), damage, hit_type, attack.shared_from_this(), secondary_attack, swing);
+		att->get_location(), damage, hit_type, weapon, secondary_attack, swing);
 
 	animator.add_animation(&defender, defender_anim, def->get_location(), true, text, {255, 0, 0});
 
-	for(const unit_ability& ability : attacker.get_abilities_weapons("leadership", attack.shared_from_this(), secondary_attack)) {
+	for(const unit_ability& ability : attacker.get_abilities_weapons("leadership", weapon, secondary_attack)) {
 		if(ability.teacher_loc == a) {
 			continue;
 		}
@@ -660,10 +667,10 @@ void unit_attack(display * disp, game_board & board,
 		leader->set_facing(ability.teacher_loc.get_relative_dir(a));
 		animator.add_animation(&*leader, "leading", ability.teacher_loc,
 			att->get_location(), damage, true,  "", {0,0,0},
-			hit_type, attack.shared_from_this(), secondary_attack, swing);
+			hit_type, weapon, secondary_attack, swing);
 	}
 
-	for(const unit_ability& ability : defender.get_abilities_weapons("resistance", secondary_attack, attack.shared_from_this())) {
+	for(const unit_ability& ability : defender.get_abilities_weapons("resistance", secondary_attack, weapon)) {
 		if(ability.teacher_loc == a) {
 			continue;
 		}
@@ -677,7 +684,7 @@ void unit_attack(display * disp, game_board & board,
 		helper->set_facing(ability.teacher_loc.get_relative_dir(b));
 		animator.add_animation(&*helper, "resistance", ability.teacher_loc,
 			def->get_location(), damage, true,  "", {0,0,0},
-			hit_type, attack.shared_from_this(), secondary_attack, swing);
+			hit_type, weapon, secondary_attack, swing);
 	}
 
 
