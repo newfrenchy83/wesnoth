@@ -622,11 +622,11 @@ void unit_attack(display * disp, game_board & board,
 	unit &defender = *def;
 	int def_hitpoints = defender.hitpoints();
 	const_attack_ptr weapon = attack.shared_from_this();
-	auto ctx = weapon->specials_context(&attacker, &defender, a, b, true, secondary_attack);
+	auto ctx = weapon->specials_context(attacker.shared_from_this(), defender.shared_from_this(), a, b, true, secondary_attack);
 	boost::optional<decltype(ctx)> opp_ctx;
 
 	if(secondary_attack) {
-		opp_ctx.emplace(secondary_attack->specials_context(&defender, &attacker, b, a, false, weapon));
+		opp_ctx.emplace(secondary_attack->specials_context(defender.shared_from_this(), attacker.shared_from_this(), b, a, false, weapon));
 	}
 
 	att->set_facing(a.get_relative_dir(b));
