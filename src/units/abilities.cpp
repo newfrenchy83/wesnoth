@@ -1119,13 +1119,13 @@ unit_ability_list attack_type::list_ability(const std::string& ability) const
 	if(self == nullptr) {
 		unit_map::const_iterator it = units.find(self_loc_);
 		if(it.valid()) {
-			self = it.get_shared_ptr().get();
+			self = it.get_shared_ptr();
 		}
 	}
 	if(other == nullptr) {
 		unit_map::const_iterator it = units.find(other_loc_);
 		if(it.valid()) {
-			other = it.get_shared_ptr().get();
+			other = it.get_shared_ptr();
 		}
 	}
 
@@ -1178,13 +1178,13 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 	if(self == nullptr) {
 		unit_map::const_iterator it = units.find(self_loc_);
 		if(it.valid()) {
-			self = it.get_shared_ptr().get();
+			self = it.get_shared_ptr();
 		}
 	}
 	if(other == nullptr) {
 		unit_map::const_iterator it = units.find(other_loc_);
 		if(it.valid()) {
-			other = it.get_shared_ptr().get();
+			other = it.get_shared_ptr();
 		}
 	}
 
