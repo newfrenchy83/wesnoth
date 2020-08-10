@@ -1220,7 +1220,7 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 			const unit_map::const_iterator it = units.find(adjacent[i]);
 			if (it == units.end() || it->incapacitated())
 				continue;
-			if ( &*it == self )
+			if ( &*it == self.get() )
 				continue;
 
 			if(special_id && special_tags){
@@ -1291,7 +1291,7 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 			const unit_map::const_iterator it = units.find(adjacent[i]);
 			if (it == units.end() || it->incapacitated())
 				continue;
-			if ( &*it == other )
+			if ( &*it == other.get() )
 				continue;
 
 			if(special_id && special_tags){
