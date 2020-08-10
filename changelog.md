@@ -15,7 +15,7 @@
  ### Language and i18n
    * Updated translations: British English, Chinese (Simplified), Chinese (Traditional),
      Czech, Esperanto, French, Hungarian, Italian, Japanese, Polish, Portuguese (Brazil),
-     Russian, Spanish, Swedish.
+     Russian, Spanish, Swedish, Turkish.
  ### Lua API
    * New wesnoth.get_max_liminal_bonus function.
    * New wesnoth.colors table to get information about colors.
@@ -27,9 +27,18 @@
    * New earthy rockbound cave variation (code Uhe).
  ### Units
    * New Dunefolk skirmisher branch (Falconer).
+   * Burner line and Armageddon Drake cold resistance changed from -50% to -40%.
    * Dragonguard HP increased from 59 to 63.
+   * Steelclad HP changed from 55 to 57.
+   * Poacher HP changed from 32 to 33. 
+   * Heavy Infantryman cold resistance changed from -10% to 0.
+   * Troll Rocklobber HP changed from 49 to 51.
+   * Merman Hunter HP changed from 30 to 33.
+   * Wose cold resistance changed from 10% to 0.
+   * Shaman ranged damage changed from 3 to 4.
    * Bone Shooter HP increased from 40 to 42.
    * Banebow HP increased from 50 to 52.
+   * Ghost cost changed from 20 to 19.
  ### User interface
    * Improve appearance of the Logging Options dialog and add a search box.
  ### WML engine
@@ -46,6 +55,7 @@
    * Fix floating label duration being measured in 'frames', it is now
      measured in milliseconds.
    * Added unit type variation selection to the debug mode Create Unit dialog (PR #4986).
+   * Removed the Python2 versions of tools.
 
 ## Version 1.15.3
  ### AI
