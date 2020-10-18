@@ -1168,6 +1168,26 @@ unit_ability_list attack_type::get_special_ability(const std::string& ability) c
 	return abil_list;
 }
 
+static bool get_ability_children(std::vector<special_match>& tag_result,
+	                           std::vector<special_match>& id_result,
+	                           const config& parent, const std::string& id,
+	                           bool special_id=true, bool special_tags=true) {
+		if(special_id && special_tags){
+			if ( get_special_children(tag_result, id_result, parent, id) ) {
+				return true;
+			}
+		} else if(special_id && !special_tags){
+			if ( get_special_children_id(id_result, parent, id) ) {
+				return true;
+			}
+		} else if(!special_id && special_tags){
+			if ( get_special_children_tags(tag_result, parent, id) ) {
+				return true;
+			}
+		}
+		return false;
+}
+
 bool attack_type::get_special_ability_bool(const std::string& special, bool special_id, bool special_tags) const
 {
 	const unit_map& units = display::get_singleton()->get_units();
@@ -1200,18 +1220,8 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 	if(self){
 		std::vector<special_match> special_tag_matches;
 		std::vector<special_match> special_id_matches;
-		if(special_id && special_tags){
-			if ( get_special_children(special_tag_matches, special_id_matches, (*self).abilities(), special) ) {
-				return true;
-			}
-		} else if(special_id && !special_tags){
-			if ( get_special_children_id(special_id_matches, (*self).abilities(), special) ) {
-				return true;
-			}
-		} else if(!special_id && special_tags){
-			if ( get_special_children_tags(special_tag_matches, (*self).abilities(), special) ) {
-				return true;
-			}
+		if(get_ability_children(special_tag_matches, special_id_matches, (*self).abilities(), special, special_id , special_tags)){
+			return true;
 		}
 		
 		adjacent_loc_array_t adjacent;
@@ -1223,18 +1233,8 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 			if ( &*it == self.get() )
 				continue;
 
-			if(special_id && special_tags){
-				if ( get_special_children(special_tag_matches, special_id_matches, it->abilities(), special) ) {
-					return true;
-				}
-			} else if(special_id && !special_tags){
-				if ( get_special_children_id(special_id_matches, it->abilities(), special) ) {
-					return true;
-				}
-			} else if(!special_id && special_tags){
-				if ( get_special_children_tags(special_tag_matches, it->abilities(), special) ) {
-					return true;
-				}
+			if(get_ability_children(special_tag_matches, special_id_matches, it->abilities(), special, special_id , special_tags)){
+				return true;
 			}
 		}
 		if(special_tags){
@@ -1271,18 +1271,8 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 	if(other){
 		std::vector<special_match> special_tag_matches;
 		std::vector<special_match> special_id_matches;
-		if(special_id && special_tags){
-			if ( get_special_children(special_tag_matches, special_id_matches, (*other).abilities(), special) ) {
-				return true;
-			}
-		} else if(special_id && !special_tags){
-			if ( get_special_children_id(special_id_matches, (*other).abilities(), special) ) {
-				return true;
-			}
-		} else if(!special_id && special_tags){
-			if ( get_special_children_tags(special_tag_matches, (*other).abilities(), special) ) {
-				return true;
-			}
+		if(get_ability_children(special_tag_matches, special_id_matches, (*other).abilities(), special, special_id , special_tags)){
+			return true;
 		}
 		
 		adjacent_loc_array_t adjacent;
@@ -1294,18 +1284,8 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 			if ( &*it == other.get() )
 				continue;
 
-			if(special_id && special_tags){
-				if ( get_special_children(special_tag_matches, special_id_matches, it->abilities(), special) ) {
-					return true;
-				}
-			} else if(special_id && !special_tags){
-				if ( get_special_children_id(special_id_matches, it->abilities(), special) ) {
-					return true;
-				}
-			} else if(!special_id && special_tags){
-				if ( get_special_children_tags(special_tag_matches, it->abilities(), special) ) {
-					return true;
-				}
+			if(get_ability_children(special_tag_matches, special_id_matches, it->abilities(), special, special_id , special_tags)){
+				return true;
 			}
 		}
 
@@ -1349,8 +1329,7 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 
 bool attack_type::bool_ability(const std::string& ability, bool simple_check, bool special_id, bool special_tags) const
 {
-	bool abil_bool = get_special_bool(ability, simple_check, special_id, special_tags) || get_special_ability_bool(ability, special_id, special_tags);
-	return abil_bool;
+	return (get_special_bool(ability, simple_check, special_id, special_tags) || get_special_ability_bool(ability, special_id, special_tags));
 }
 //end of emulate weapon special functions.
 
