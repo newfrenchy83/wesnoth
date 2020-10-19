@@ -109,7 +109,10 @@ config tod_manager::to_config() const
 	config cfg;
 	cfg["turn_at"] = turn_;
 	cfg["turns"] = num_turns_;
-	cfg["current_time"] = currentTime_;
+	//this 'if' is for the editor.
+	if(times_.size() != 0) {
+		cfg["current_time"] = currentTime_;
+	}
 	cfg["random_start_time"] = random_tod_;
 	cfg["it_is_a_new_turn"] = !has_turn_event_fired_;
 	if (has_cfg_liminal_bonus_)
@@ -311,7 +314,7 @@ void tod_manager::replace_local_schedule(const std::vector<time_of_day>& schedul
 	if(area.times.empty() || schedule.empty())
 	{
 		//If one of those is empty then their 'prievious' time of day might depend on other areas_,
-		//its better to just assume the illimination has changes than to do the explicit computation. 
+		//its better to just assume the illimination has changes than to do the explicit computation.
 		has_tod_bonus_changed_ = true;
 	}
 	else if(area.times[area.currentTime].lawful_bonus != schedule.front().lawful_bonus)
@@ -323,7 +326,7 @@ void tod_manager::replace_local_schedule(const std::vector<time_of_day>& schedul
 	area.currentTime = 0;
 }
 
-void tod_manager::set_area_id(int area_index, const std::string& id) 
+void tod_manager::set_area_id(int area_index, const std::string& id)
 {
 	assert(area_index < static_cast<int>(areas_.size()));
 	areas_[area_index].id = id;

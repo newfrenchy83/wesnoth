@@ -27,7 +27,6 @@
 #include "game_config_manager.hpp"      // for game_config_manager
 #include "generators/map_generator.hpp" // for mapgen_exception
 #include "gettext.hpp"                  // for _
-#include "gui/dialogs/end_credits.hpp"
 #include "gui/dialogs/language_selection.hpp"  // for language_selection
 #include "gui/dialogs/loading_screen.hpp"
 #include "gui/dialogs/message.hpp" //for show error message
@@ -672,6 +671,7 @@ bool game_launcher::load_game()
 			return false;
 		}
 
+		load.set_gamestate();
 		try {
 			game_config_manager::get()->
 				load_game_config_for_game(state_.classification(), state_.get_scenario_id());
@@ -679,7 +679,6 @@ bool game_launcher::load_game()
 			return false;
 		}
 
-		load.set_gamestate();
 
 	} catch(const config::error& e) {
 		if(e.message.empty()) {
@@ -891,11 +890,9 @@ bool game_launcher::play_multiplayer(mp_selection res)
 		cursor::set(cursor::NORMAL);
 
 		if(res == MP_LOCAL) {
-			mp::start_local_game(
-			    game_config_manager::get()->game_config(), state_);
+			mp::start_local_game(state_);
 		} else {
-			mp::start_client(game_config_manager::get()->game_config(),
-				state_, multiplayer_server_);
+			mp::start_client(state_, multiplayer_server_);
 			multiplayer_server_.clear();
 		}
 
@@ -1030,11 +1027,7 @@ void game_launcher::launch_game(RELOAD_GAME_DATA reload)
 		if(result == LEVEL_RESULT::VICTORY && !state_.classification().is_normal_mp_game()) {
 			preferences::add_completed_campaign(state_.classification().campaign, state_.classification().difficulty);
 
-			gui2::dialogs::outro::display(state_.classification().end_text, state_.classification().end_text_duration);
-
-			if(state_.classification().end_credits) {
-				gui2::dialogs::end_credits::display(state_.classification().campaign);
-			}
+			gui2::dialogs::outro::display(state_.classification());
 		}
 	} catch (const savegame::load_game_exception &e) {
 		load_data_.reset(new savegame::load_game_metadata(std::move(e.data_)));

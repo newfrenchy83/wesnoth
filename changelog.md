@@ -1,4 +1,125 @@
-## Version 1.15.3+dev
+## Version 1.15.6+dev
+ ### Campaigns
+   * Secrets of the Ancients:
+     * Revisions to Bone Captain
+     * Scenario 2 uses new Iron Fence terrain, in preparation for potential map revisions.
+   * Sceptre of Fire:
+     * Some revisions/bugfixes to Scenario 9 "Caverns of Flame"
+ ### Language and i18n
+   * Updated translations: Portuguese (Brazil) 
+ ### Lua API
+ ### Multiplayer
+   * During allies' turns, use orb colors to show which ones can still move (issue #1424). Also enabled for allied AI sides in singleplayer.
+ ### Terrain
+   * New barrier terrain:  Iron Fence (`^Eqf`) - similar layout to the existing wooden fence
+ ### Units
+ ### User interface
+ ### WML Engine
+ ### Miscellaneous and Bug Fixes
+
+## Version 1.15.6
+ ### Add-ons client
+   * Implemented support for incremental add-on downloads and uploads (issue #5046, PR #5038).
+ ### Add-ons server
+   * The server configuration no longer contains the add-ons list/metadata (PR #5038):
+     * Metadata is now stored in individual `data/<addon_name>/addon.cfg` files (PR #5038).
+     * Full add-on packs are now stored as `data/<addon_name>/full_pack_<version_md5>.gz` files instead of `data/<addon_name>`.
+     * Hash indexes of full add-on packs are stored as `data/<addon_name>/full_pack_<version_md5>.hash.gz`.
+   * Implemented support for incremental add-on downloads and uploads (issue #5046, PR #5038):
+     * Incremental update packs are stored as `data/<addon_name>/<version_from_to_md5>.gz`files.
+     * Incremental update packs are allowed to be sent by clients in `[upload]` and may be asked from the server in `[request_campaign]`.
+     * The server can generate an incremental update pack while servicing `[upload]` if the client doesn't send one (e.g. old clients).
+   * Previous versions of add-ons are stored on the server for a limited amount of time alongside update packs for older versions (30 days by default) (PR #5038).
+ ### Language and i18n
+   * Updated translations: British English, Czech, French, Japanese, Polish,
+     Portuguese (Brazil)
+   * The font-handling now checks which glyphs are in each font, instead of using a list hardcoded in WML.
+     * A bug in the removed code treated the first font containing U+4E00 as having the whole CJK Unified Ideographs block.
+     * Fixes a bug where many Chinese characters were invisible if DroidSansJapanese was loaded before DroidSansFallbackFull (issue #5194).
+   * Changing the language immediately updates the order of the fonts, instead of waiting for the next restart (issue #5194).
+ ### Lua API
+   * Implement new GUI2 widget userdata for working with custom dialogs.
+   * Renamed wesnoth.show_dialog to gui.show_dialog. The preshow and postshow now take a single parameter - a widget userdata.
+   * All other dialog functions (such as wesnoth.get_dialog_value and wesnoth.set_dialog_value) are now deprecated.
+ ### Multiplayer
+   * Delay Advancements modification:
+     * The Delay Advancements modification allows changing how advancements are handled. With this enabled, units that previously would have advanced on another player's turn will instead not advance until it is again their side's turn. The benefit of this is that units will also not pick an advancement at random if they have multiple.
+ ### Packaging
+   * When building wesnothd with database support enabled, Boost 1.66 is now the minimum required version.
+ ### Terrain
+   * New wall variation: Overgrown stone walls ('Xof')
+ ### Units
+   * Added Tusker line - Gorer and Tusklet (by TSI 2009)
+   * Revised Falcon and Elder Falcon sprites
+   * New units:
+     * Swamp Lizard (crocodile)
+     * Cave Bear
+     * Icemonax
+     * Giant Stoat
+     * Fire Ant
+   * Balancing:
+     * Cost of Giant Rat changed from 6 to 5.
+     * Cost of Giant Scorpling changed from 13 to 12.
+     * Cost of Fire Guardian changed from 19 to 11.
+     * Cost of Giant Mudcrawler changed from 16 to 11.
+     * Cost of Giant Scorpion changed from 22 to 16.
+     * Cost of Wolf changed from 17 to 15.
+     * Cost of Chocobone changed from 38 to 28.
+     * Cost of Cuttle Fish changed from 40 to 36.
+     * Cost of Great Wolf changed from 30 to 21.
+     * Cost of Gryphon changed from 40 to 29.
+     * Cost of Water Serpent changed from 26 to 23.
+     * Cost of Direwolf changed from 36 to 33.
+     * Cost of Sea Serpent changed from 40 to 55.
+     * Cost of Wild Wyvern changed from 54 to 75.
+     * Cost of Wyvern Rider changed from 80 to 102.
+ ### WML Engine
+   * Fix a bug with [set_variables][join] failing on boolean (yes/no) values
+ ### Miscellaneous and Bug Fixes
+   * Removed font-analysis utils: codecomp codeextract codeglyphs codelist
+   * [harm_unit] now calculates liminal damage by using the 1.15 algorithm
+
+## Version 1.15.5
+ ### Add-ons client
+   * Fix: when using the "system default language", add-ons' titles and descriptions were always shown in English (PR #5109)
+ ### Campaigns
+   * Northern Rebirth:
+     * Removed the campaign's evil branch. Not a player-visible change, as there was no way to access this branch.
+   * Secrets of the Ancients:
+     * Use new gui2 widgets API in the custom zombie-recruitment dialog
+   * Under the Burning Suns:
+     * Quenoth Elves now appear as a separate group in the help pages
+     * Fixed ghost spawning code in S02 (this means more ghosts will spawn)
+   * World Conquest:
+     * Clean-up of spelling, grammar and other issues in translatable strings.
+     * use new lua gui2 api in WC mapgen settings
+   * Mass convert of `*^Uf` terrain for SP.
+     * Updates DW, DM, DiD, HttT, LoW, SotA, THoT and TSG
+ ### Language and i18n
+   * Updated translations: British English, Catalan, Chinese (Simplified), Esperanto,
+     French, Hungarian, Polish, Portuguese (Brazil), Russian, Spanish, Turkish
+ ### Lua API
+ ### Multiplayer
+   * A New Land:
+     * Peasants can harvest mushrooms (a bug introduced in 1.15.4 was noticed and fixed in PR #5137)
+ ### Terrain
+   * Made single-hex mushrooms smaller (PR #5136)
+ ### Units
+ ### User interface
+   * Help browser: fix inconsistent behavior for single-clicks opening and closing sections (PR #5110)
+   * Added `[race]help_taxonomy=`, creating links between the per-race topic pages.
+ ### WML engine
+ ### Miscellaneous and bug fixes
+   * Minimum required version of OS X is now OS X 10.11 .
+   * The "loyal" trait is now displayed in the help browser, even though no normal unit has it.
+   * The player can recruit even if their recruit list includes an unknown unit type. This will now show an error dialog and then the recruitment dialog with the known units.
+   * Fix `[micro_ai]` when called from lua (issue #5134)
+   * Fix `[load_resource]` not marking an add-on as used for the "ignore global tags set by add-ons that are not used" feature.
+ ### Packaging
+   * macOS package distributed through SourceForge is now a UDIF lzfse-compressed image. The image size may be slightly larger but opening and copying from this image is much faster.
+   * Another fix if the credits (including all add-ons) are extremely long. There are still known issues with this.
+
+## Version 1.15.4
  ### Add-ons client
    * Ensure the client doesn't re-download dependencies that have just been updated during an Update All
      run by re-reading add-on versions after each update batch (issue #3273).
@@ -8,14 +129,23 @@
      * S12: Fix a few case where dialog and events sound odd or fire out of order (issue #4614).
    * Liberty:
      * Revised dialogue and added miscellaneous new events to all scenarios.
+   * Northern Rebirth:
+     * S5a: Fixed a bug where enemies could trigger a hidden door.
+   * Sceptre of Fire:
+     * Fixed a bug where the new rune shop was not working as intended; added an event to tell players of the existance of the runeshop (S3).
+     * Tweaks to dialogue and victory conditions (S2p5, S3, S4, S5, epilogue).
+     * S8: Fixed a case where the dragon would suicide into pursuers offscreen.
    * Under the Burning Suns:
      * Rebalanced all Quenoth units and all scenarios
      * Embellished all remaining maps (S1, S2, S6b, S8, S11).
      * Finished Tauroch Rider line sprites, added riderless Tauroch standalone unit.
+   * World Conquest:
+     * Added to mainline (formerly World Conquest II).
  ### Language and i18n
    * Updated translations: British English, Chinese (Simplified), Chinese (Traditional),
      Czech, Esperanto, French, Hungarian, Italian, Japanese, Polish, Portuguese (Brazil),
      Russian, Spanish, Swedish, Turkish.
+   * Removed the l10n-track file, which was a mechanism for marking translated images as out-of-date.
  ### Lua API
    * New wesnoth.get_max_liminal_bonus function.
    * New wesnoth.colors table to get information about colors.
@@ -27,35 +157,48 @@
    * New earthy rockbound cave variation (code Uhe).
  ### Units
    * New Dunefolk skirmisher branch (Falconer).
+   * Dune Spearmaster shield damage changed from 14 to 13.
    * Burner line and Armageddon Drake cold resistance changed from -50% to -40%.
    * Dragonguard HP increased from 59 to 63.
    * Steelclad HP changed from 55 to 57.
-   * Poacher HP changed from 32 to 33. 
+   * Poacher HP changed from 32 to 33.
    * Heavy Infantryman cold resistance changed from -10% to 0.
    * Troll Rocklobber HP changed from 49 to 51.
    * Merman Hunter HP changed from 30 to 33.
    * Wose cold resistance changed from 10% to 0.
    * Shaman ranged damage changed from 3 to 4.
    * Bone Shooter HP increased from 40 to 42.
-   * Banebow HP increased from 50 to 52.
+   * Banebow HP increased from 50 to 55.
    * Ghost cost changed from 20 to 19.
  ### User interface
    * Improve appearance of the Logging Options dialog and add a search box.
  ### WML engine
    * [advancefrom] is now deprecated, use [modify_unit_type] instead.
-   * scenarios generated via the map editor can now be used via map_file
-     in [scenario].
+   * The .cfg files generated by the scenario editor can now be loaded with
+     `[scenario]map_file=`, previously they had to be loaded via preprocessor include.
    * The student, attacker and defender variables can now be used in
      formulas in abilities.
    * Units no longer get healed when recalled (they still get healed
      at the end of the scenario).
+   * The engine now ignores global tags set by add-ons that are not used in
+     the current game.
  ### Miscellaneous and bug fixes
    * Added missing side controllers to two Micro AI scenarios (fixes #4890).
    * Fix broken callbacks for treeviews in wesnoth.show_dialog
    * Fix floating label duration being measured in 'frames', it is now
      measured in milliseconds.
    * Added unit type variation selection to the debug mode Create Unit dialog (PR #4986).
-   * Removed the Python2 versions of tools.
+   * Removed the Python2 versions of tools with Python3 versions.
+   * Removed the rmtrans plugin for Gimp, as it was Python2 and seems to be unused.
+   * {HEAL_UNIT} does no longer set the variable heal_amount. If needed, [heal_unit] can be used instead.
+   * Added new modify_unit tags to schema validation.
+   * Fix rare oos errors caused by move_unit_fake
+   * Fix crash on invalid music files.
+   * Fix crash when reading .mo files with non-ascii characters on windows.
+   * Fix crash in the MP Create Game dialog when a map has an unknown tile.
+   * Improve the in-game help's topic about dealing with losses.
+   * Add a comment at the start of any .cfg file created by the scenario editor,
+     warning against manually editing such files.
 
 ## Version 1.15.3
  ### AI
@@ -540,8 +683,17 @@
    * Usernames on the host's ignore list are automatically banned. (PR#4143)
 
 ## Version 1.14.13+dev
+ ### Add-ons client
+   * Add-on titles and descriptions translated to the current language are used when available.
+     The original English title is displayed in the UI and considered for search purposes in addition
+     to translations.
+ ### Add-ons server
+   * Made it possible to provide translations for add-on titles and descriptions at upload
+     time in the .pbl (PR #4993). Only clients running 1.14.14/1.15.4 or later can read the
+     translated values.
  ### Language and i18n
-   * Updated translations:
+   * Updated translations: British English, Chinese (Simplified), Esperanto, Italian,
+     Portuguese (Brazil), Russian, Spanish, Turkish
  ### User interface
    * Do not list nameless abilities in the Abilities and Ability Upgrades lists in unit
      descriptions in Help (issue #3060).
@@ -549,6 +701,7 @@
  ### Miscellaneous and bug fixes
    * Made wmllint recognize [remove_time_area] in order to avoid spurious warnings about
      unit ids.
+   * Files created by the scenario editor include a boilerplate warning about hand-editing them.
 
 ## Version 1.14.13
  ### Campaigns

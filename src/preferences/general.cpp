@@ -72,8 +72,6 @@ const int def_window_height = 720;
 const int min_font_scaling  = 80;
 const int max_font_scaling  = 150;
 
-const SCALING_ALGORITHM default_scaling_algorithm = SCALING_ALGORITHM::XBRZ_NN;
-
 class prefs_event_handler : public events::sdl_handler {
 public:
 	virtual void handle_event(const SDL_Event &) {}
@@ -925,16 +923,6 @@ bool disable_auto_moves()
 void set_disable_auto_moves(bool value)
 {
 	preferences::set("disable_auto_moves", value);
-}
-
-bool disable_loadingscreen_animation()
-{
-	return get("disable_loadingscreen_animation", false);
-}
-
-void set_disable_loadingscreen_animation(bool value)
-{
-	set("disable_loadingscreen_animation", value);
 }
 
 bool damage_prediction_allow_monte_carlo_simulation()

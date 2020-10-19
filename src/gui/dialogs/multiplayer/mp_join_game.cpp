@@ -58,10 +58,9 @@ namespace dialogs
 
 REGISTER_DIALOG(mp_join_game)
 
-mp_join_game::mp_join_game(saved_game& state, mp::lobby_info& lobby_info, wesnothd_connection& connection, const bool first_scenario, const bool observe_game)
+mp_join_game::mp_join_game(saved_game& state, wesnothd_connection& connection, const bool first_scenario, const bool observe_game)
 	: level_()
 	, state_(state)
-	, lobby_info_(lobby_info)
 	, network_connection_(connection)
 	, update_timer_(0)
 	, first_scenario_(first_scenario)
@@ -137,7 +136,7 @@ bool mp_join_game::fetch_game_config()
 		game_config_manager::get()->load_game_config_for_game(state_.classification(), state_.get_scenario_id());
 	}
 
-	game_config::add_color_info(get_scenario());
+	game_config::add_color_info(game_config_view::wrap(get_scenario()));
 
 	// If we're just an observer, we don't need to find an appropriate side and set faction selection
 	if(observe_game_) {
@@ -242,7 +241,6 @@ void mp_join_game::pre_show(window& window)
 	//
 	chatbox& chat = find_widget<chatbox>(&window, "chat", false);
 
-	chat.set_lobby_info(lobby_info_);
 	chat.set_wesnothd_connection(network_connection_);
 
 	chat.room_window_open(N_("this game"), true, false);

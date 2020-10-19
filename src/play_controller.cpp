@@ -20,6 +20,7 @@
 
 #include "play_controller.hpp"
 
+#include "actions/advancement.hpp"
 #include "actions/create.hpp"
 #include "actions/heal.hpp"
 #include "actions/undo.hpp"
@@ -186,7 +187,7 @@ play_controller::play_controller(const config& level, saved_game& state_of_game,
 
 	persist_.start_transaction();
 
-	game_config::add_color_info(level);
+	game_config::add_color_info(game_config_view::wrap(level));
 	hotkey::deactivate_all_scopes();
 	hotkey::set_scope_active(hotkey::SCOPE_GAME);
 	try {
@@ -528,6 +529,16 @@ void play_controller::do_init_side()
 
 	// Make sure vision is accurate.
 	actions::clear_shroud(current_side(), true);
+	{
+		const auto& active_mods = get_saved_game().classification().active_mods;
+		bool delay_advancements = std::find(active_mods.begin(), active_mods.end(), "delay_advancements") != active_mods.end();
+
+		for(unit &u : resources::gameboard->units()) {
+			if(delay_advancements && u.side() == current_side()) {
+				advance_unit_at(u.get_location());
+			}
+		}
+	}
 	init_side_end();
 	check_victory();
 	sync.do_final_checkup();

@@ -49,15 +49,19 @@ elif [ "$TRAVIS_OS_NAME" = "windows" ]; then
     if [ "$UPLOAD_ID" != "" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
         ./utils/travis/sftp wesnoth.exe wesnothd.exe
         if [ "$CFG" == "Debug" ]; then
-            ./utils/travis/sftp wesnoth.pdb wesnothd.pdb
+            bzip2 -9 -k wesnoth.pdb
+            bzip2 -9 -k wesnothd.pdb
+            ./utils/travis/sftp wesnoth.pdb.bz2 wesnothd.pdb.bz2
         fi
     fi
 
+    echo "Starting sqlite updates..."
     if [ "$BUILD_RET" != "0" ]; then
         sqlite3 "projectfiles/$IMAGE/$CFG/filehashes.sqlite" "update FILES set MD5 = OLD_MD5, OLD_MD5 = '-' where OLD_MD5 != '-'"
     else
         sqlite3 "projectfiles/$IMAGE/$CFG/filehashes.sqlite" "update FILES set OLD_MD5 = '-' where OLD_MD5 != '-'"
     fi
+    echo "Finished sqlite updates!"
 
     if [ "$CFG" == "Release" ] && [ "$BUILD_RET" == "0" ]; then
         if (( SECONDS > 60*30 )); then

@@ -16,6 +16,8 @@
 #pragma once
 
 #include <string>
+#include <map>
+#include "game_version.hpp"
 
 class config;
 
@@ -78,5 +80,10 @@ void find_translations(const config& base_dir, config& addon);
  * contain an equivalent file ('copying.txt', 'COPYING', etc.).
  */
 void add_license(config& cfg);
+
+std::map<version_info, config> get_version_map(config& addon);
+
+bool data_apply_removelist(config& data, const config& removelist);
+void data_apply_addlist(config& data, const config& addlist);
 
 }

@@ -1,16 +1,16 @@
 #
 # Translators:
 # tamanegi, 2019
-# 堀 秀幸 <Hide.HORI@gmail.com>, 2019
 # RatArmy <broadbarredfirefish@gmail.com>, 2019
+# 堀 秀幸 <Hide.HORI@gmail.com>, 2020
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://bugs.wesnoth.org/\n"
-"POT-Creation-Date: 2020-03-09 23:11 UTC\n"
+"POT-Creation-Date: 2020-10-17 04:28 UTC\n"
 "PO-Revision-Date: 2018-08-18 04:59+0000\n"
-"Last-Translator: RatArmy <broadbarredfirefish@gmail.com>, 2019\n"
+"Last-Translator: 堀 秀幸 <Hide.HORI@gmail.com>, 2020\n"
 "Language-Team: Japanese (https://www.transifex.com/wesnoth-jp/teams/60513/"
 "ja/)\n"
 "Language: ja\n"
@@ -211,8 +211,8 @@ msgid ""
 "Heeding the call of his amulet, Arvith gathered such men as he could and "
 "hurried to Maghre to help Baran."
 msgstr ""
-"彼のお守りの呼び出しに気づいて、Arvith は出来るだけ人を集め、Baran を助けるた"
-"め、Maghre へと急いだ。"
+"アミュレットの呼び出しに気づいた Arvith は、可能な限りの兵を集め、Baran を助"
+"けるために Maghre へと急いだ。"
 
 #. [side]
 #. [side]: type=Longbowman, id=Reeve Hoban
@@ -288,7 +288,7 @@ msgstr "Magrid"
 #. [objective]: condition=win
 #: data/campaigns/Two_Brothers/scenarios/01_Rooting_Out_a_Mage.cfg:161
 msgid "Slay Mordak, the evil mage"
-msgstr "黒魔術師 Mordak を殺害する"
+msgstr "黒魔術師 Mordak を討伐する"
 
 #. [objective]: condition=lose
 #: data/campaigns/Two_Brothers/scenarios/01_Rooting_Out_a_Mage.cfg:165
@@ -311,7 +311,7 @@ msgstr ""
 #. [message]: speaker=Baran
 #: data/campaigns/Two_Brothers/scenarios/01_Rooting_Out_a_Mage.cfg:186
 msgid "Greetings, brother, and welcome home."
-msgstr "やあ、兄さん、　そして、ようこそ故郷へ。"
+msgstr "やあ、兄さん、お帰りなさい。"
 
 #. [message]: speaker=Arvith
 #: data/campaigns/Two_Brothers/scenarios/01_Rooting_Out_a_Mage.cfg:191
@@ -321,12 +321,14 @@ msgstr "うむ。"
 #. [message]: speaker=Baran
 #: data/campaigns/Two_Brothers/scenarios/01_Rooting_Out_a_Mage.cfg:196
 msgid "Is that all, Arvith? I understand, but..."
-msgstr "兄さん、お元気そうで何よりです。しかし・・・"
+msgstr "それだけですか？ 兄さんの気持ちは分かりますが、でも・・・"
 
 #. [message]: speaker=Arvith
 #: data/campaigns/Two_Brothers/scenarios/01_Rooting_Out_a_Mage.cfg:201
 msgid "You called, and I came; be content with that. What ails Maghre?"
-msgstr "お前の呼び出しで私が来たからには安心しろ。で Maghre に何が起こった？ "
+msgstr ""
+"お前が呼び出し、私が来た。それで十分だろう。で、 Maghre に何が起きているの"
+"だ？ "
 
 #. [message]: speaker=Baran
 #: data/campaigns/Two_Brothers/scenarios/01_Rooting_Out_a_Mage.cfg:206
@@ -336,11 +338,10 @@ msgid ""
 "itself! The villagers of Maghre have taken up weapons but they are not "
 "trained fighters; we need your men, and you to lead them."
 msgstr ""
-"我々は黒魔術師と出会いました。奴に作られた者達は、奴を Mordak と呼んでいま"
-"す。奴らは辺鄙な所にある農場を恐怖に陥れていて、我々は、奴らがすぐにも村自体"
-"を攻撃するのではないかと恐れています！ Maghre の村人達は武器を取りましたが、"
-"彼らは訓練された戦士ではありません。我々にはあなたの部下が必要ですし、またあ"
-"なたに彼らを率いてもらうことが必要なのです。"
+"一人の黒魔術師が我等の前に現れました。奴の手下どもはその名を Mordak と呼んで"
+"います。奴らは既に村はずれの農場を脅かしており、じきに村そのものを攻撃する恐"
+"れがあります！ Maghre の村人は武器を取りましたが、彼らは訓練された戦士ではあ"
+"りません。我等には兄さんの兵と彼らを統率してくれる兄さんの力が必要なのです。"
 
 #. [message]: speaker=Baran
 #: data/campaigns/Two_Brothers/scenarios/01_Rooting_Out_a_Mage.cfg:211
@@ -356,7 +357,9 @@ msgstr ""
 msgid ""
 "All right. I will do this for the village. Can you keep the mage off our "
 "backs?"
-msgstr "わかった、私は村のために行動する。お前は魔法使いを集めて支援できるか？"
+msgstr ""
+"わかった。私は村のために行動しよう。お前はその魔術師とやらの妨害を阻止するこ"
+"とができるか？"
 
 #. [message]: speaker=Baran
 #: data/campaigns/Two_Brothers/scenarios/01_Rooting_Out_a_Mage.cfg:221
@@ -385,8 +388,8 @@ msgid ""
 "Baran should be in position by now. Press them, distract the adept so Baran "
 "can spring his trap!"
 msgstr ""
-"Baran は今ごろ位置に付いているだろう。奴らを押せ、名人の気を逸らせば、Baran "
-"は罠にかけることが出来る！"
+"そろそろ Baran は配置についている頃だろう。奴らを押せ、あの親玉の注意をこちら"
+"に引き付けるのだ、Baran が仕掛けた罠を実行できるように！"
 
 #. [message]: speaker=Arvith
 #: data/campaigns/Two_Brothers/scenarios/01_Rooting_Out_a_Mage.cfg:248
@@ -404,8 +407,8 @@ msgid ""
 "No... No. This is something else. I’m worried about him... but right now it "
 "means we have to deal with this Mordak ourselves."
 msgstr ""
-"Baran は攻撃しなかった！ 私は彼が心配になってきた…そしてそれは、我々が自分達"
-"自身で Mordak に対処しなければならないことを意味する！"
+"いや・・・違う。何か問題が起きたに違いない。弟が心配だ・・・しかし今は、とも"
+"かく我々だけで Mordak に対処せねばならないということだ。"
 
 #. [message]: speaker=unit
 #: data/campaigns/Two_Brothers/scenarios/01_Rooting_Out_a_Mage.cfg:270
@@ -759,7 +762,7 @@ msgstr ""
 "う。"
 
 #. [message]: role=Mercenary
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:520
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:521
 msgid ""
 "Captain, what are we riding into? I thought you wanted nothing to do with "
 "Baran any more, not since Toen Caric."
@@ -768,7 +771,7 @@ msgstr ""
 "Baran に一切何もしたくないのだと私は思っていたのですが。"
 
 #. [message]: speaker=Arvith
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:525
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:526
 msgid ""
 "I’m no longer sure. What’s between us remains, but knowing someone else has "
 "lain hands on him changes things. Mount up, and let’s get moving."
@@ -777,12 +780,12 @@ msgstr ""
 "誰かが状況を変えられるのかもしれない。馬に乗れ、移動開始だ。"
 
 #. [event]
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:540
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:541
 msgid "Brena"
 msgstr "Brena"
 
 #. [message]: speaker=Brena
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:549
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:550
 msgid ""
 "Greetings. I am Brena, a knight errant. I saw you pursuing and fighting the "
 "foul undead. Are there more of them to be destroyed?"
@@ -791,7 +794,7 @@ msgstr ""
 "跡し戦っているのを見た。滅ぼされるために、奴らはもっと沢山いるだろうか？"
 
 #. [message]: speaker=Arvith
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:554
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:555
 msgid ""
 "Aye. We think there’s a nest of them north-east of here. They’ve captured my "
 "brother."
@@ -800,7 +803,7 @@ msgstr ""
 "るのだ。"
 
 #. [message]: speaker=Brena
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:559
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:560
 msgid ""
 "I bear a great hatred towards their kind. I will follow and fight them with "
 "you, if you permit."
@@ -809,32 +812,32 @@ msgstr ""
 "奴らと戦うだろう。"
 
 #. [message]: role=Mercenary
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:564
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:565
 msgid "He would only slow us down!"
 msgstr "彼は足手纏いになるだけです！"
 
 #. [message]: speaker=Arvith
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:569
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:570
 msgid "It is my place to decide this."
 msgstr "ここが思案のしどころだな。"
 
 #. [option]
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:571
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:572
 msgid "Oh, all right then. Come along with us."
 msgstr "そうか、それではわかった。 俺たちに同行してくれ。"
 
 #. [message]: speaker=Brena
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:575
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:576
 msgid "Thank you. My comrades and I will help you on your noble quest."
 msgstr "礼を言う。俺と俺の仲間は、あなたの気高い探求の手助けをしよう。"
 
 #. [option]
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:580
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:581
 msgid "I am sorry. We have not the time to spare."
 msgstr "すまない。 俺たちには時間がないのだ。"
 
 #. [message]: speaker=Brena
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:584
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:585
 msgid ""
 "Take this, then, for I see that you are on a quest. My comrades will help "
 "you whenever you call for them."
@@ -843,22 +846,22 @@ msgstr ""
 "ば、いつでも俺の仲間達はあなたを助けるだろう。"
 
 #. [message]: speaker=narrator
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:599
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:600
 msgid "You receive 70 pieces of gold!"
 msgstr "あなたは 70ゴールドを受け取る！"
 
 #. [message]: speaker=Muff Toras
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:622
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:623
 msgid "My reinforcements are here!"
 msgstr "俺の増援隊はここだ！"
 
 #. [message]: speaker=Arvith
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:627
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:628
 msgid "He escaped us..."
 msgstr "奴は俺たちから逃亡した..."
 
 #. [message]: speaker=Nil-Galion
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:639
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:640
 msgid ""
 "Foolish human, you have killed me but you will not catch the undead in time. "
 "I have fulfilled my contract, and will be reanimated soon to become a lord "
@@ -868,7 +871,7 @@ msgstr ""
 "いだろう。俺は契約を果たした。すぐにあの軍隊の主として蘇るのだ。"
 
 #. [message]: speaker=Arvith
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:649
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:650
 msgid "Follow their back trail!"
 msgstr "奴らの後を追え！"
 

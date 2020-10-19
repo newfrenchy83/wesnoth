@@ -19,7 +19,8 @@
 #include "server/common/simple_wml.hpp"
 
 #include "utils/functional.hpp"
-#include <boost/unordered_map.hpp>
+#include <unordered_map>
+#include <unordered_set>
 #include <boost/asio/steady_timer.hpp>
 
 #include <chrono>
@@ -78,11 +79,18 @@ private:
 	typedef std::function<void (server*, const request& req)> request_handler;
 	typedef std::map<std::string, request_handler> request_handlers_table;
 
+	/**The hash map of addons metadata*/
+	std::unordered_map<std::string, config> addons_;
+	/**The set of unique addon names with pending metadata updates*/
+	std::unordered_set<std::string> dirty_addons_;
+
+	/**Server config*/
 	config cfg_;
 	const std::string cfg_file_;
 
 	bool read_only_;
 	int compress_level_; /**< Used for add-on archives. */
+	time_t update_pack_lifespan_;
 
 	/** Default upload size limit in bytes. */
 	static const std::size_t default_document_size_limit = 100 * 1024 * 1024;
@@ -134,16 +142,10 @@ private:
 	 */
 	void fire(const std::string& hook, const std::string& addon);
 
-	/** Retrieves the contents of the [campaigns] WML node. */
-	const config& campaigns() const { return cfg_.child("campaigns"); }
+	/** Retrieves an addon by id if found, or a null config otherwise. */
+	config& get_addon(const std::string& id);
 
-	/** Retrieves the contents of the [campaigns] WML node. */
-	config& campaigns() { return cfg_.child("campaigns"); }
-
-	/** Retrieves a campaign by id if found, or a null config otherwise. */
-	config& get_campaign(const std::string& id) { return campaigns().find_child("campaign", "name", id); }
-
-	void delete_campaign(const std::string& id);
+	void delete_addon(const std::string& id);
 
 	/** Retrieves the contents of the [server_info] WML node. */
 	const config& server_info() const { return cfg_.child("server_info"); }
@@ -170,8 +172,9 @@ private:
 	 */
 	void register_handlers();
 
-	void handle_request_campaign_list(const request&);
+	void handle_request_campaign_list(const request&);//#TODO: rename with 'addon' later?
 	void handle_request_campaign(const request&);
+	void handle_request_campaign_hash(const request&);
 	void handle_request_terms(const request&);
 	void handle_upload(const request&);
 	void handle_delete(const request&);

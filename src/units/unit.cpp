@@ -1150,6 +1150,7 @@ color_t unit::xp_color() const
 		major_amla |= adv["major_amla"].to_bool();
 		has_amla = true;
 	}
+	//TODO: calculating has_amla and major_amla can be a quite slow operation, we should cache these two values somehow.
 	return xp_color(experience_to_advance(), !advances_to().empty() || major_amla, has_amla);
 }
 
@@ -1745,6 +1746,11 @@ std::vector<config> unit::get_modification_advances() const
 		if(adv["strict_amla"].to_bool() && !advances_to_.empty()) {
 			continue;
 		}
+		if(const config& filter = adv.child("filter")) {
+			if(!unit_filter(vconfig(filter)).matches(*this, loc_)) {
+				continue;
+			}
+		}
 
 		if(modification_count("advancement", adv["id"]) >= static_cast<unsigned>(adv["max_times"].to_int(1))) {
 			continue;
@@ -2129,7 +2135,7 @@ void unit::apply_builtin_effect(std::string apply_to, const config& effect)
 			image_mods_ += mod;
 		}
 
-		game_config::add_color_info(effect);
+		game_config::add_color_info(game_config_view::wrap(effect));
 		LOG_UT << "applying image_mod" << std::endl;
 	} else if(apply_to == "new_animation") {
 		anim_comp_->apply_new_animation_effect(effect);
@@ -2415,16 +2421,11 @@ void unit::apply_modifications()
 	log_scope("apply mods");
 
 	variables_.clear_children("mods");
-
-	for(const auto& mod : ModificationTypes) {
-		if(mod == "advance" && modifications_.has_child(mod)) {
-			deprecated_message("[advance]", DEP_LEVEL::PREEMPTIVE, {1, 15, 0}, "Use [advancement] instead.");
-		}
-
-		for(const config& m : modifications_.child_range(mod)) {
-			lg::scope_logger inner_scope_logging_object__(lg::general(), "add mod");
-			add_modification(mod, m, true);
-		}
+	if(modifications_.has_child("advance")) {
+		deprecated_message("[advance]", DEP_LEVEL::PREEMPTIVE, {1, 15, 0}, "Use [advancement] instead.");
+	}
+	for (const config::any_child &mod : modifications_.all_children_range()) {
+		add_modification(mod.key, mod.cfg, true);
 	}
 }
 

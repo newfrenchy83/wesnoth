@@ -18,7 +18,6 @@
 
 #include "config.hpp"
 #include "terrain/translation.hpp"
-#include "utils/make_enum.hpp"
 
 #include <utility>
 
@@ -44,15 +43,6 @@ namespace preferences {
 
 	extern const int min_font_scaling;
 	extern const int max_font_scaling;
-
-	MAKE_ENUM(SCALING_ALGORITHM,
-		(LINEAR, "linear")
-		(NEAREST_NEIGHBOR, "nn")
-		(XBRZ_LIN, "xbrzlin")
-		(XBRZ_NN, "xbrznn")
-	)
-
-	extern const SCALING_ALGORITHM default_scaling_algorithm;
 
 	void write_preferences();
 
@@ -251,9 +241,6 @@ namespace preferences {
 
 	bool disable_auto_moves();
 	void set_disable_auto_moves(bool value);
-
-	bool disable_loadingscreen_animation();
-	void set_disable_loadingscreen_animation(bool value);
 
 	bool damage_prediction_allow_monte_carlo_simulation();
 	void set_damage_prediction_allow_monte_carlo_simulation(bool value);

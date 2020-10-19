@@ -116,6 +116,9 @@ bool mp_lobby::logout_prompt()
 	return show_prompt(_("Do you really want to log out?"));
 }
 
+std::string mp_lobby::announcements_ = "";
+std::string mp_lobby::server_information_ = "";
+
 mp_lobby::mp_lobby(const game_config_view& game_config, mp::lobby_info& info, wesnothd_connection &connection)
 	: quit_confirmation(&mp_lobby::logout_prompt)
 	, game_config_(game_config)
@@ -208,7 +211,7 @@ std::string colorize(const std::string& str, const color_t& color)
 bool handle_addon_requirements_gui(const std::vector<mp::game_info::required_addon>& reqs, mp::game_info::ADDON_REQ addon_outcome)
 {
 	if(addon_outcome == mp::game_info::CANNOT_SATISFY) {
-		std::string e_title = _("Incompatible User-made Content.");
+		std::string e_title = _("Incompatible User-made Content");
 		std::string err_msg = _("This game cannot be joined because the host has out-of-date add-ons that are incompatible with your version. You might wish to suggest that the host's add-ons be updated.");
 
 		err_msg +="\n\n";
@@ -224,7 +227,7 @@ bool handle_addon_requirements_gui(const std::vector<mp::game_info::required_add
 
 		return false;
 	} else if(addon_outcome == mp::game_info::NEED_DOWNLOAD) {
-		std::string e_title = _("Missing User-made Content.");
+		std::string e_title = _("Missing User-made Content");
 		std::string err_msg = _("This game requires one or more user-made addons to be installed or updated in order to join.\nDo you want to try to install them?");
 
 		err_msg +="\n\n";
@@ -740,7 +743,6 @@ void mp_lobby::pre_show(window& window)
 
 	window.keyboard_capture(chatbox_);
 
-	chatbox_->set_lobby_info(lobby_info_);
 	chatbox_->set_wesnothd_connection(network_connection_);
 	chatbox_->set_active_window_changed_callback([this]() { player_list_dirty_ = true; });
 	chatbox_->load_log(default_chat_log, true);

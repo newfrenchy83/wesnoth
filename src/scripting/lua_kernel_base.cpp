@@ -38,6 +38,7 @@
 #include "scripting/lua_stringx.hpp"
 #include "scripting/lua_map_location_ops.hpp"
 #include "scripting/lua_rng.hpp"
+#include "scripting/lua_widget.hpp"
 #include "scripting/push_check.hpp"
 
 #include "game_version.hpp"                  // for do_version_check, etc
@@ -381,7 +382,7 @@ lua_kernel_base::lua_kernel_base()
 
 	cmd_log_ << "Initializing " << my_name() << "...\n";
 
-	// Define the CPP_function metatable ( so we can override print to point to a C++ member function, add "show_dialog" for this kernel, etc. )
+	// Define the CPP_function metatable ( so we can override print to point to a C++ member function, add certain functions for this kernel, etc. )
 	// Do it first of all in case C++ functions are ever used in the core Wesnoth libs loaded in the next step
 	cmd_log_ << "Adding boost function proxy...\n";
 
@@ -424,7 +425,7 @@ lua_kernel_base::lua_kernel_base()
 		lua_setfield(L, -3, function);
 	}
 	lua_pop(L, 1);
-	
+
 	// Delete dofile and loadfile.
 	lua_pushnil(L);
 	lua_setglobal(L, "dofile");
@@ -448,21 +449,9 @@ lua_kernel_base::lua_kernel_base()
 		{ "read_file",                &lua_fileops::intf_read_file          },
 		{ "canonical_path",           &lua_fileops::intf_canonical_path     },
 		{ "textdomain",               &lua_common::intf_textdomain   		},
-		{ "get_dialog_value",         &lua_gui2::intf_get_dialog_value		},
-		{ "set_dialog_tooltip",       &lua_gui2::intf_set_dialog_tooltip	},
-		{ "set_dialog_active",        &lua_gui2::intf_set_dialog_active		},
-		{ "set_dialog_visible",       &lua_gui2::intf_set_dialog_visible    },
-		{ "add_dialog_tree_node",     &lua_gui2::intf_add_dialog_tree_node	},
-		{ "set_dialog_callback",      &lua_gui2::intf_set_dialog_callback	},
-		{ "set_dialog_canvas",        &lua_gui2::intf_set_dialog_canvas		},
-		{ "set_dialog_focus",         &lua_gui2::intf_set_dialog_focus      },
-		{ "set_dialog_markup",        &lua_gui2::intf_set_dialog_markup		},
-		{ "set_dialog_value",         &lua_gui2::intf_set_dialog_value		},
-		{ "remove_dialog_item",       &lua_gui2::intf_remove_dialog_item    },
 		{ "dofile",                   &dispatch<&lua_kernel_base::intf_dofile>           },
 		{ "require",                  &dispatch<&lua_kernel_base::intf_require>          },
 		{ "kernel_type",              &dispatch<&lua_kernel_base::intf_kernel_type>          },
-		{ "show_dialog",              &lua_gui2::show_dialog   },
 		{ "compile_formula",          &lua_formula_bridge::intf_compile_formula},
 		{ "eval_formula",             &lua_formula_bridge::intf_eval_formula},
 		{ "name_generator",           &intf_name_generator           },
@@ -486,6 +475,8 @@ lua_kernel_base::lua_kernel_base()
 	cmd_log_ << lua_common::register_gettext_metatable(L);
 	// Create the tstring metatable.
 	cmd_log_ << lua_common::register_tstring_metatable(L);
+
+	lua_widget::register_metatable(L);
 
 	// Override the print function
 	cmd_log_ << "Redirecting print function...\n";

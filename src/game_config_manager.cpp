@@ -62,7 +62,9 @@ game_config_manager::game_config_manager(
 	assert(!singleton);
 	singleton = this;
 
-	if(cmdline_opts_.nocache) {
+	// All of the validation options imply --nocache, as the validation happens during cache
+	// rebuilding. If the cache isn't rebuilt, validation is silently skipped.
+	if(cmdline_opts_.nocache || cmdline_opts_.any_validation_option()) {
 		cache_.set_use_cache(false);
 	}
 	if(cmdline_opts_.validcache) {
@@ -132,7 +134,7 @@ void game_config_manager::load_game_config_with_loadscreen(FORCE_RELOAD_CONFIG f
 	boost::optional<std::set<std::string>> active_addons)
 {
 	if (!lg::info().dont_log(log_config)) {
-		auto& out = lg::info()(log_config);
+		auto out = formatter();
 		out << "load_game_config: defines:";
 		for(const auto& pair : cache_.get_preproc_map()) {
 			out << pair.first << ",";
@@ -147,8 +149,9 @@ void game_config_manager::load_game_config_with_loadscreen(FORCE_RELOAD_CONFIG f
 			out << "\n Everything:";
 		}
 		out << "\n";
+		FORCE_LOG_TO(lg::info(), log_config) << out.str();
 	} 
-	
+
 
 	game_config::scoped_preproc_define debug_mode("DEBUG_MODE",
 		game_config::debug || game_config::mp_debug);
@@ -330,8 +333,7 @@ void game_config_manager::load_game_config(bool reload_everything)
 		set_multiplayer_hashes();
 
 
-		//FIXME: use game_config() instead to icnlude addons
-		game_config::add_color_info(game_config_);
+		game_config::add_color_info(game_config());
 
 	} catch(const game::error& e) {
 		ERR_CONFIG << "Error loading game configuration files\n" << e.message << '\n';
@@ -511,7 +513,7 @@ void game_config_manager::load_addons_cfg()
 							{1, 17, 0},
 							_("Use [modify_unit_type]\n") + modify_unit_type.debug()  + "\n [/modify_unit_type] instead in [campaign]"
 						);
-	
+
 						advancefroms.add_child("modify_unit_type", modify_unit_type);
 					}
 					unit_type.remove_children("advancefrom", [](const config&){return true;});
@@ -564,6 +566,18 @@ void game_config_manager::load_addons_cfg()
 			ERR_CONFIG << "error reading usermade add-on '" << main_cfg << "'" << std::endl;
 			error_addons.push_back(main_cfg);
 		}
+	}
+
+	if(cmdline_opts_.validate_addon) {
+		if(!addon_cfgs_.count(*cmdline_opts_.validate_addon)) {
+			ERR_CONFIG << "Didn’t find an add-on for --validate-addon - check whether the id has a typo" << std::endl;
+			const std::string log_msg = formatter()
+				<< "Didn't find an add-on for --validate-addon - check whether the id has a typo";
+			error_log.push_back(log_msg);
+			throw game::error("Did not find an add-on for --validate-addon");
+		}
+
+		WRN_CONFIG << "Note: for --validate-addon to find errors, you have to play (in the GUI) a game that uses the add-on.";
 	}
 
 	if(!error_addons.empty()) {
@@ -713,7 +727,7 @@ void game_config_manager::set_enabled_addon(std::set<std::string> addon_ids)
 }
 void game_config_manager::set_enabled_addon_all()
 {
-	
+
 	auto& vec = game_config_view_.data();
 	vec.clear();
 	vec.push_back(game_config_);

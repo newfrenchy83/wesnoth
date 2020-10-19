@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hu-tb\n"
 "Report-Msgid-Bugs-To: https://bugs.wesnoth.org/\n"
-"POT-Creation-Date: 2020-03-09 23:11 UTC\n"
+"POT-Creation-Date: 2020-10-17 04:28 UTC\n"
 "PO-Revision-Date: 2020-05-14 18:25+0200\n"
 "Last-Translator: Széll András <szell.andris@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -677,10 +677,6 @@ msgstr "Látom őket! Ott vannak!"
 
 #. [message]: speaker=Muff Toras
 #: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:450
-#, fuzzy
-#| msgid ""
-#| "Curses! If they had been an hour slower our master’s reinforcements would "
-#| "already be here to meet us."
 msgid ""
 "Curses! If they had been an hour slower, our master’s reinforcements would "
 "already be here to meet us."
@@ -770,7 +766,7 @@ msgstr ""
 "Kötözzétek meg, őt is magunkkal visszük. Ha rászedett minket, akkor meghal."
 
 #. [message]: role=Mercenary
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:520
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:521
 msgid ""
 "Captain, what are we riding into? I thought you wanted nothing to do with "
 "Baran any more, not since Toen Caric."
@@ -779,7 +775,7 @@ msgstr ""
 "sorsával, legalábbis Toen Caric óta."
 
 #. [message]: speaker=Arvith
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:525
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:526
 msgid ""
 "I’m no longer sure. What’s between us remains, but knowing someone else has "
 "lain hands on him changes things. Mount up, and let’s get moving."
@@ -788,12 +784,12 @@ msgstr ""
 "hogy valaki fogva tartja őt, más színt ad a dolgoknak. Lóra és indulás!"
 
 #. [event]
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:540
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:541
 msgid "Brena"
 msgstr "Brena"
 
 #. [message]: speaker=Brena
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:549
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:550
 msgid ""
 "Greetings. I am Brena, a knight errant. I saw you pursuing and fighting the "
 "foul undead. Are there more of them to be destroyed?"
@@ -802,7 +798,7 @@ msgstr ""
 "győztétek le az ocsmány élőholtakat. Maradt még, akit el kéne pusztítani?"
 
 #. [message]: speaker=Arvith
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:554
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:555
 msgid ""
 "Aye. We think there’s a nest of them north-east of here. They’ve captured my "
 "brother."
@@ -811,7 +807,7 @@ msgstr ""
 "fivéremet."
 
 #. [message]: speaker=Brena
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:559
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:560
 msgid ""
 "I bear a great hatred towards their kind. I will follow and fight them with "
 "you, if you permit."
@@ -820,32 +816,32 @@ msgstr ""
 "ellenük."
 
 #. [message]: role=Mercenary
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:564
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:565
 msgid "He would only slow us down!"
 msgstr "Csak hátráltatna minket!"
 
 #. [message]: speaker=Arvith
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:569
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:570
 msgid "It is my place to decide this."
 msgstr "Itt én döntök."
 
 #. [option]
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:571
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:572
 msgid "Oh, all right then. Come along with us."
 msgstr "Na, rendben van. Gyere velünk!"
 
 #. [message]: speaker=Brena
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:575
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:576
 msgid "Thank you. My comrades and I will help you on your noble quest."
 msgstr "Köszönöm. A társaim és én segíteni fogunk nemes küldetésetekben."
 
 #. [option]
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:580
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:581
 msgid "I am sorry. We have not the time to spare."
 msgstr "Sajnálom. Nincs vesztegetni való időnk."
 
 #. [message]: speaker=Brena
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:584
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:585
 msgid ""
 "Take this, then, for I see that you are on a quest. My comrades will help "
 "you whenever you call for them."
@@ -854,22 +850,22 @@ msgstr ""
 "fognak, akármikor is hívod őket."
 
 #. [message]: speaker=narrator
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:599
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:600
 msgid "You receive 70 pieces of gold!"
 msgstr "Kaptál 70 aranyat!"
 
 #. [message]: speaker=Muff Toras
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:622
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:623
 msgid "My reinforcements are here!"
 msgstr "Itt az erősítésem!"
 
 #. [message]: speaker=Arvith
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:627
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:628
 msgid "He escaped us..."
 msgstr "Meglépett előlünk..."
 
 #. [message]: speaker=Nil-Galion
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:639
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:640
 msgid ""
 "Foolish human, you have killed me but you will not catch the undead in time. "
 "I have fulfilled my contract, and will be reanimated soon to become a lord "
@@ -880,7 +876,7 @@ msgstr ""
 "seregük parancsnoka lehessek."
 
 #. [message]: speaker=Arvith
-#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:649
+#: data/campaigns/Two_Brothers/scenarios/02_The_Chase.cfg:650
 msgid "Follow their back trail!"
 msgstr "Kövessétek a nyomukat!"
 
@@ -998,13 +994,13 @@ msgstr "Várvédő"
 #. similar string in the wesnoth-help textdomain
 #: data/campaigns/Two_Brothers/scenarios/03_Guarded_Castle.cfg:236
 msgid "Indoors (dark castle)"
-msgstr ""
+msgstr "Beltér (sötét kastély)"
 
 #. [time]: id=indoors_dark_castle_lit
 #. similar string in th4e wesnoth-help textdomain
 #: data/campaigns/Two_Brothers/scenarios/03_Guarded_Castle.cfg:252
 msgid "Indoors (lit)"
-msgstr ""
+msgstr "Beltér (megvilágított)"
 
 #. [objective]: condition=win
 #: data/campaigns/Two_Brothers/scenarios/03_Guarded_Castle.cfg:309
@@ -1115,10 +1111,6 @@ msgstr "Nem jó! Elkapni!"
 
 #. [message]: speaker=Knago-Brek
 #: data/campaigns/Two_Brothers/scenarios/03_Guarded_Castle.cfg:495
-#, fuzzy
-#| msgid ""
-#| "Haha! We not kill people for long time. Weapon wants blood. We now kill "
-#| "humans!!"
 msgid ""
 "Haha! We not kill people for long time. Weapon wants blood. We now kill "
 "humans!"
@@ -1127,16 +1119,12 @@ msgstr ""
 
 #. [message]: speaker=Arvith
 #: data/campaigns/Two_Brothers/scenarios/03_Guarded_Castle.cfg:500
-#, fuzzy
-#| msgid ""
-#| "My sword-arm has a say in who will do the dying. Come on, men, let’s kill "
-#| "some orcs."
 msgid ""
 "My sword-arm shall have a say in who will do the dying. Come on, men, let’s "
 "kill some orcs."
 msgstr ""
-"A fegyverforgató karomnak is lesz még szava abban, hogy ki hal meg ma. "
-"Gyerünk, emberek, vágjunk le pár orkot!"
+"Fegyveremnek is lesz még beleszólása abba, hogy ki hal meg ma! Gyerünk "
+"emberek, vágjunk le pár orkot!"
 
 #. [message]: speaker=Arvith
 #: data/campaigns/Two_Brothers/scenarios/03_Guarded_Castle.cfg:512
@@ -1239,12 +1227,12 @@ msgstr ""
 #. [message]: speaker=Arvith
 #: data/campaigns/Two_Brothers/scenarios/03_Guarded_Castle.cfg:748
 msgid "It may be important, I best take it."
-msgstr ""
+msgstr "Fontos lehet, jobb ha elrakom."
 
 #. [message]: speaker=unit
 #: data/campaigns/Two_Brothers/scenarios/03_Guarded_Castle.cfg:766
 msgid "This castle seems as dark as a cave!"
-msgstr ""
+msgstr "Ez a kastély olyan sötétnek tűnik, mint egy barlang!"
 
 #. [message]: speaker=narrator
 #: data/campaigns/Two_Brothers/scenarios/03_Guarded_Castle.cfg:772
@@ -1254,6 +1242,10 @@ msgid ""
 "(neutral time of day). Place your units carefully, as your troops will be "
 "weaker and enemy units stronger."
 msgstr ""
+"Ez a kastély állandó <i>törvénytelen</i> napszakban van (ami végtelen "
+"éjszakának felel meg), kivéve a megvilágított falak melletti mezőket "
+"(semleges napszak). Körültekintően járj el egységeid elhelyezésekor, mert "
+"gyengébbek lesznek, míg az ellenséges egységek erősebbek."
 
 #. [message]: speaker=unit
 #: data/campaigns/Two_Brothers/scenarios/03_Guarded_Castle.cfg:792
@@ -1591,7 +1583,7 @@ msgstr ""
 #. [message]: speaker=Tairach
 #: data/campaigns/Two_Brothers/scenarios/04_Return_to_the_Village.cfg:341
 msgid "Today, you shall pay for disfiguring my face, mage!"
-msgstr ""
+msgstr "Ma megfizetsz azért, hogy elcsúfítottad az arcom, mágus!"
 
 #. [message]: speaker=Baran
 #: data/campaigns/Two_Brothers/scenarios/04_Return_to_the_Village.cfg:346
@@ -1599,6 +1591,8 @@ msgid ""
 "I have already paid with the lives of my men at Toen Caric. It is time I "
 "righted that mistake and finished this once and for all."
 msgstr ""
+"Már megfizettem embereim életével Toen Caricnál. Itt az idő, hogy jóvátegyem "
+"azt a hibát és véget vessek ennek egyszer s mindenkorra."
 
 #. [message]: speaker=Arvith
 #: data/campaigns/Two_Brothers/scenarios/04_Return_to_the_Village.cfg:355

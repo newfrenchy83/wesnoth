@@ -16,16 +16,17 @@
 
 #include "gui/dialogs/modal_dialog.hpp"
 
+class game_classification;
+
 namespace gui2
 {
 namespace dialogs
 {
-
 /** Dialog to display 'The End' at the end of a campaign. */
 class outro : public modal_dialog
 {
 public:
-	outro(const std::string& text, unsigned int duration);
+	outro(const game_classification& info);
 
 	/**
 	 * Displays a simple fading screen with any user-provided text.
@@ -48,11 +49,10 @@ private:
 	/** Inherited from modal_dialog. */
 	virtual void post_show(window& window) override;
 
-	void set_next_draw();
-
 	void draw_callback(window& window);
 
-	std::string text_;
+	std::vector<std::string> text_;
+	std::vector<std::string>::iterator current_text_;
 
 	unsigned int duration_;
 	int fade_step_;
@@ -60,7 +60,6 @@ private:
 	bool fading_in_;
 
 	std::size_t timer_id_;
-	std::size_t next_draw_;
 };
 
 } // namespace dialogs

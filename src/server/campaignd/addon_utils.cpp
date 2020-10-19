@@ -20,11 +20,12 @@
 #include "game_config.hpp"
 #include "log.hpp"
 #include "serialization/string_utils.hpp"
+#include "addon/validation.hpp"
 
 #include <boost/algorithm/string.hpp>
 
 static lg::log_domain log_network("network");
-#define LOG_CS if (lg::err().dont_log(log_network)) ; else lg::err()(log_network, false)
+#define LOG_CS LOG_STREAM_NAMELESS(err, log_network)
 
 namespace {
 
@@ -150,6 +151,51 @@ void add_license(config& cfg)
 	config& copying = dir.add_child("file");
 	copying["name"] = "COPYING.txt";
 	copying["contents"] = contents;
+}
+
+std::map<version_info, config> get_version_map(config& addon)
+{
+	std::map<version_info, config> version_map;
+
+	for(config& version : addon.child_range("version")) {
+		version_map.emplace(version_info(version["version"]), version);
+	}
+
+	return version_map;
+}
+
+bool data_apply_removelist(config& data, const config& removelist)
+{
+	for(const config& f : removelist.child_range("file")) {
+		data.remove_children("file", [&f](const config& d) { return f["name"] == d["name"]; });
+	}
+
+	for(const config& dir : removelist.child_range("dir")) {
+		config& data_dir = data.find_child("dir", "name", dir["name"]);
+		if(data_dir && !data_apply_removelist(data_dir, dir)) {
+			// Delete empty directories
+			data.remove_children("dir", [&dir](const config& d) { return dir["name"] == d["name"]; });
+		}
+	}
+
+	return data.has_child("file") || data.has_child("dir");
+}
+
+void data_apply_addlist(config& data, const config& addlist)
+{
+	for(const config& f : addlist.child_range("file")) {
+		// Just add it since we have already checked the data for duplicates
+		data.add_child("file", f);
+	}
+
+	for(const config& dir : addlist.child_range("dir")) {
+		config* data_dir = &data.find_child("dir", "name", dir["name"]);
+		if(!*data_dir) {
+			data_dir = &data.add_child("dir");
+			(*data_dir)["name"] = dir["name"];
+		}
+		data_apply_addlist(*data_dir, dir);
+	}
 }
 
 } // end namespace campaignd

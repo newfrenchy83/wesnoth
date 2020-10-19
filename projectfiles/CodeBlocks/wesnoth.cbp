@@ -66,7 +66,7 @@
 			<Add library="libglib-2.0" />
 			<Add library="liblua" />
 			<Add library="libpng" />
-			<Add library="libjepg" />
+			<Add library="libjpeg" />
 			<Add library="libboost_iostreams" />
 			<Add library="libboost_bzip2" />
 			<Add library="libboost_filesystem" />
@@ -674,6 +674,8 @@
 		<Unit filename="../../src/gui/dialogs/screenshot_notification.hpp" />
 		<Unit filename="../../src/gui/dialogs/select_orb_colors.cpp" />
 		<Unit filename="../../src/gui/dialogs/select_orb_colors.hpp" />
+		<Unit filename="../../src/gui/dialogs/server_info_dialog.cpp" />
+		<Unit filename="../../src/gui/dialogs/server_info_dialog.hpp" />
 		<Unit filename="../../src/gui/dialogs/simple_item_selector.cpp" />
 		<Unit filename="../../src/gui/dialogs/simple_item_selector.hpp" />
 		<Unit filename="../../src/gui/dialogs/sp_options_configure.cpp" />
@@ -1025,6 +1027,12 @@
 		<Unit filename="../../src/scripting/lua_unit_attacks.hpp" />
 		<Unit filename="../../src/scripting/lua_unit_type.cpp" />
 		<Unit filename="../../src/scripting/lua_unit_type.hpp" />
+		<Unit filename="../../src/scripting/lua_widget.cpp" />
+		<Unit filename="../../src/scripting/lua_widget.hpp" />
+		<Unit filename="../../src/scripting/lua_widget_attributes.cpp" />
+		<Unit filename="../../src/scripting/lua_widget_attributes.hpp" />
+		<Unit filename="../../src/scripting/lua_widget_methods.cpp" />
+		<Unit filename="../../src/scripting/lua_widget_methods.hpp" />
 		<Unit filename="../../src/scripting/lua_wml.cpp" />
 		<Unit filename="../../src/scripting/lua_wml.hpp" />
 		<Unit filename="../../src/scripting/mapgen_lua_kernel.cpp" />
@@ -1033,6 +1041,7 @@
 		<Unit filename="../../src/scripting/plugins/context.hpp" />
 		<Unit filename="../../src/scripting/plugins/manager.cpp" />
 		<Unit filename="../../src/scripting/plugins/manager.hpp" />
+		<Unit filename="../../src/scripting/push_check.hpp" />
 		<Unit filename="../../src/sdl/exception.cpp" />
 		<Unit filename="../../src/sdl/exception.hpp" />
 		<Unit filename="../../src/sdl/point.cpp" />
@@ -1160,6 +1169,8 @@
 		<Unit filename="../../src/units/make.hpp" />
 		<Unit filename="../../src/units/map.cpp" />
 		<Unit filename="../../src/units/map.hpp" />
+		<Unit filename="../../src/units/orb_status.cpp" />
+		<Unit filename="../../src/units/orb_status.hpp" />
 		<Unit filename="../../src/units/ptr.hpp" />
 		<Unit filename="../../src/units/race.cpp" />
 		<Unit filename="../../src/units/race.hpp" />
