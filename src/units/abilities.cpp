@@ -1190,6 +1190,7 @@ static bool get_ability_children(std::vector<special_match>& tag_result,
 
 bool attack_type::get_special_ability_bool(const std::string& special, bool special_id, bool special_tags) const
 {
+	std::set<std::string> excluded_tags{"heals", "regenerate", "skirmisher", "teleport", "hides"};
 	const unit_map& units = display::get_singleton()->get_units();
 
 	unit_const_ptr self = self_;
@@ -1239,7 +1240,7 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 		}
 		if(special_tags){
 			for(const special_match& entry : special_tag_matches) {
-				if(entry.tag_name !="heals" && entry.tag_name !="regenerate" && entry.tag_name !="skirmisher" && entry.tag_name !="teleport" && entry.tag_name !="hides"){
+				if(excluded_tags.count(entry.tag_name) == 0) {
 					abil_list.append((*self).get_abilities(entry.tag_name, self_loc_));
 					for(unit_ability_list::iterator i = abil_list.begin(); i != abil_list.end();) {
 						if(!special_active(*i->ability_cfg, AFFECT_SELF, entry.tag_name, true, "filter_student")) {
@@ -1253,7 +1254,7 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 		}
 		if(special_id){
 			for(const special_match& entry : special_id_matches) {
-				if(entry.tag_name !="heals" && entry.tag_name !="regenerate" && entry.tag_name !="skirmisher" && entry.tag_name !="teleport" && entry.tag_name !="hides"){
+				if(excluded_tags.count(entry.tag_name) == 0) {
 					abil_list_id.append((*self).get_abilities(entry.tag_name, self_loc_));
 					for(unit_ability_list::iterator i = abil_list_id.begin(); i != abil_list_id.end();) {
 						if(!special_active(*i->ability_cfg, AFFECT_SELF, entry.tag_name, true, "filter_student")) {
@@ -1291,7 +1292,7 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 
 		if(special_tags){
 			for(const special_match& entry : special_tag_matches) {
-				if(entry.tag_name !="heals" && entry.tag_name !="regenerate" && entry.tag_name !="skirmisher" && entry.tag_name !="teleport" && entry.tag_name !="hides"){
+				if(excluded_tags.count(entry.tag_name) == 0) {
 					abil_other_list.append((*other).get_abilities(entry.tag_name, other_loc_));
 					for(unit_ability_list::iterator i = abil_other_list.begin(); i != abil_other_list.end();) {
 						if(!special_active_impl(other_attack_, shared_from_this(), *i->ability_cfg, AFFECT_OTHER, entry.tag_name, true, "filter_student")) {
@@ -1306,7 +1307,7 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 
 		if(special_id){
 			for(const special_match& entry : special_id_matches) {
-				if(entry.tag_name !="heals" && entry.tag_name !="regenerate" && entry.tag_name !="skirmisher" && entry.tag_name !="teleport" && entry.tag_name !="hides"){
+				if(excluded_tags.count(entry.tag_name) == 0) {
 					abil_other_list_id.append((*other).get_abilities(entry.tag_name, other_loc_));
 					for(unit_ability_list::iterator i = abil_other_list_id.begin(); i != abil_other_list_id.end();) {
 						if(!special_active_impl(other_attack_, shared_from_this(), *i->ability_cfg, AFFECT_OTHER, entry.tag_name, true, "filter_student")) {
