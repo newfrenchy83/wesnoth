@@ -1169,6 +1169,7 @@ static bool get_ability_children(std::vector<special_match>& tag_result,
 bool attack_type::get_special_ability_bool(const std::string& special, bool special_id, bool special_tags) const
 {
 	std::set<std::string> excluded_tags{"heals", "regenerate", "skirmisher", "teleport", "hides"};
+	const unit_map& units = display::get_singleton()->get_units();
 	const map_location loc = self_ ? self_->get_location() : self_loc_;
 	unit_ability_list abil_list(loc);
 	unit_ability_list abil_list_id(loc);
