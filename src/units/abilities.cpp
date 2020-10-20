@@ -1111,7 +1111,6 @@ namespace { // Helpers for attack_type::special_active()
 
 unit_ability_list attack_type::list_ability(const std::string& ability) const
 {
-
 	const map_location loc = self_ ? self_->get_location() : self_loc_;
 	unit_ability_list abil_list(loc);
 	unit_ability_list abil_other_list(loc);
@@ -1170,7 +1169,6 @@ static bool get_ability_children(std::vector<special_match>& tag_result,
 bool attack_type::get_special_ability_bool(const std::string& special, bool special_id, bool special_tags) const
 {
 	std::set<std::string> excluded_tags{"heals", "regenerate", "skirmisher", "teleport", "hides"};
-
 	const map_location loc = self_ ? self_->get_location() : self_loc_;
 	unit_ability_list abil_list(loc);
 	unit_ability_list abil_list_id(loc);
