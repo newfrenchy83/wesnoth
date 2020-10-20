@@ -1111,33 +1111,12 @@ namespace { // Helpers for attack_type::special_active()
 
 unit_ability_list attack_type::list_ability(const std::string& ability) const
 {
-	const unit_map& units = display::get_singleton()->get_units();
-
-	unit_const_ptr self = self_;
-	unit_const_ptr other = other_;
-
-	if(self == nullptr) {
-		unit_map::const_iterator it = units.find(self_loc_);
-		if(it.valid()) {
-			self = it.get_shared_ptr();
-		}
-	}
-	if(other == nullptr) {
-		unit_map::const_iterator it = units.find(other_loc_);
-		if(it.valid()) {
-			other = it.get_shared_ptr();
-		}
-	}
-
-	// Make sure they're facing each other.
-	temporary_facing self_facing(self, self_loc_.get_relative_dir(other_loc_));
-	temporary_facing other_facing(other, other_loc_.get_relative_dir(self_loc_));
 
 	const map_location loc = self_ ? self_->get_location() : self_loc_;
 	unit_ability_list abil_list(loc);
 	unit_ability_list abil_other_list(loc);
-	if(self) {
-		abil_list.append((*self).get_abilities(ability, self_loc_));
+	if(self_) {
+		abil_list.append((*self_).get_abilities(ability, self_loc_));
 		for(unit_ability_list::iterator i = abil_list.begin(); i != abil_list.end();) {
 			if(!special_active(*i->ability_cfg, AFFECT_SELF, ability, true, "filter_student")) {
 				i = abil_list.erase(i);
@@ -1147,8 +1126,8 @@ unit_ability_list attack_type::list_ability(const std::string& ability) const
 		}
 	}
 
-	if(other) {
-		abil_other_list.append((*other).get_abilities(ability, other_loc_));
+	if(other_) {
+		abil_other_list.append((*other_).get_abilities(ability, other_loc_));
 		for(unit_ability_list::iterator i = abil_other_list.begin(); i != abil_other_list.end();) {
 			if(!special_active_impl(other_attack_, shared_from_this(), *i->ability_cfg, AFFECT_OTHER, ability, true, "filter_student")) {
 				i = abil_other_list.erase(i);
@@ -1191,37 +1170,17 @@ static bool get_ability_children(std::vector<special_match>& tag_result,
 bool attack_type::get_special_ability_bool(const std::string& special, bool special_id, bool special_tags) const
 {
 	std::set<std::string> excluded_tags{"heals", "regenerate", "skirmisher", "teleport", "hides"};
-	const unit_map& units = display::get_singleton()->get_units();
 
-	unit_const_ptr self = self_;
-	unit_const_ptr other = other_;
-
-	if(self == nullptr) {
-		unit_map::const_iterator it = units.find(self_loc_);
-		if(it.valid()) {
-			self = it.get_shared_ptr();
-		}
-	}
-	if(other == nullptr) {
-		unit_map::const_iterator it = units.find(other_loc_);
-		if(it.valid()) {
-			other = it.get_shared_ptr();
-		}
-	}
-
-	// Make sure they're facing each other.
-	temporary_facing self_facing(self, self_loc_.get_relative_dir(other_loc_));
-	temporary_facing other_facing(other, other_loc_.get_relative_dir(self_loc_));
 	const map_location loc = self_ ? self_->get_location() : self_loc_;
 	unit_ability_list abil_list(loc);
 	unit_ability_list abil_list_id(loc);
 	unit_ability_list abil_other_list(loc);
 	unit_ability_list abil_other_list_id(loc);
 	assert(display::get_singleton());
-	if(self){
+	if(self_){
 		std::vector<special_match> special_tag_matches;
 		std::vector<special_match> special_id_matches;
-		if(get_ability_children(special_tag_matches, special_id_matches, (*self).abilities(), special, special_id , special_tags)){
+		if(get_ability_children(special_tag_matches, special_id_matches, (*self_).abilities(), special, special_id , special_tags)){
 			return true;
 		}
 		
@@ -1231,7 +1190,7 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 			const unit_map::const_iterator it = units.find(adjacent[i]);
 			if (it == units.end() || it->incapacitated())
 				continue;
-			if ( &*it == self.get() )
+			if ( &*it == self_.get() )
 				continue;
 
 			if(get_ability_children(special_tag_matches, special_id_matches, it->abilities(), special, special_id , special_tags)){
@@ -1241,7 +1200,7 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 		if(special_tags){
 			for(const special_match& entry : special_tag_matches) {
 				if(excluded_tags.count(entry.tag_name) == 0) {
-					abil_list.append((*self).get_abilities(entry.tag_name, self_loc_));
+					abil_list.append((*self_).get_abilities(entry.tag_name, self_loc_));
 					for(unit_ability_list::iterator i = abil_list.begin(); i != abil_list.end();) {
 						if(!special_active(*i->ability_cfg, AFFECT_SELF, entry.tag_name, true, "filter_student")) {
 							i = abil_list.erase(i);
@@ -1255,7 +1214,7 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 		if(special_id){
 			for(const special_match& entry : special_id_matches) {
 				if(excluded_tags.count(entry.tag_name) == 0) {
-					abil_list_id.append((*self).get_abilities(entry.tag_name, self_loc_));
+					abil_list_id.append((*self_).get_abilities(entry.tag_name, self_loc_));
 					for(unit_ability_list::iterator i = abil_list_id.begin(); i != abil_list_id.end();) {
 						if(!special_active(*i->ability_cfg, AFFECT_SELF, entry.tag_name, true, "filter_student")) {
 							i = abil_list_id.erase(i);
@@ -1269,10 +1228,10 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 		abil_list.append(abil_list_id);
 	}
 
-	if(other){
+	if(other_){
 		std::vector<special_match> special_tag_matches;
 		std::vector<special_match> special_id_matches;
-		if(get_ability_children(special_tag_matches, special_id_matches, (*other).abilities(), special, special_id , special_tags)){
+		if(get_ability_children(special_tag_matches, special_id_matches, (*other_).abilities(), special, special_id , special_tags)){
 			return true;
 		}
 		
@@ -1282,7 +1241,7 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 			const unit_map::const_iterator it = units.find(adjacent[i]);
 			if (it == units.end() || it->incapacitated())
 				continue;
-			if ( &*it == other.get() )
+			if ( &*it == other_.get() )
 				continue;
 
 			if(get_ability_children(special_tag_matches, special_id_matches, it->abilities(), special, special_id , special_tags)){
@@ -1293,7 +1252,7 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 		if(special_tags){
 			for(const special_match& entry : special_tag_matches) {
 				if(excluded_tags.count(entry.tag_name) == 0) {
-					abil_other_list.append((*other).get_abilities(entry.tag_name, other_loc_));
+					abil_other_list.append((*other_).get_abilities(entry.tag_name, other_loc_));
 					for(unit_ability_list::iterator i = abil_other_list.begin(); i != abil_other_list.end();) {
 						if(!special_active_impl(other_attack_, shared_from_this(), *i->ability_cfg, AFFECT_OTHER, entry.tag_name, true, "filter_student")) {
 							i = abil_other_list.erase(i);
@@ -1308,7 +1267,7 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 		if(special_id){
 			for(const special_match& entry : special_id_matches) {
 				if(excluded_tags.count(entry.tag_name) == 0) {
-					abil_other_list_id.append((*other).get_abilities(entry.tag_name, other_loc_));
+					abil_other_list_id.append((*other_).get_abilities(entry.tag_name, other_loc_));
 					for(unit_ability_list::iterator i = abil_other_list_id.begin(); i != abil_other_list_id.end();) {
 						if(!special_active_impl(other_attack_, shared_from_this(), *i->ability_cfg, AFFECT_OTHER, entry.tag_name, true, "filter_student")) {
 							i = abil_other_list_id.erase(i);
