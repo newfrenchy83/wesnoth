@@ -1168,7 +1168,6 @@ static bool get_ability_children(std::vector<special_match>& tag_result,
 
 bool attack_type::get_special_ability_bool(const std::string& special, bool special_id, bool special_tags) const
 {
-	std::set<std::string> excluded_tags{"heals", "regenerate", "skirmisher", "teleport", "hides"};
 	const unit_map& units = display::get_singleton()->get_units();
 	const map_location loc = self_ ? self_->get_location() : self_loc_;
 	unit_ability_list abil_list(loc);
@@ -1198,30 +1197,12 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 		}
 		if(special_tags){
 			for(const special_match& entry : special_tag_matches) {
-				if(excluded_tags.count(entry.tag_name) == 0) {
-					abil_list.append((*self_).get_abilities(entry.tag_name, self_loc_));
-					for(unit_ability_list::iterator i = abil_list.begin(); i != abil_list.end();) {
-						if(!special_active(*i->ability_cfg, AFFECT_SELF, entry.tag_name, true, "filter_student")) {
-							i = abil_list.erase(i);
-						} else {
-							++i;
-						}
-					}
-				}
+				abil_list = check_abilities(entry.tag_name);
 			}
 		}
 		if(special_id){
 			for(const special_match& entry : special_id_matches) {
-				if(excluded_tags.count(entry.tag_name) == 0) {
-					abil_list_id.append((*self_).get_abilities(entry.tag_name, self_loc_));
-					for(unit_ability_list::iterator i = abil_list_id.begin(); i != abil_list_id.end();) {
-						if(!special_active(*i->ability_cfg, AFFECT_SELF, entry.tag_name, true, "filter_student")) {
-							i = abil_list_id.erase(i);
-						} else {
-							++i;
-						}
-					}
-				}
+				abil_list_id = check_abilities(entry.tag_name);
 			}
 		}
 		abil_list.append(abil_list_id);
@@ -1250,31 +1231,13 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 
 		if(special_tags){
 			for(const special_match& entry : special_tag_matches) {
-				if(excluded_tags.count(entry.tag_name) == 0) {
-					abil_other_list.append((*other_).get_abilities(entry.tag_name, other_loc_));
-					for(unit_ability_list::iterator i = abil_other_list.begin(); i != abil_other_list.end();) {
-						if(!special_active_impl(other_attack_, shared_from_this(), *i->ability_cfg, AFFECT_OTHER, entry.tag_name, true, "filter_student")) {
-							i = abil_other_list.erase(i);
-						} else {
-							++i;
-						}
-					}
-				}
+				abil_other_list = impl_check_abilities(entry.tag_name, other_, other_loc_, other_attack_, shared_from_this(), AFFECT_OTHER);
 			}
 		}
 
 		if(special_id){
 			for(const special_match& entry : special_id_matches) {
-				if(excluded_tags.count(entry.tag_name) == 0) {
-					abil_other_list_id.append((*other_).get_abilities(entry.tag_name, other_loc_));
-					for(unit_ability_list::iterator i = abil_other_list_id.begin(); i != abil_other_list_id.end();) {
-						if(!special_active_impl(other_attack_, shared_from_this(), *i->ability_cfg, AFFECT_OTHER, entry.tag_name, true, "filter_student")) {
-							i = abil_other_list_id.erase(i);
-						} else {
-							++i;
-						}
-					}
-				}
+				abil_other_list_id = impl_check_abilities(entry.tag_name, other_, other_loc_, other_attack_, shared_from_this(), AFFECT_OTHER);
 			}
 		}
 		abil_other_list.append(abil_other_list_id);
@@ -1284,6 +1247,28 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 		return true;
 	}
 	return false;
+}
+
+unit_ability_list attack_type::check_abilities(const std::string& special) const
+{
+	return impl_check_abilities(special, self_, self_loc_, shared_from_this(), other_attack_, AFFECT_SELF);
+}
+
+unit_ability_list attack_type::impl_check_abilities(const std::string& special, unit_const_ptr u, const map_location& u_loc, const_attack_ptr weapon, const_attack_ptr other_weapon, AFFECTS whom)
+{
+	static std::set<std::string> excluded_tags{"heals", "regenerate", "skirmisher", "teleport", "hides"};
+	unit_ability_list abil_list(u_loc);
+	if(excluded_tags.count(special) == 0){
+		abil_list.append((*u).get_abilities(special, u_loc));
+		for(unit_ability_list::iterator i = abil_list.begin(); i != abil_list.end();) {
+			if(!special_active_impl(weapon, other_weapon, *i->ability_cfg, whom, special, true, "filter_student")) {
+				i = abil_list.erase(i);
+			} else {
+				++i;
+			}
+		}
+	}
+	return abil_list;
 }
 
 bool attack_type::bool_ability(const std::string& ability, bool simple_check, bool special_id, bool special_tags) const
