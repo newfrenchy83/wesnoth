@@ -182,7 +182,7 @@ static bool matches_simple_filter(const attack_type & attack, const config & fil
 	if(!filter_special_id_active.empty()) {
 		bool found = false;
 		for(auto& special : filter_special_id_active) {
-			if(attack.get_special_bool(special, false, true, false)) {
+			if(attack.bool_ability(special, false, true, false)) {
 				found = true;
 				break;
 			}
@@ -218,7 +218,7 @@ static bool matches_simple_filter(const attack_type & attack, const config & fil
 	if(!filter_special_type_active.empty()) {
 		bool found = false;
 		for(auto& special : filter_special_type_active) {
-			if(attack.get_special_bool(special, false, false)) {
+			if(attack.bool_ability(special, false, false)) {
 				found = true;
 				break;
 			}
