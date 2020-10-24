@@ -1256,7 +1256,7 @@ unit_ability_list attack_type::check_abilities(const std::string& special) const
 
 unit_ability_list attack_type::impl_check_abilities(const std::string& special, unit_const_ptr u, const map_location& u_loc, const_attack_ptr weapon, const_attack_ptr other_weapon, AFFECTS whom)
 {
-	std::set<std::string> excluded_tags{"heals", "regenerate", "skirmisher", "teleport", "hides"};
+	static std::set<std::string> excluded_tags{"heals", "regenerate", "skirmisher", "teleport", "hides"};
 	unit_ability_list abil_list(u_loc);
 	if(excluded_tags.count(special) == 0){
 		abil_list.append((*u).get_abilities(special, u_loc));
