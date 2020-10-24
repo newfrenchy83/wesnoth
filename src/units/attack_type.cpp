@@ -112,8 +112,8 @@ static bool matches_simple_filter(const attack_type & attack, const config & fil
 	const std::vector<std::string> filter_special_active = utils::split(filter["special_active"]);
 	const std::vector<std::string> filter_special_id_active = utils::split(filter["special_id_active"]);
 	const std::vector<std::string> filter_special_type_active = utils::split(filter["special_type_active"]);
-	const std::vector<std::string> filter_ability_id_active = utils::split(filter["wp_ability_id_active"]);
-	const std::vector<std::string> filter_ability_type_active = utils::split(filter["wp_ability_type_active"]);
+	bool filter_ability_only = filter["ability_only"].to_bool(false);
+	bool filter_special_only = filter["special_only"].to_bool(false);
 	const std::string filter_formula = filter["formula"];
 
 	if ( !filter_range.empty() && std::find(filter_range.begin(), filter_range.end(), attack.range()) == filter_range.end() )
@@ -182,21 +182,27 @@ static bool matches_simple_filter(const attack_type & attack, const config & fil
 	if(!filter_special_id_active.empty()) {
 		bool found = false;
 		for(auto& special : filter_special_id_active) {
-			if(attack.get_special_bool(special, false, true, false)) {
-				found = true;
-				break;
+			if(filter_ability_only && filter_special_only){
+				filter_ability_only = false;
+				filter_special_only =false;
 			}
-		}
-		if(!found) {
-			return false;
-		}
-	}
-	if(!filter_ability_id_active.empty()) {
-		bool found = false;
-		for(auto& special : filter_ability_id_active) {
-			if(attack.get_special_ability_bool(special, true, false)) {
-				found = true;
-				break;
+			if(!filter_ability_only && filter_special_only){
+				if(attack.get_special_bool(special, false, true, false)) {
+					found = true;
+					break;
+				}
+			}
+			if(filter_ability_only && !filter_special_only){
+				if(attack.get_special_ability_bool(special, true, false)) {
+					found = true;
+					break;
+				}
+			}
+			if(!filter_ability_only && !filter_special_only){
+				if(attack.bool_ability(special, false, true, false)) {
+					found = true;
+					break;
+				}
 			}
 		}
 		if(!found) {
@@ -218,21 +224,27 @@ static bool matches_simple_filter(const attack_type & attack, const config & fil
 	if(!filter_special_type_active.empty()) {
 		bool found = false;
 		for(auto& special : filter_special_type_active) {
-			if(attack.get_special_bool(special, false, false)) {
-				found = true;
-				break;
+			if(filter_ability_only && filter_special_only){
+				filter_ability_only = false;
+				filter_special_only =false;
 			}
-		}
-		if(!found) {
-			return false;
-		}
-	}
-	if(!filter_ability_type_active.empty()) {
-		bool found = false;
-		for(auto& special : filter_ability_type_active) {
-			if(attack.get_special_ability_bool(special, false)) {
-				found = true;
-				break;
+			if(!filter_ability_only && filter_special_only){
+				if(attack.get_special_bool(special, false, false)) {
+					found = true;
+					break;
+				}
+			}
+			if(filter_ability_only && !filter_special_only){
+				if(attack.get_special_ability_bool(special, false)) {
+					found = true;
+					break;
+				}
+			}
+			if(!filter_ability_only && !filter_special_only){
+				if(attack.bool_ability(special, false, false)) {
+					found = true;
+					break;
+				}
 			}
 		}
 		if(!found) {
