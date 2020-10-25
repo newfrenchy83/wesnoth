@@ -92,6 +92,29 @@ std::string attack_type::accuracy_parry_description() const
 	return s.str();
 }
 
+static bool exclude_abilities(const config& filter)
+{
+	const std::string& exclude_tags = filter["exclude_tags"];
+	if ( exclude_tags.empty() )
+		return false;
+	if ( exclude_tags == "none" )
+		return false;
+	if ( exclude_tags == "abilities" )
+		return true;
+	return false;
+}
+
+static bool exclude_special(const config& filter)
+{
+	const std::string& exclude_tags = filter["exclude_tags"];
+	if ( exclude_tags.empty() )
+		return false;
+	if ( exclude_tags == "none" )
+		return false;
+	if ( exclude_tags == "specials" )
+		return true;
+	return false;
+}
 /**
  * Returns whether or not *this matches the given @a filter, ignoring the
  * complexities introduced by [and], [or], and [not].
@@ -112,8 +135,8 @@ static bool matches_simple_filter(const attack_type & attack, const config & fil
 	const std::vector<std::string> filter_special_active = utils::split(filter["special_active"]);
 	const std::vector<std::string> filter_special_id_active = utils::split(filter["special_id_active"]);
 	const std::vector<std::string> filter_special_type_active = utils::split(filter["special_type_active"]);
-	bool filter_ability_only = filter["ability_only"].to_bool(false);
-	bool filter_special_only = filter["special_only"].to_bool(false);
+	bool filter_ability_only = exclude_abilities(filter);
+	bool filter_special_only = exclude_special(filter);
 	const std::string filter_formula = filter["formula"];
 
 	if ( !filter_range.empty() && std::find(filter_range.begin(), filter_range.end(), attack.range()) == filter_range.end() )
