@@ -182,27 +182,9 @@ static bool matches_simple_filter(const attack_type & attack, const config & fil
 	if(!filter_special_id_active.empty()) {
 		bool found = false;
 		for(auto& special : filter_special_id_active) {
-			if(filter_ability_only && filter_special_only){
-				filter_ability_only = false;
-				filter_special_only =false;
-			}
-			if(!filter_ability_only && filter_special_only){
-				if(attack.get_special_bool(special, false, true, false)) {
-					found = true;
-					break;
-				}
-			}
-			if(filter_ability_only && !filter_special_only){
-				if(attack.get_special_ability_bool(special, true, false)) {
-					found = true;
-					break;
-				}
-			}
-			if(!filter_ability_only && !filter_special_only){
-				if(attack.bool_ability(special, false, true, false)) {
-					found = true;
-					break;
-				}
+			if(attack.bool_ability(special, false, true, false, filter_ability_only, filter_special_only)) {
+				found = true;
+				break;
 			}
 		}
 		if(!found) {
@@ -224,27 +206,9 @@ static bool matches_simple_filter(const attack_type & attack, const config & fil
 	if(!filter_special_type_active.empty()) {
 		bool found = false;
 		for(auto& special : filter_special_type_active) {
-			if(filter_ability_only && filter_special_only){
-				filter_ability_only = false;
-				filter_special_only =false;
-			}
-			if(!filter_ability_only && filter_special_only){
-				if(attack.get_special_bool(special, false, false)) {
-					found = true;
-					break;
-				}
-			}
-			if(filter_ability_only && !filter_special_only){
-				if(attack.get_special_ability_bool(special, false)) {
-					found = true;
-					break;
-				}
-			}
-			if(!filter_ability_only && !filter_special_only){
-				if(attack.bool_ability(special, false, false)) {
-					found = true;
-					break;
-				}
+			if(attack.bool_ability(special, false, false, true, filter_ability_only, filter_special_only)) {
+				found = true;
+				break;
 			}
 		}
 		if(!found) {
