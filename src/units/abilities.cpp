@@ -1271,7 +1271,7 @@ unit_ability_list attack_type::impl_check_abilities(const std::string& special, 
 	return abil_list;
 }
 
-bool attack_type::bool_ability(const std::string& ability, bool simple_check, bool special_id, bool special_tags, bool ability_only, bool special_only) const
+bool attack_type::bool_ability(const std::string& ability, bool simple_check, bool special_id, bool special_tags) const
 {
 	return (get_special_bool(name, simple_check, special_id, special_tags) || get_special_ability_bool(name, special_id, special_tags));
 }
