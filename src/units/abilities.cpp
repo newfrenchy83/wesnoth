@@ -1146,14 +1146,134 @@ unit_ability_list attack_type::get_special_ability(const std::string& ability) c
 	return abil_list;
 }
 
-bool attack_type::bool_ability(const std::string& ability) const
+static bool get_ability_children(std::vector<special_match>& tag_result,
+	                           std::vector<special_match>& id_result,
+	                           const config& parent, const std::string& id,
+	                           bool special_id=true, bool special_tags=true) {
+		if(special_id && special_tags){
+			if ( get_special_children(tag_result, id_result, parent, id) ) {
+				return true;
+			}
+		} else if(special_id && !special_tags){
+			if ( get_special_children_id(id_result, parent, id) ) {
+				return true;
+			}
+		} else if(!special_id && special_tags){
+			if ( get_special_children_tags(tag_result, parent, id) ) {
+				return true;
+			}
+		}
+		return false;
+}
+
+bool attack_type::get_special_ability_bool(const std::string& special, bool special_id, bool special_tags) const
 {
-	bool abil_bool = get_special_bool(ability);
-	unit_ability_list abil = list_ability(ability);
-	if(!abil.empty()) {
-		abil_bool = true;
+	const unit_map& units = display::get_singleton()->get_units();
+	const map_location loc = self_ ? self_->get_location() : self_loc_;
+	unit_ability_list abil_list(loc);
+	unit_ability_list abil_list_id(loc);
+	unit_ability_list abil_other_list(loc);
+	unit_ability_list abil_other_list_id(loc);
+	assert(display::get_singleton());
+	if(self_){
+		std::vector<special_match> special_tag_matches;
+		std::vector<special_match> special_id_matches;
+		if(get_ability_children(special_tag_matches, special_id_matches, (*self_).abilities(), special, special_id , special_tags)){
+			return true;
+		}
+		
+		adjacent_loc_array_t adjacent;
+		get_adjacent_tiles(self_loc_,adjacent.data());
+		for(unsigned i = 0; i < adjacent.size(); ++i) {
+			const unit_map::const_iterator it = units.find(adjacent[i]);
+			if (it == units.end() || it->incapacitated())
+				continue;
+			if ( &*it == self_.get() )
+				continue;
+
+			if(get_ability_children(special_tag_matches, special_id_matches, it->abilities(), special, special_id , special_tags)){
+				return true;
+			}
+		}
+		if(special_tags){
+			for(const special_match& entry : special_tag_matches) {
+				abil_list = check_abilities(entry.tag_name);
+			}
+		}
+		if(special_id){
+			for(const special_match& entry : special_id_matches) {
+				abil_list_id = check_abilities(entry.tag_name);
+			}
+		}
+		abil_list.append(abil_list_id);
 	}
-	return abil_bool;
+
+	if(other_){
+		std::vector<special_match> special_tag_matches;
+		std::vector<special_match> special_id_matches;
+		if(get_ability_children(special_tag_matches, special_id_matches, (*other_).abilities(), special, special_id , special_tags)){
+			return true;
+		}
+		
+		adjacent_loc_array_t adjacent;
+		get_adjacent_tiles(other_loc_,adjacent.data());
+		for(unsigned i = 0; i < adjacent.size(); ++i) {
+			const unit_map::const_iterator it = units.find(adjacent[i]);
+			if (it == units.end() || it->incapacitated())
+				continue;
+			if ( &*it == other_.get() )
+				continue;
+
+			if(get_ability_children(special_tag_matches, special_id_matches, it->abilities(), special, special_id , special_tags)){
+				return true;
+			}
+		}
+
+		if(special_tags){
+			for(const special_match& entry : special_tag_matches) {
+				abil_other_list = impl_check_abilities(entry.tag_name, other_, other_loc_, other_attack_, shared_from_this(), AFFECT_OTHER);
+			}
+		}
+
+		if(special_id){
+			for(const special_match& entry : special_id_matches) {
+				abil_other_list_id = impl_check_abilities(entry.tag_name, other_, other_loc_, other_attack_, shared_from_this(), AFFECT_OTHER);
+			}
+		}
+		abil_other_list.append(abil_other_list_id);
+	}
+	abil_list.append(abil_other_list);
+	if(!abil_list.empty()){
+		return true;
+	}
+	return false;
+}
+
+unit_ability_list attack_type::check_abilities(const std::string& special) const
+{
+	return impl_check_abilities(special, self_, self_loc_, shared_from_this(), other_attack_, AFFECT_SELF);
+}
+
+unit_ability_list attack_type::impl_check_abilities(const std::string& special, unit_const_ptr u, const map_location& u_loc, const_attack_ptr weapon, const_attack_ptr other_weapon, AFFECTS whom)
+{
+	static std::set<std::string> excluded_tags{"heals", "regenerate", "skirmisher", "teleport", "hides"};
+	unit_ability_list abil_list(u_loc);
+	if(excluded_tags.count(special) == 0){
+		abil_list.append((*u).get_abilities(special, u_loc));
+		for(unit_ability_list::iterator i = abil_list.begin(); i != abil_list.end();) {
+			if(!special_active_impl(weapon, other_weapon, *i->ability_cfg, whom, special, true, "filter_student")) {
+				i = abil_list.erase(i);
+			} else {
+				++i;
+			}
+		}
+	}
+	return abil_list;
+}
+
+bool attack_type::bool_ability(const std::string& ability, bool simple_check, bool special_id, bool special_tags) const
+{
+	return (get_special_bool(name, simple_check, special_id, special_tags) || get_special_ability_bool(name, special_id, special_tags));
 }
 //end of emulate weapon special functions.
 
