@@ -219,10 +219,10 @@ static bool matches_simple_filter(const attack_type & attack, const config & fil
 	if(!filter_special_id_active.empty()) {
 		bool found = false;
 		for(auto& special : filter_special_id_active) {
-      if(attack.bool_ability(special, false, true, false)) {
-        found = true;
-        break;
-      }
+			if(attack.bool_ability(special, false, true, false)) {
+				found = true;
+				break;
+			}
 		}
 		if(!found) {
 			return false;
@@ -243,9 +243,9 @@ static bool matches_simple_filter(const attack_type & attack, const config & fil
 	if(!filter_abilities_id_active.empty()) {
 		bool found = false;
 		for(auto& special : filter_abilities_id_active) {
-      if(attack.get_special_ability_bool(special, true, false)) {
-        found = true;
-        break;
+			if(attack.get_special_ability_bool(special, true, false)) {
+				found = true;
+				break;
 			}
 		}
 		if(!found) {
@@ -267,10 +267,10 @@ static bool matches_simple_filter(const attack_type & attack, const config & fil
 	if(!filter_special_type_active.empty()) {
 		bool found = false;
 		for(auto& special : filter_special_type_active) {
-      if(attack.bool_ability(special, false, false)) {
-        found = true;
+			if(attack.bool_ability(special, false, false)) {
+				found = true;
 				break;
-      }
+			}
 		}
 		if(!found) {
 			return false;
@@ -279,10 +279,10 @@ static bool matches_simple_filter(const attack_type & attack, const config & fil
 	if(!filter_specials_type_active.empty()) {
 		bool found = false;
 		for(auto& special : filter_specials_type_active) {
-      if(attack.get_special_bool(special, false, false)) {
-        found = true;
+			if(attack.get_special_bool(special, false, false)) {
+				found = true;
 				break;
-      }
+			}
 		}
 		if(!found) {
 			return false;
@@ -291,10 +291,10 @@ static bool matches_simple_filter(const attack_type & attack, const config & fil
 	if(!filter_abilities_type_active.empty()) {
 		bool found = false;
 		for(auto& special : filter_abilities_type_active) {
-      if(attack.get_special_ability_bool(special, false)) {
-        found = true;
+			if(attack.get_special_ability_bool(special, false)) {
+				found = true;
 				break;
-      }
+			}
 		}
 		if(!found) {
 			return false;
