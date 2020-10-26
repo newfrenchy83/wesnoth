@@ -144,12 +144,12 @@ static bool matches_simple_filter(const attack_type & attack, const config & fil
 	const config & filter_specials = filter.child("filter_specials");
 	const config & filter_abilities = filter.child("filter_abilities");
 	if ( filter_specials ){
-	const std::vector<std::string> filter_specials_id_active = utils::split(filter_specials["special_id_active"]);
-	const std::vector<std::string> filter_specials_type_active = utils::split(filter_specials["special_type_active"]);
+		const std::vector<std::string> filter_specials_id_active = utils::split(filter_specials["special_id_active"]);
+		const std::vector<std::string> filter_specials_type_active = utils::split(filter_specials["special_type_active"]);
 	}
 	if ( filter_abilities ){
-	const std::vector<std::string> filter_abilities_id_active = utils::split(filter_abilities["special_id_active"]);
-	const std::vector<std::string> filter_abilities_type_active = utils::split(filter_abilities["special_type_active"]);
+		const std::vector<std::string> filter_abilities_id_active = utils::split(filter_abilities["special_id_active"]);
+		const std::vector<std::string> filter_abilities_type_active = utils::split(filter_abilities["special_type_active"]);
 	}
 	const std::string filter_formula = filter["formula"];
 
