@@ -92,6 +92,31 @@ std::string attack_type::accuracy_parry_description() const
 	return s.str();
 }
 
+namespace {
+	bool exclude_abilities(const config& filter)
+	{
+		const std::string& exclude_tags = filter["exclude_tags"];
+		if ( exclude_tags.empty() )
+			return false;
+		if ( exclude_tags == "none" )
+			return false;
+		if ( exclude_tags == "abilities" )
+			return true;
+		return false;
+	}
+
+	bool exclude_special(const config& filter)
+	{
+		const std::string& exclude_tags = filter["exclude_tags"];
+		if ( exclude_tags.empty() )
+			return false;
+		if ( exclude_tags == "none" )
+			return false;
+		if ( exclude_tags == "specials" )
+			return true;
+		return false;
+	}
+}
 /**
  * Returns whether or not *this matches the given @a filter, ignoring the
  * complexities introduced by [and], [or], and [not].
@@ -194,10 +219,10 @@ static bool matches_simple_filter(const attack_type & attack, const config & fil
 	if(!filter_special_id_active.empty()) {
 		bool found = false;
 		for(auto& special : filter_special_id_active) {
-            if(attack.bool_ability(special, false, true, false)) {
-  				found = true;
-				break;
-            }
+      if(attack.bool_ability(special, false, true, false)) {
+        found = true;
+        break;
+      }
 		}
 		if(!found) {
 			return false;
@@ -218,9 +243,9 @@ static bool matches_simple_filter(const attack_type & attack, const config & fil
 	if(!filter_abilities_id_active.empty()) {
 		bool found = false;
 		for(auto& special : filter_abilities_id_active) {
-			if(attack.get_special_ability_bool(special, true, false)) {
-  				found = true;
-				break;
+      if(attack.get_special_ability_bool(special, true, false)) {
+        found = true;
+        break;
 			}
 		}
 		if(!found) {
@@ -242,10 +267,10 @@ static bool matches_simple_filter(const attack_type & attack, const config & fil
 	if(!filter_special_type_active.empty()) {
 		bool found = false;
 		for(auto& special : filter_special_type_active) {
-		    if(attack.bool_ability(special, false, false)) {
-				found = true;
+      if(attack.bool_ability(special, false, false)) {
+        found = true;
 				break;
-		    }
+      }
 		}
 		if(!found) {
 			return false;
@@ -254,10 +279,10 @@ static bool matches_simple_filter(const attack_type & attack, const config & fil
 	if(!filter_specials_type_active.empty()) {
 		bool found = false;
 		for(auto& special : filter_specials_type_active) {
-		    if(attack.get_special_bool(special, false, false)) {
-				found = true;
+      if(attack.get_special_bool(special, false, false)) {
+        found = true;
 				break;
-		    }
+      }
 		}
 		if(!found) {
 			return false;
@@ -266,10 +291,10 @@ static bool matches_simple_filter(const attack_type & attack, const config & fil
 	if(!filter_abilities_type_active.empty()) {
 		bool found = false;
 		for(auto& special : filter_abilities_type_active) {
-		    if(attack.get_special_ability_bool(special, false)) {
-				found = true;
+      if(attack.get_special_ability_bool(special, false)) {
+        found = true;
 				break;
-		    }
+      }
 		}
 		if(!found) {
 			return false;
