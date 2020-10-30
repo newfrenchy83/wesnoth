@@ -647,7 +647,7 @@ void unit_attack(display * disp, game_board & board,
 
 	unit_animator animator;
 
-	animator.add_animation(&attacker, "attack", att->get_location(), def->get_location(), damage, true, text_2,
+	animator.add_animation(attacker.shared_from_this(), "attack", att->get_location(), def->get_location(), damage, true, text_2,
 		(drain_amount >= 0) ? color_t(0, 255, 0) : color_t(255, 0, 0), hit_type, weapon,
 		secondary_attack, swing);
 
