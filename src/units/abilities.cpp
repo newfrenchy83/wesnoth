@@ -1271,9 +1271,9 @@ unit_ability_list attack_type::impl_check_abilities(const std::string& special, 
 	return abil_list;
 }
 
-bool attack_type::bool_ability(const std::string& ability, bool simple_check, bool special_id, bool special_tags) const
+bool attack_type::bool_ability(const std::string& special, bool simple_check, bool special_id, bool special_tags) const
 {
-	return (get_special_bool(ability, simple_check, special_id, special_tags) || get_special_ability_bool(ability, special_id, special_tags));
+	return (get_special_bool(special, simple_check, special_id, special_tags) || get_special_ability_bool(special, special_id, special_tags));
 }
 //end of emulate weapon special functions.
 
