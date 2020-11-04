@@ -1185,7 +1185,7 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 				continue;
 			if ( &*it == self_.get() )
 				continue;
-			
+
 			if(get_ability_children(special_tag_matches, special_id_matches, it->abilities(), special, special_id , special_tags)){
 				return true;
 			}
