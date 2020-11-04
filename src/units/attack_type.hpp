@@ -114,9 +114,9 @@ private:
 	bool special_active(const config& special, AFFECTS whom, const std::string& tag_name,
 	                    bool include_backstab=true, const std::string& filter_self ="filter_self") const;
 	
-	unit_ability_list check_abilities(const std::string& special) const;
+	bool check_abilities(const std::string& special) const;
 
-	static unit_ability_list impl_check_abilities(
+	static bool impl_check_abilities(
 		const std::string& special,
 		unit_const_ptr u,
 		const map_location& u_loc,
