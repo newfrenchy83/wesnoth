@@ -1,25 +1,67 @@
-## Version 1.15.6+dev
+## Version 1.15.7+dev
+ ### Add-ons server
+   * Fixed inability to write files (including the server configuration file) on Windows.
+   * Dropped plain text passphrase migration, unused in production since version 1.12.7 and 1.13.0 (issue #5080).
  ### Campaigns
-   * Secrets of the Ancients:
-     * Revisions to Bone Captain
-     * Scenario 2 uses new Iron Fence terrain, in preparation for potential map revisions.
-   * Sceptre of Fire:
-     * Some revisions/bugfixes to Scenario 9 "Caverns of Flame"
- ### Language and i18n
-   * Updated translations: British English, Polish, Portuguese (Brazil) 
- ### Lua API
  ### Multiplayer
-   * During allies' turns, use orb colors to show which ones can still move (issue #1424). Also enabled for allied AI sides in singleplayer.
+   * Added `/roll N` command to multiplayer games and game lobbies which produces a publicly visible random integer number ranged from 1 to N inclusively (issue #5221, PR #5326).
  ### Terrain
-   * New barrier terrain:  Iron Fence (`^Eqf`) - similar layout to the existing wooden fence
+ ### Translations
+   * Updated translations: British English, Czech, Polish, Russian
  ### Units
+   * Undead variations for Falcon, Giant Rat, serpents, and Gorer/Tusklet
  ### User interface
  ### WML Engine
    * Extent special_id_active and special_type_active to abilities used like weapon.
    * abilities used like weapon can call [leading_anim] now.
  ### Miscellaneous and Bug Fixes
+   * Fixed several possible crashes in wmllint
+
+## Version 1.15.7
+ ### Add-ons server
+   * Added basic command line options.
+   * Add-on validation status responses can now be translated by the client.
+   * Fixed an issue where incremental downloads would always transmit a delta for updating from the very earliest available version of an add-on to the very latest, instead of using the current and target versions specified by the client.
+   * Incremental downloads are no longer allowed to cheat the download counts.
+ ### Add-ons client
+   * It is now possible to install previous versions of an add-on if present and not expired on the server.
+ ### Campaigns
+   * A Tale of Two Brothers:
+     * S02: Changed the antagonists' motive and dialogue to sound more believable
+   * Secrets of the Ancients:
+     * Revisions to Bone Captain
+     * Scenario 2 uses new Iron Fence terrain, in preparation for potential map revisions.
+     * While the two leaders are separated, only the currently active one learns new zombie types.
+   * Sceptre of Fire:
+     * Scenario 2p5: increased the turn limit by 1 and enhanced victory filter conditions
+     * Scenario 4: fixed a bug that prevented resources from spawning and added some small flavor adjustments
+     * Some revisions/bugfixes to Scenario 9 "Caverns of Flame"
+ ### Multiplayer
+   * During allies' turns, use orb colors to show which ones can still move (issue #1424). Also enabled for allied AI sides in singleplayer.
+ ### Terrain
+   * New barrier terrain:  Iron Fence (`^Eqf`) - similar layout to the existing wooden fence
+ ### Translations
+   * Updated translations: British English, Catalan, Polish, Portuguese (Brazil)
+ ### Units
+   * Decreased Icemonax's advancement XP requirement from 26 to 25 to match other dead-end L0 units.
+   * Portrait and animation graphics for some of the new Wesnoth Fauna
+   * Balancing:
+     * Dune Rider xp changed from 42 to 47.
+     * Sunderer line defense on hills changed from 60% to 50%.
+     * Scorcher gold cost changed from 23 to 25.
+     * Dragoon gold cost changed from 27 to 28.
+     * Elvish Rider gold cost changed from 32 to 28.
+ ### User interface
+   * Added the installable/upgradable version selection to the add-ons manager via a dropdown list
+   * Fixed formatting of hyperlinks when the same URL appears more than once in a block of text
+ ### Miscellaneous and Bug Fixes
    * Fixed a rare issue on Windows that could result in wesnoth.exe sticking around waiting for console input after encountering an error despite not being launched with the `--wconsole` option.
+   * Fixed a potential crash when drawing many images on the story screens.
+   * Fixed the schema's list of attributes supported by IntroWML.
+   * Fixed and renamed IntroWML's `[image]resize_with_background=yes` to keep images proportional to the background.
    * Fixed precise log timestamps missing a space between the timestamp and the log severity label.
+   * Improve the in-game help's topic about orbs, add crowns and ellipses.
+   * Removed documentation for network proxy-related command line options previously removed in version 1.13.1 along with libana.
 
 ## Version 1.15.6
  ### Add-ons client
@@ -102,17 +144,14 @@
  ### Language and i18n
    * Updated translations: British English, Catalan, Chinese (Simplified), Esperanto,
      French, Hungarian, Polish, Portuguese (Brazil), Russian, Spanish, Turkish
- ### Lua API
  ### Multiplayer
    * A New Land:
      * Peasants can harvest mushrooms (a bug introduced in 1.15.4 was noticed and fixed in PR #5137)
  ### Terrain
    * Made single-hex mushrooms smaller (PR #5136)
- ### Units
  ### User interface
    * Help browser: fix inconsistent behavior for single-clicks opening and closing sections (PR #5110)
    * Added `[race]help_taxonomy=`, creating links between the per-race topic pages.
- ### WML engine
  ### Miscellaneous and bug fixes
    * Minimum required version of OS X is now OS X 10.11 .
    * The "loyal" trait is now displayed in the help browser, even though no normal unit has it.

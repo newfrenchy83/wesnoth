@@ -15,6 +15,7 @@
 
 #include "addon/validation.hpp"
 #include "config.hpp"
+#include "gettext.hpp"
 #include "serialization/unicode_cast.hpp"
 #include "hash.hpp"
 
@@ -25,46 +26,47 @@
 
 const unsigned short default_campaignd_port = 15015;
 
-namespace {
-	const std::array<std::string, ADDON_TYPES_COUNT> addon_type_strings {{
-		"unknown", "core", "campaign", "scenario", "campaign_sp_mp", "campaign_mp",
-		"scenario_mp", "map_pack", "era", "faction", "mod_mp", /*"gui", */ "media",
-		"other"
-	}};
+namespace
+{
 
-	// Reserved DOS device names on Windows XP and later.
-	const std::set<std::string> dos_device_names = {
-		"NUL", "CON", "AUX", "PRN",
-		// Console API devices
-		"CONIN$", "CONOUT$",
-		// Configuration-dependent devices
-		"COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
-		"LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9",
-	};
+const std::array<std::string, ADDON_TYPES_COUNT> addon_type_strings {{
+	"unknown", "core", "campaign", "scenario", "campaign_sp_mp", "campaign_mp",
+	"scenario_mp", "map_pack", "era", "faction", "mod_mp", /*"gui", */ "media",
+	"other"
+}};
 
-	struct addon_name_char_illegal
+// Reserved DOS device names on Windows XP and later.
+const std::set<std::string> dos_device_names = {
+	"NUL", "CON", "AUX", "PRN",
+	// Console API devices
+	"CONIN$", "CONOUT$",
+	// Configuration-dependent devices
+	"COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
+	"LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9",
+};
+
+struct addon_name_char_illegal
+{
+	/**
+	 * Returns whether the given add-on name char is not whitelisted.
+	 */
+	inline bool operator()(char c) const
 	{
-		/**
-		 * Returns whether the given add-on name char is not whitelisted.
-		 */
-		inline bool operator()(char c) const
-		{
-			switch(c)
-			{
-				case '-':		// hyphen-minus
-				case '_':		// low line
+		switch(c) {
+			case '-':		// hyphen-minus
+			case '_':		// low line
 				return false;
-				default:
-					return !isalnum(c);
-			}
+			default:
+				return !isalnum(c);
 		}
-	};
+	}
+};
 
-	struct addon_filename_ucs4char_illegal
+struct addon_filename_ucs4char_illegal
+{
+	inline bool operator()(char32_t c) const
 	{
-		inline bool operator()(char32_t c) const
-		{
-			switch(c){
+		switch(c) {
 			case ' ':
 			case '"':
 			case '*':
@@ -84,10 +86,11 @@ namespace {
 					(c >= 0x80 && c < 0xA0) ||  // C1 control characters
 					(c >= 0xD800 && c < 0xE000) // surrogate pairs
 				);
-			}
 		}
-	};
-}
+	}
+};
+
+} // end unnamed namespace
 
 bool addon_name_legal(const std::string& name)
 {
@@ -430,4 +433,147 @@ void make_updatepack(config& pack, const config& from, const config& to)
 	write_difference(removelist, to, from, false);
 	config& addlist = pack.add_child("addlist");
 	write_difference(addlist, from, to, true);
+}
+
+std::string addon_check_status_desc(unsigned int code)
+{
+	static const std::map<ADDON_CHECK_STATUS, std::string> message_table = {
+
+		//
+		// General errors
+		//
+
+		{
+			ADDON_CHECK_STATUS::SUCCESS,
+			N_("Success.")
+		},
+		{
+			ADDON_CHECK_STATUS::UNAUTHORIZED,
+			N_("Incorrect add-on passphrase.")
+		},
+		{
+			ADDON_CHECK_STATUS::DENIED,
+			N_("Upload denied. Please contact the server administration for assistance.")
+		},
+		{
+			ADDON_CHECK_STATUS::UNEXPECTED_DELTA,
+			N_("Attempted to upload an update pack for a non-existent add-on.")
+		},
+
+		//
+		// Structure errors
+		//
+
+		{
+			ADDON_CHECK_STATUS::EMPTY_PACK,
+			N_("No add-on data was supplied by the client.")
+		},
+		{
+			ADDON_CHECK_STATUS::BAD_DELTA,
+			N_("Invalid upload pack.")
+		},
+		{
+			ADDON_CHECK_STATUS::BAD_NAME,
+			N_("Invalid add-on name.")
+		},
+		{
+			ADDON_CHECK_STATUS::NAME_HAS_MARKUP,
+			N_("Formatting character in add-on name.")
+		},
+		{
+			ADDON_CHECK_STATUS::ILLEGAL_FILENAME,
+			N_("The add-on contains files or directories with illegal names.\n"
+			"\n"
+			"Names containing whitespace, control characters, or any of the following symbols are not allowed:\n"
+			"\n"
+			"    \" * / : < > ? \\ | ~\n"
+			"\n"
+			"Additionally, names may not be longer than 255 characters, contain '..', or end with '.'.")
+		},
+		{
+			ADDON_CHECK_STATUS::FILENAME_CASE_CONFLICT,
+			N_("The add-on contains files or directories with case conflicts.\n"
+			"\n"
+			"Names in the same directory may not be differently-cased versions of each other.")
+		},
+		{
+			ADDON_CHECK_STATUS::INVALID_UTF8_NAME,
+			N_("The add-on name contains an invalid UTF-8 sequence.")
+		},
+
+		//
+		// .pbl errors
+		//
+
+		{
+			ADDON_CHECK_STATUS::NO_TITLE,
+			N_("No add-on title specified.")
+		},
+		{
+			ADDON_CHECK_STATUS::NO_AUTHOR,
+			N_("No add-on author/maintainer name specified.")
+		},
+		{
+			ADDON_CHECK_STATUS::NO_VERSION,
+			N_("No add-on version specified.")
+		},
+		{
+			ADDON_CHECK_STATUS::NO_DESCRIPTION,
+			N_("No add-on description specified.")
+		},
+		{
+			ADDON_CHECK_STATUS::NO_EMAIL,
+			N_("No add-on author/maintainer email specified.")
+		},
+		{
+			ADDON_CHECK_STATUS::NO_PASSPHRASE,
+			N_("Missing passphrase.")
+		},
+		{
+			ADDON_CHECK_STATUS::TITLE_HAS_MARKUP,
+			N_("Formatting character in add-on title.")
+		},
+		{
+			ADDON_CHECK_STATUS::BAD_TYPE,
+			N_("Invalid or unspecified add-on type.")
+		},
+		{
+			ADDON_CHECK_STATUS::INVALID_UTF8_ATTRIBUTE,
+			N_("The add-on publish information contains an invalid UTF-8 sequence.")
+		},
+
+		//
+		// Server errors
+		//
+
+		{
+			ADDON_CHECK_STATUS::SERVER_UNSPECIFIED,
+			N_("Unspecified server error.")
+		},
+		{
+			ADDON_CHECK_STATUS::SERVER_READ_ONLY,
+			N_("Server is in read-only mode.")
+		},
+		{
+			ADDON_CHECK_STATUS::SERVER_ADDONS_LIST,
+			N_("Corrupted server add-ons list.")
+		},
+		{
+			ADDON_CHECK_STATUS::SERVER_DELTA_NO_VERSIONS,
+			N_("Empty add-on version list on the server.")
+		}
+	};
+
+	for(const auto& entry : message_table) {
+		if(static_cast<unsigned int>(entry.first) == code) {
+			return entry.second;
+		}
+	}
+
+	return N_("Unspecified validation failure.");
+};
+
+std::string translated_addon_check_status(unsigned int code)
+{
+	return _(addon_check_status_desc(code).c_str());
 }

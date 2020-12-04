@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: https://bugs.wesnoth.org/\n"
-"POT-Creation-Date: 2020-10-17 01:28-0300\n"
-"PO-Revision-Date: 2020-09-16 14:24+0200\n"
+"POT-Creation-Date: 2020-11-21 01:40-0300\n"
+"PO-Revision-Date: 2020-11-24 13:08+0100\n"
 "Last-Translator: Piotr Makarewicz <sxpgch@gmail.com>\n"
 "Language-Team: none\n"
 "Language: pl\n"
@@ -509,7 +509,7 @@ msgstr "obuchowa"
 #: data/campaigns/World_Conquest/resources/strings/mainline.cfg:186
 #: src/units/alignment.hpp:8
 msgid "lawful"
-msgstr "praworządna"
+msgstr "praworządny"
 
 #. [language]
 #: data/campaigns/World_Conquest/resources/strings/mainline.cfg:189
@@ -656,10 +656,8 @@ msgstr "Tłumaczenie afrikaans"
 
 #. [about]
 #: data/core/about_i18n.cfg:24
-#, fuzzy
-#| msgid "Greek Translation"
 msgid "Ancient Greek Translation"
-msgstr "Tłumaczenie greckie"
+msgstr "Tłumaczenie starogreckie"
 
 #. [about]
 #: data/core/about_i18n.cfg:32
@@ -3840,14 +3838,14 @@ msgstr "Nie do przebycia"
 
 #. #-#-#-#-#  wesnoth.wml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. [color_range]: id=fog
-#: data/core/team-colors.cfg:224 src/game_initialization/lobby_data.cpp:439
+#: data/core/team-colors.cfg:224 src/game_initialization/lobby_data.cpp:448
 msgid "Fog"
 msgstr "Mgła"
 
 #. #-#-#-#-#  wesnoth.wml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. [color_range]: id=shroud
-#: data/core/team-colors.cfg:230 src/game_initialization/lobby_data.cpp:442
-#: src/game_initialization/lobby_data.cpp:445
+#: data/core/team-colors.cfg:230 src/game_initialization/lobby_data.cpp:451
+#: src/game_initialization/lobby_data.cpp:454
 msgid "Shroud"
 msgstr "Całun"
 
@@ -4244,7 +4242,7 @@ msgstr ""
 "DroidSansFallbackFull.ttf,Junicode-Regular.ttf"
 
 #. [lua]: wml_actions.deprecated_message
-#: data/lua/wml-tags.lua:899
+#: data/lua/wml-tags.lua:900
 msgid "Invalid deprecation level (should be 1-4)"
 msgstr ""
 "Niewłaściwe określenie poziomu przestarzałości (powinno być w przedziale 1-4)"
@@ -4309,12 +4307,9 @@ msgstr "Porażka:"
 
 #. [lua]: generate_objectives
 #: data/lua/wml/objectives.lua:57
-#, fuzzy
-#| msgid "(this turn left)"
-#| msgid_plural "(%d turns left)"
 msgid "(this turn left)"
 msgid_plural "($remaining_turns turns left)"
-msgstr[0] "(została ostatnia tura)"
+msgstr[0] "(została ta tura)"
 msgstr[1] "(zostały %d tury)"
 msgstr[2] "(zostało %d tur)"
 
@@ -4425,10 +4420,8 @@ msgstr ""
 
 #. [firststrike]: id=initiative
 #: data/scenario-test.cfg:465
-#, fuzzy
-#| msgid " (inactive)"
 msgid "initiative"
-msgstr " (nieaktywny)"
+msgstr "inicjatywa"
 
 #. [firststrike]: id=initiative
 #: data/scenario-test.cfg:466
@@ -4450,10 +4443,8 @@ msgstr ""
 
 #. [chance_to_hit]: id=marksman_leadership
 #: data/scenario-test.cfg:479
-#, fuzzy
-#| msgid "female^chaotic"
 msgid "female^cantor"
-msgstr "chaotyczna"
+msgstr ""
 
 #. [chance_to_hit]: id=marksman_leadership
 #: data/scenario-test.cfg:480
@@ -4469,27 +4460,23 @@ msgstr ""
 #. [heals]: id=aura of death 4
 #. [heals]: id=aura of death 8
 #: data/scenario-test.cfg:1067 data/scenario-test.cfg:1095
-#, fuzzy
-#| msgid "female^healthy"
 msgid "female^aura of death ("
-msgstr "zdrowa"
+msgstr ""
 
 #. [language]
-#: data/scenario-test.cfg:4395
+#: data/scenario-test.cfg:4396
 msgid "very long"
 msgstr "bardzo długa"
 
 #. [language]
-#: data/scenario-test.cfg:4396
+#: data/scenario-test.cfg:4397
 msgid "electrical"
 msgstr "elektryczna"
 
 #. [action]: id=button-playreplay, type=image
 #: data/themes/_initial.cfg:428
-#, fuzzy
-#| msgid "replay"
 msgid "replay^Play"
-msgstr "powtórka"
+msgstr "Start"
 
 #. [action]: id=button-playreplay, type=image
 #: data/themes/_initial.cfg:429 data/themes/_initial.cfg:589
@@ -4498,10 +4485,8 @@ msgstr "ciągła powtórka"
 
 #. [action]: id=button-stopreplay, type=image
 #: data/themes/_initial.cfg:443
-#, fuzzy
-#| msgid "replay"
 msgid "replay^Stop"
-msgstr "powtórka"
+msgstr "Stop"
 
 #. [action]: id=button-stopreplay, type=image
 #: data/themes/_initial.cfg:444
@@ -4510,10 +4495,8 @@ msgstr "zatrzymaj po obecnym ruchu"
 
 #. [action]: id=button-resetreplay, type=image
 #: data/themes/_initial.cfg:459
-#, fuzzy
-#| msgid "replay"
 msgid "replay^Reset"
-msgstr "powtórka"
+msgstr "Reset"
 
 #. [action]: id=button-resetreplay, type=image
 #: data/themes/_initial.cfg:460 data/themes/_initial.cfg:617
@@ -5379,12 +5362,6 @@ msgstr ""
 
 #. [tip]
 #: data/tips.cfg:225
-#, fuzzy
-#| msgid ""
-#| "Units with three or more attacks—especially magical attacks—are ideal for "
-#| "finishing off enemies with only a few hitpoints remaining. Be sure to use "
-#| "leadership—or a strong or dextrous unit—whenever the extra point or two "
-#| "of damage makes a one-hit kill possible."
 msgid ""
 "Units with three or more attacks — especially magical attacks — are ideal "
 "for finishing off enemies with only a few hitpoints remaining. Be sure to "
@@ -5393,9 +5370,8 @@ msgid ""
 msgstr ""
 "Jednostki posiadające co najmniej trzy ataki (szczególnie magiczne) są "
 "doskonałe do wykańczania wrogów, którym zostało tylko kilka punktów życia. "
-"Jeśli dodatkowy punkt lub dwa obrażeń może dać zwycięstwo jednym ciosem, "
-"zadbaj o odpowiednie wykorzystanie zdolności dowodzenia (lub jednostki "
-"silnej bądź zręcznej, zależnie od sytuacji)."
+"Użyj dowodzenia lub jednostki silnej bądź zręcznej, jeśli dodatkowy punkt "
+"lub dwa obrażeń pozwoli zabić wroga jednym ciosem."
 
 #. [tip]
 #: data/tips.cfg:229
@@ -5519,10 +5495,8 @@ msgstr ""
 #. [tip]
 #. Translate the word "Flight" as a collective noun for drakes
 #: data/tips.cfg:268
-#, fuzzy
-#| msgid "<i>― Vank of Galun’s Flight, 6YW</i>"
 msgid "<i>― Galun, Flight Leader, 5YW</i>"
-msgstr "<i>― Vank z Lotu Galuna, 6 r. e. W.</i>"
+msgstr ""
 
 #. [tip]
 #: data/tips.cfg:271
@@ -5537,10 +5511,8 @@ msgstr ""
 
 #. [tip]
 #: data/tips.cfg:272
-#, fuzzy
-#| msgid "<i>― Lord Hamel of Knalga</i>"
 msgid "<i>― Lord Tallin of Knalga, 538 YW</i>"
-msgstr "<i>― Lord Hamel z Knalgi</i>"
+msgstr "<i>― Lord Tallin z Knalgi, 538 r. W.</i>"
 
 #. [tip]
 #. Translate "Change difficulty" and "Load Game" as in wesnoth-lib textdomain
@@ -5720,18 +5692,12 @@ msgstr ""
 "nazwach, ponieważ gra nie rozróżnia wielkości liter."
 
 #: src/addon/client.cpp:183
-#, fuzzy
-#| msgid "Sending add-on <i>$addon_title</i>..."
-msgid ""
-"Requesting the older version composition for the add-on <i>$addon_title</"
-"i>..."
-msgstr "Wysyłanie dodatku: $addon_title| na serwer..."
+msgid "Requesting file index..."
+msgstr "Żądanie listy plików..."
 
 #: src/addon/client.cpp:199
-#, fuzzy
-#| msgid "Sending add-on <i>$addon_title</i>..."
 msgid "Sending an update pack for the add-on <i>$addon_title</i>..."
-msgstr "Wysyłanie dodatku: $addon_title| na serwer..."
+msgstr "Wysyłanie aktualizacji dla dodatku: $addon_title|"
 
 #: src/addon/client.cpp:220
 msgid "Sending add-on <i>$addon_title</i>..."
@@ -5741,11 +5707,11 @@ msgstr "Wysyłanie dodatku: $addon_title| na serwer..."
 msgid "Removing add-on <i>$addon_title</i> from the server..."
 msgstr "Usuwanie dodatku: $addon_title| z serwera dodatków..."
 
-#: src/addon/client.cpp:281
+#: src/addon/client.cpp:282
 msgid "Downloading add-on <i>$addon_title</i>..."
 msgstr "Pobieranie dodatku: <i>$addon_title</i>..."
 
-#: src/addon/client.cpp:333 src/addon/client.cpp:359
+#: src/addon/client.cpp:334 src/addon/client.cpp:360
 msgid ""
 "The add-on <i>$addon_title</i> has an invalid file or directory name and "
 "cannot be installed."
@@ -5753,7 +5719,7 @@ msgstr ""
 "Dodatek <i>$addon_title</i> używa niewłaściwej nazwy pliku lub katalogu i "
 "nie może być zainstalowany."
 
-#: src/addon/client.cpp:338 src/addon/client.cpp:364
+#: src/addon/client.cpp:339 src/addon/client.cpp:365
 msgid ""
 "The add-on <i>$addon_title</i> has file or directory names with case "
 "conflicts. This may cause problems."
@@ -5762,11 +5728,11 @@ msgstr ""
 "nazwach, ponieważ gra nie rozróżnia wielkości liter. Może to spowodować "
 "problemy."
 
-#: src/addon/client.cpp:408
+#: src/addon/client.cpp:409
 msgid "The server responded with an error:"
 msgstr "Serwer zwrócił komunikat błędu:"
 
-#: src/addon/client.cpp:458
+#: src/addon/client.cpp:459
 msgid ""
 "The selected add-on has the following dependency, which is not currently "
 "installed or available from the server. Do you wish to continue?"
@@ -5780,11 +5746,11 @@ msgstr[1] ""
 msgstr[2] ""
 "Wybrany dodatek ma następujące zależności. Czy chcesz je zainstalować?"
 
-#: src/addon/client.cpp:467
+#: src/addon/client.cpp:468
 msgid "Broken Dependencies"
 msgstr "Uszkodzone zależności"
 
-#: src/addon/client.cpp:507
+#: src/addon/client.cpp:508
 msgid ""
 "The following dependency could not be installed. Do you still wish to "
 "continue?"
@@ -5795,11 +5761,11 @@ msgstr[0] "Ta zależność nie może być zaistalowana. Czy chceszkontynuować?"
 msgstr[1] "Te zależności nie mogą być zainstalowane. Czy chceszkontynuować?"
 msgstr[2] "Te zależności nie mogą być zainstalowane. Czy chceszkontynuować?"
 
-#: src/addon/client.cpp:511
+#: src/addon/client.cpp:512
 msgid "Dependencies Installation Failed"
 msgstr "Instalacja zależności nie powiodła się"
 
-#: src/addon/client.cpp:534
+#: src/addon/client.cpp:535
 msgid ""
 "The add-on '$addon|' is already installed and contains additional "
 "information that will be permanently lost if you continue:"
@@ -5807,80 +5773,80 @@ msgstr ""
 "Dodatek '$addon|' jest zainstalowany i zawiera dodatkowe informacje które "
 "zostaną bezpowrotnie utracone jeżeli będziesz kontynuował:"
 
-#: src/addon/client.cpp:538
+#: src/addon/client.cpp:539
 msgid "Publishing information file (.pbl)"
 msgstr "Wysyłanie pliku publikacji (.pbl)"
 
-#: src/addon/client.cpp:542
+#: src/addon/client.cpp:543
 msgid "Version control system (VCS) information"
 msgstr "Informacje systemu kontroli wersji (VCS)"
 
-#: src/addon/client.cpp:546
+#: src/addon/client.cpp:547
 msgid "Do you really wish to continue?"
 msgstr "Czy chcesz kontynuować?"
 
-#: src/addon/client.cpp:548 src/addon/manager_ui.cpp:174
+#: src/addon/client.cpp:549 src/addon/manager_ui.cpp:174
 #: src/game_initialization/multiplayer.cpp:231
 msgid "Confirm"
 msgstr "Potwiedź"
 
-#: src/addon/client.cpp:668
+#: src/addon/client.cpp:674
 msgid "Add-ons Manager"
 msgstr "Menadżer Dodatków"
 
-#: src/addon/info.cpp:244
+#: src/addon/info.cpp:254
 msgid "addon_type^Campaign"
 msgstr "Kampania"
 
-#: src/addon/info.cpp:246
+#: src/addon/info.cpp:256
 msgid "addon_type^Scenario"
 msgstr "Scenariusz"
 
-#: src/addon/info.cpp:248
+#: src/addon/info.cpp:258
 msgid "addon_type^SP/MP Campaign"
 msgstr "Kampania jedno/wieloosobowa"
 
-#: src/addon/info.cpp:250
+#: src/addon/info.cpp:260
 msgid "addon_type^MP era"
 msgstr "Era wieloosobowa"
 
-#: src/addon/info.cpp:252
+#: src/addon/info.cpp:262
 msgid "addon_type^MP faction"
 msgstr "Frakcja wieloosobowa"
 
-#: src/addon/info.cpp:254
+#: src/addon/info.cpp:264
 msgid "addon_type^MP map-pack"
 msgstr "Zestaw map wieloosobowych"
 
-#: src/addon/info.cpp:256
+#: src/addon/info.cpp:266
 msgid "addon_type^MP scenario"
 msgstr "Scenariusz wieloosobowy"
 
-#: src/addon/info.cpp:258
+#: src/addon/info.cpp:268
 msgid "addon_type^MP campaign"
 msgstr "Kampania wieloosobowa"
 
-#: src/addon/info.cpp:260
+#: src/addon/info.cpp:270
 msgid "addon_type^Modification"
 msgstr "Modyfikacja"
 
-#: src/addon/info.cpp:262
+#: src/addon/info.cpp:272
 msgid "addon_type^Core"
 msgstr "Jądro"
 
-#: src/addon/info.cpp:264
+#: src/addon/info.cpp:274
 msgid "addon_type^Resources"
 msgstr "Zasoby"
 
-#: src/addon/info.cpp:266
+#: src/addon/info.cpp:276
 msgid "addon_type^Other"
 msgstr "Inne"
 
-#: src/addon/info.cpp:268
+#: src/addon/info.cpp:278
 msgid "addon_type^(unknown)"
 msgstr "(nieznany)"
 
-#: src/addon/info.cpp:305
+#: src/addon/info.cpp:315
 msgid "unit_byte^B"
 msgstr "B"
 
@@ -5974,6 +5940,125 @@ msgid "Could not find an add-on matching id $addon_id on the add-on server."
 msgstr ""
 "Na tym serwerze nie znaleziono dodatku o identyfikatorze pasującym do "
 "$addon_id."
+
+#: src/addon/validation.cpp:448
+msgid "Success."
+msgstr ""
+
+#: src/addon/validation.cpp:452
+msgid "Incorrect add-on passphrase."
+msgstr "Niepoprawne hasło dodatku."
+
+#: src/addon/validation.cpp:456
+msgid "Upload denied. Please contact the server administration for assistance."
+msgstr ""
+"Transfer odrzucony. Skontaktuj się z administracją serwera w celu uzyskania "
+"pomocy."
+
+#: src/addon/validation.cpp:460
+msgid "Attempted to upload an update pack for a non-existent add-on."
+msgstr "Spróbowano zaaktualizować nieistniejący dodatek."
+
+#: src/addon/validation.cpp:469
+msgid "No add-on data was supplied by the client."
+msgstr "Klient nie przesłał żadnych danych dodatku."
+
+#: src/addon/validation.cpp:473
+msgid "Invalid upload pack."
+msgstr "Nieprawidłowa paczka plików do wysłania."
+
+#: src/addon/validation.cpp:477
+msgid "Invalid add-on name."
+msgstr "Błędna nazwa dodatku."
+
+#: src/addon/validation.cpp:481
+msgid "Formatting character in add-on name."
+msgstr "Znak formatujący w nazwie dodatku."
+
+#: src/addon/validation.cpp:485
+msgid ""
+"The add-on contains files or directories with illegal names.\n"
+"\n"
+"Names containing whitespace, control characters, or any of the following "
+"symbols are not allowed:\n"
+"\n"
+"    \" * / : < > ? \\ | ~\n"
+"\n"
+"Additionally, names may not be longer than 255 characters, contain '..', or "
+"end with '.'."
+msgstr ""
+
+#: src/addon/validation.cpp:495
+msgid ""
+"The add-on contains files or directories with case conflicts.\n"
+"\n"
+"Names in the same directory may not be differently-cased versions of each "
+"other."
+msgstr ""
+"Dodatek <i>$addon_title</i> zawiera pliki lub foldery z kolizją nazw.\n"
+"\n"
+"Nazwy w tym samym folderze nie mogą być takie same ze zmienioną wielkością "
+"liter."
+
+#: src/addon/validation.cpp:501
+msgid "The add-on name contains an invalid UTF-8 sequence."
+msgstr "Nazwa dodatku zawiera nieprawidłowy ciąg UTF-8."
+
+#: src/addon/validation.cpp:510
+msgid "No add-on title specified."
+msgstr "Brak tytułu dodatku."
+
+#: src/addon/validation.cpp:514
+msgid "No add-on author/maintainer name specified."
+msgstr "Nie podano autora/zarządcy dodatku."
+
+#: src/addon/validation.cpp:518
+msgid "No add-on version specified."
+msgstr ""
+
+#: src/addon/validation.cpp:522
+msgid "No add-on description specified."
+msgstr "Brak opisu dodatku."
+
+#: src/addon/validation.cpp:526
+msgid "No add-on author/maintainer email specified."
+msgstr ""
+
+#: src/addon/validation.cpp:530
+msgid "Missing passphrase."
+msgstr "Brakuje hasła dodatku."
+
+#: src/addon/validation.cpp:534
+msgid "Formatting character in add-on title."
+msgstr "Znak formatujący w tytule dodatku."
+
+#: src/addon/validation.cpp:538
+msgid "Invalid or unspecified add-on type."
+msgstr "Nieprawidłowy lub brakujący typ dodatku."
+
+#: src/addon/validation.cpp:542
+msgid "The add-on publish information contains an invalid UTF-8 sequence."
+msgstr ""
+
+#: src/addon/validation.cpp:551
+msgid "Unspecified server error."
+msgstr ""
+
+#: src/addon/validation.cpp:555
+msgid "Server is in read-only mode."
+msgstr ""
+
+#: src/addon/validation.cpp:559
+msgid "Corrupted server add-ons list."
+msgstr "Nieprawidłowa lista dodatków na serwerze."
+
+#: src/addon/validation.cpp:563
+msgid "Empty add-on version list on the server."
+msgstr ""
+
+#: src/addon/validation.cpp:573
+msgid "Unspecified validation failure."
+msgstr ""
 
 #: src/chat_command_handler.cpp:111
 msgid "Added to ignore list: $nick"
@@ -6097,16 +6182,12 @@ msgid "Send an emotion or personal action in chat."
 msgstr "Wysłanie na czacie informacji o emocji albo czynności."
 
 #: src/chat_command_handler.hpp:100
-#, fuzzy
-#| msgid ""
-#| "Sends a private message. You cannot send private messages to players in a "
-#| "running game you observe or play in."
 msgid ""
 "Send a private message. You cannot send private messages to players in a "
 "running game you observe or play in."
 msgstr ""
-"Wysyła prywatną wiadomość. Takich wiadomości nie można wysyłać do graczy w "
-"trwającej grze, w której uczestniczysz lub którą obserwujesz."
+"Wyślij prywatną wiadomość. Takich wiadomości nie można wysyłać do graczy w "
+"grze, w której uczestniczysz lub którą obserwujesz."
 
 #: src/chat_command_handler.hpp:102
 msgid "<nickname> <message>"
@@ -6492,65 +6573,65 @@ msgstr "Nie można znaleźć jednostki-przywódcy dla strony $faction"
 msgid "Cannot obtain genders for invalid leader $leader"
 msgstr "Nie można uzyskać płci dla nieprawidłowego przywódcy $leader"
 
-#: src/game_initialization/lobby_data.cpp:224
+#: src/game_initialization/lobby_data.cpp:225
 msgid "Missing addon: $name"
 msgstr "Brakujący dodatek: $name"
 
-#: src/game_initialization/lobby_data.cpp:226
+#: src/game_initialization/lobby_data.cpp:227
 msgid "Missing addon: $id"
 msgstr "Brakujący dodatek: $id"
 
-#: src/game_initialization/lobby_data.cpp:258
+#: src/game_initialization/lobby_data.cpp:259
 msgid "Unknown era"
 msgstr "Nieznana era"
 
-#: src/game_initialization/lobby_data.cpp:325
-#: src/game_initialization/lobby_data.cpp:358
+#: src/game_initialization/lobby_data.cpp:326
+#: src/game_initialization/lobby_data.cpp:360
 msgid "scenario_abbreviation^S"
 msgstr "S"
 
-#: src/game_initialization/lobby_data.cpp:344
+#: src/game_initialization/lobby_data.cpp:346
 msgid "Remote scenario"
 msgstr "Zdalny scenariusz"
 
-#: src/game_initialization/lobby_data.cpp:366
-#: src/game_initialization/lobby_data.cpp:389
+#: src/game_initialization/lobby_data.cpp:367
+#: src/game_initialization/lobby_data.cpp:393
 msgid "campaign_abbreviation^C"
 msgstr "K"
 
-#: src/game_initialization/lobby_data.cpp:394
+#: src/game_initialization/lobby_data.cpp:399
 msgid "Unknown scenario"
 msgstr "Nieznany scenariusz"
 
-#: src/game_initialization/lobby_data.cpp:404
+#: src/game_initialization/lobby_data.cpp:413
 msgid "Reloaded game"
 msgstr "Gra wczytana ponownie"
 
-#: src/game_initialization/lobby_data.cpp:419
+#: src/game_initialization/lobby_data.cpp:428
 msgid "Vacant Slot:"
 msgid_plural "Vacant Slots:"
 msgstr[0] "Wolne miejsce:"
 msgstr[1] "Wolne miejsca:"
 msgstr[2] "Wolnych miejsc:"
 
-#: src/game_initialization/lobby_data.cpp:421
+#: src/game_initialization/lobby_data.cpp:430
 msgid "mp_game_available_slots^Full"
 msgstr "Pełna"
 
-#: src/game_initialization/lobby_data.cpp:432
-#: src/game_initialization/lobby_data.cpp:434 src/savegame.cpp:645
+#: src/game_initialization/lobby_data.cpp:441
+#: src/game_initialization/lobby_data.cpp:443 src/savegame.cpp:645
 msgid "Turn"
 msgstr "Tura"
 
-#: src/game_initialization/lobby_data.cpp:447
+#: src/game_initialization/lobby_data.cpp:456
 msgid "vision^none"
 msgstr "wizja"
 
-#: src/game_initialization/lobby_data.cpp:456
+#: src/game_initialization/lobby_data.cpp:465
 msgid "time limit^none"
 msgstr "limit czasu"
 
-#: src/game_initialization/lobby_data.cpp:500
+#: src/game_initialization/lobby_data.cpp:509
 msgid ""
 "The host's version of <i>$addon</i> is incompatible. They have version <b>"
 "$host_ver</b> while you have version <b>$local_ver</b>."
@@ -6558,7 +6639,7 @@ msgstr ""
 "Gospodarz ma dodatek w niewłaściwej wersji <i>$addon</i>. Ich wersja to <b>"
 "$host_ver</b>, a twoja to <b>$local_ver</b>."
 
-#: src/game_initialization/lobby_data.cpp:514
+#: src/game_initialization/lobby_data.cpp:523
 msgid ""
 "Your version of <i>$addon</i> is incompatible. You have version <b>"
 "$local_ver</b> while the host has version <b>$host_ver</b>."
@@ -6573,10 +6654,6 @@ msgstr "Pokonaj przywódców wroga"
 #: src/game_initialization/mp_game_utils.cpp:104
 msgid "Cannot find era $era"
 msgstr "Era $era nieznaleziona"
-
-#: src/game_initialization/mp_game_utils.cpp:143
-msgid "Connection timed out"
-msgstr "Minął czas oczekiwania na połączenie"
 
 #: src/game_initialization/multiplayer.cpp:74
 msgid "Invalid address specified for multiplayer server"
@@ -6837,7 +6914,7 @@ msgid "Error while reading the WML: "
 msgstr "Błąd podczas wczytywania kodu WML: "
 
 #: src/game_initialization/playcampaign.cpp:348
-#: src/playsingle_controller.cpp:309
+#: src/playsingle_controller.cpp:308
 msgid "Game Over"
 msgstr "Koniec gry"
 
@@ -6918,39 +6995,39 @@ msgstr[2] ""
 msgid "No visible sides found."
 msgstr "Nie znaleziono widocznych stron."
 
-#: src/gui/dialogs/multiplayer/player_info.cpp:110
+#: src/gui/dialogs/multiplayer/player_info.cpp:114
 msgid "In game:"
 msgstr "W grze:"
 
-#: src/gui/dialogs/multiplayer/player_info.cpp:112
+#: src/gui/dialogs/multiplayer/player_info.cpp:116
 msgid "(observing)"
 msgstr "(obserwuje)"
 
-#: src/gui/dialogs/multiplayer/player_info.cpp:114
+#: src/gui/dialogs/multiplayer/player_info.cpp:118
 msgid "(playing)"
 msgstr "(gra)"
 
-#: src/gui/dialogs/multiplayer/player_info.cpp:117
+#: src/gui/dialogs/multiplayer/player_info.cpp:121
 msgid "In lobby"
 msgstr "W poczekalni"
 
-#: src/gui/dialogs/multiplayer/player_info.cpp:146
+#: src/gui/dialogs/multiplayer/player_info.cpp:150
 msgid "On friends list"
 msgstr "Na liście przyjaciół"
 
-#: src/gui/dialogs/multiplayer/player_info.cpp:151
+#: src/gui/dialogs/multiplayer/player_info.cpp:155
 msgid "On ignores list"
 msgstr "Na liście ignorowanych"
 
-#: src/gui/dialogs/multiplayer/player_info.cpp:156
+#: src/gui/dialogs/multiplayer/player_info.cpp:160
 msgid "Neither a friend nor ignored"
 msgstr "Ani przyjaciel, ani ignorowany"
 
-#: src/gui/dialogs/multiplayer/player_info.cpp:161
+#: src/gui/dialogs/multiplayer/player_info.cpp:165
 msgid "You"
 msgstr "Ty"
 
-#: src/gui/dialogs/multiplayer/player_info.cpp:164
+#: src/gui/dialogs/multiplayer/player_info.cpp:168
 msgid "Error"
 msgstr "Błąd"
 
@@ -7063,22 +7140,16 @@ msgid ""
 msgstr ""
 
 #: src/help/help_impl.cpp:1026
-#, fuzzy
-#| msgid "<header>text='Units with this ability'</header>"
 msgid "<header>text='Subgroups of units within this group'</header>"
-msgstr "<header>text='Jednostki posiadające tę umiejętność'</header>"
+msgstr "<header>text='Podgrupy jednostek wewnątrz tej grupy'</header>"
 
 #: src/help/help_impl.cpp:1028
-#, fuzzy
-#| msgid "<header>text='Units of this race'</header>"
 msgid "<header>text='Groups of units within this race'</header>"
-msgstr "<header>text='Jednostki tej rasy'</header>"
+msgstr "<header>text='Grupy jednostek wewnątrz tej rasy'</header>"
 
 #: src/help/help_impl.cpp:1037
-#, fuzzy
-#| msgid "<header>text='Units of this race'</header>"
 msgid "<header>text='Units of this group'</header>"
-msgstr "<header>text='Jednostki tej rasy'</header>"
+msgstr "<header>text='Jednostki tej grupy'</header>"
 
 #: src/help/help_impl.cpp:1039
 msgid "<header>text='Units of this race'</header>"
@@ -7110,7 +7181,7 @@ msgstr "Przyspieszona prędkośc aktywowana!"
 
 #: src/hotkey/hotkey_handler.cpp:225
 msgid "Accelerated speed disabled!"
-msgstr "Przyspieszona prędkość zdezaktywowana"
+msgstr "Przyspieszona prędkość wyłączona!"
 
 #: src/hotkey/hotkey_handler.cpp:421
 msgid "Back to Turn "
@@ -7398,17 +7469,14 @@ msgstr "Przełącz stronę spod kontroli/pod kontrolę SI."
 #. which must be a side-number and then optionally one of "on", "off" or "full".
 #. As with the command's name, "on", "off" and "full" are hardcoded, and shouldn't change in the translation.
 #: src/menu_events.cpp:1242
-#, fuzzy
-#| msgid ""
-#| "[<side> [on/off]]\n"
-#| "“on” = enable control by the AI, “off” = side is controlled by the player"
 msgid ""
 "[<side> [on/off/full]]\n"
 "“on” = enable but retain vision, “full” = as if it’s controlled by another "
 "player"
 msgstr ""
-"[<strona> [on/off]]\n"
-"“on” = włącz kontrolę przez AI, “off” = strona jest kontrolowana przez gracza"
+"[<strona> [on/off/full]]\n"
+"“on” = włącz z pozostawieniem wizji, “off” = tak, jakby była kontrolowana "
+"przez innego gracza"
 
 #: src/menu_events.cpp:1243
 msgid "Change terrain type of current hex"
@@ -7674,20 +7742,14 @@ msgid "Side '$side' controller is now controlled by: human."
 msgstr "Strona '$side' jest teraz kontrolowana przez: człowieka."
 
 #: src/menu_events.cpp:1517
-#, fuzzy
-#| msgid "Side '$side' is already droided."
 msgid "Side '$side' is already not droided."
-msgstr "Strona '$side' jest już pod kontrolą AI."
+msgstr "Strona '$side' nie jest pod kontrolą AI."
 
 #: src/menu_events.cpp:1524
-#, fuzzy
-#| msgid "Side '$side' controller is now controlled by: AI."
 msgid "Side '$side' controller is now fully controlled by: AI."
 msgstr "Strona '$side' jest teraz kontrolowana przez: AI."
 
 #: src/menu_events.cpp:1526
-#, fuzzy
-#| msgid "Side '$side' is already droided."
 msgid "Side '$side' is already fully AI controlled."
 msgstr "Strona '$side' jest już pod kontrolą AI."
 
@@ -7888,7 +7950,7 @@ msgstr "Brak celów"
 msgid "Undoing moves not yet transmitted to the server."
 msgstr "Wycofywanie ruchów nie przesłanych do serwera."
 
-#: src/playmp_controller.cpp:264 src/playsingle_controller.cpp:349
+#: src/playmp_controller.cpp:264 src/playsingle_controller.cpp:348
 msgid ""
 "A network disconnection has occurred, and the game cannot continue. Do you "
 "want to save the game?"
@@ -7896,7 +7958,7 @@ msgstr ""
 "Utracono połączenie sieciowe, nie można kontynuować gry. Czy chcesz zapisać "
 "grę?"
 
-#: src/playmp_controller.cpp:266 src/playsingle_controller.cpp:351
+#: src/playmp_controller.cpp:266 src/playsingle_controller.cpp:350
 msgid ""
 "\n"
 "Do you want to save the game?"
@@ -7904,7 +7966,7 @@ msgstr ""
 "\n"
 "Czy chcesz zapisać grę?"
 
-#: src/playmp_controller.cpp:266 src/playsingle_controller.cpp:351
+#: src/playmp_controller.cpp:266 src/playsingle_controller.cpp:350
 msgid ""
 "This game has been ended.\n"
 "Reason: "
@@ -7912,7 +7974,7 @@ msgstr ""
 "Gra zakończona.\n"
 "Powód: "
 
-#: src/playmp_controller.cpp:369
+#: src/playmp_controller.cpp:368
 msgid ""
 "The game is out of sync, and cannot continue. There are a number of reasons "
 "this could happen: this can occur if you or another player have modified "
@@ -7929,7 +7991,7 @@ msgstr ""
 "\n"
 "Czy chcesz zapisać dziennik błędów tej gry?"
 
-#: src/playmp_controller.cpp:412
+#: src/playmp_controller.cpp:411
 msgid ""
 "This side is in an idle state. To proceed with the game, it must be assigned "
 "to another controller. You may use :droid, :control or :give_control for "
@@ -7939,11 +8001,11 @@ msgstr ""
 "przypisana do innego kontrolera. Możesz użyć do tego poleceń :droid, :"
 "control lub :give_control."
 
-#: src/playsingle_controller.cpp:153
+#: src/playsingle_controller.cpp:152
 msgid "Game Error"
 msgstr "Błąd gry"
 
-#: src/playsingle_controller.cpp:154
+#: src/playsingle_controller.cpp:153
 msgid ""
 "This multiplayer game uses an alternative random mode, if you don't know "
 "what this message means, then most likely someone is cheating or someone "
@@ -7953,11 +8015,11 @@ msgstr ""
 "nie wiesz dlaczego tak jest, to oznacza, że ktoś załadował uszkodzony stan "
 "gry lub próbuje oszukiwać."
 
-#: src/playsingle_controller.cpp:309
+#: src/playsingle_controller.cpp:308
 msgid "The game is over."
 msgstr "Gra się skończyła."
 
-#: src/playsingle_controller.cpp:442
+#: src/playsingle_controller.cpp:441
 msgid "It is now $name|’s turn"
 msgstr "Tura gracza $name|"
 
@@ -8216,10 +8278,8 @@ msgid "Remaining: $left/$max"
 msgstr ""
 
 #: src/reports.cpp:1128
-#, fuzzy
-#| msgid "This is not a multiplayer save."
 msgid "This unit can attack multiple times per turn."
-msgstr "To nie jest zapis gry wieloosobowej."
+msgstr "Ta jednostka może atakować wiele razy w ciągu jednej tury."
 
 #: src/reports.cpp:1220
 msgid "Time of day schedule:"
@@ -8250,14 +8310,11 @@ msgid "Turn Number"
 msgstr "Numer tury"
 
 #: src/reports.cpp:1391
-#, fuzzy
-#| msgid ""
-#| "When the game reaches the number of turns indicated by the second number, "
-#| "it will end."
 msgid ""
 "When the game exceeds the number of turns indicated by the second number, it "
 "will end."
-msgstr "Gra skończy się, gdy osiągnie numer tury oznaczony przez drugą liczbę."
+msgstr ""
+"Gra skończy się, gdy przekroczy numer tury wskazany przez drugą liczbę."
 
 #: src/reports.cpp:1416
 msgid "Gold"
@@ -8825,7 +8882,7 @@ msgstr "$year Przed Updatkiem"
 msgid "$year AF"
 msgstr "$year Po Upadku"
 
-#: src/wesnothd_connection.cpp:418
+#: src/wesnothd_connection.cpp:421
 msgid "Disconnected from server."
 msgstr "Rozłączono z serwerem"
 
@@ -8849,11 +8906,15 @@ msgstr "Ukryj plany gracza $player"
 msgid "Whiteboard Options"
 msgstr "Opcje planowania"
 
-#~ msgid "Cancel"
-#~ msgstr "Anuluj"
+#, fuzzy
+#~| msgid "Sending add-on <i>$addon_title</i>..."
+#~ msgid ""
+#~ "Requesting the older version composition for the add-on <i>$addon_title</"
+#~ "i>..."
+#~ msgstr "Wysyłanie dodatku: $addon_title| na serwer..."
 
-#~ msgid "Battle for Wesnoth"
-#~ msgstr "Bitwa o Wesnoth"
+#~ msgid "Connection timed out"
+#~ msgstr "Minął czas oczekiwania na połączenie"
 
 #~ msgid "Graphics scaling options"
 #~ msgstr "Opcja skalowania grafiki"
@@ -8950,6 +9011,9 @@ msgstr "Opcje planowania"
 #~ msgid "(Note: You should use $replacement instead in new code)"
 #~ msgstr ""
 #~ "(Uwaga: w nowym kodzie zamiast tego powinien być używany $replacement)"
+
+#~ msgid "Cancel"
+#~ msgstr "Anuluj"
 
 #~ msgid "registering with password *** and no email address"
 #~ msgstr "rejestracja z hasłem *** i bez adresu e-mail"
@@ -11167,9 +11231,6 @@ msgstr "Opcje planowania"
 #~ msgstr[2] ""
 #~ "Znaleziono informacje publikowania nieaktualnych dodatków lokalnych. "
 #~ "Dodatki nie zostaną udostępnione do aktualizacji."
-
-#~ msgid "No add-ons to update"
-#~ msgstr "Nie ma dodatków do zaktualizowania"
 
 #~ msgid "Installation of some dependency failed"
 #~ msgstr "Instalacja niektórych zależności nie powiodła się"
@@ -15481,6 +15542,9 @@ msgstr "Opcje planowania"
 #~ "Nieprzebyte góry są tak wysokie i strome, że ich wierzchołki są zawsze "
 #~ "spowite chmurami. Przejście takich gór jest praktycznie niemożliwe. Nawet "
 #~ "stworzenia latające nie są w stanie pokonać ich niebotycznych grani."
+
+#~ msgid "Battle for Wesnoth"
+#~ msgstr "Bitwa o Wesnoth"
 
 #~ msgid "Warning: Errors occurred while loading game configuration files: '"
 #~ msgstr "Ostrzeżenie: Błąd podczas ładowania plików konfiguracyjnych gry: '"

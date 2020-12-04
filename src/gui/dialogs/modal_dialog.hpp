@@ -16,7 +16,7 @@
 
 #include "gui/auxiliary/field-fwd.hpp"
 #include "gui/core/static_registry.hpp"
-#include "utils/functional.hpp"
+#include <functional>
 
 #include <string>
 #include <vector>
@@ -392,7 +392,7 @@ private:
 	 *
 	 * @returns                   The window to show.
 	 */
-	window* build_window() const;
+	std::unique_ptr<window> build_window() const;
 
 	/**
 	 * Actions to be taken directly after the window is build.

@@ -136,7 +136,9 @@ private:
 	/** Enter game by index, where index is the selected game listbox row. */
 	void enter_selected_game(JOIN_MODE mode);
 
-	void show_preferences_button_callback(window& window);
+	void show_help_callback();
+
+	void show_preferences_button_callback();
 
 	void show_server_info();
 
@@ -154,7 +156,7 @@ private:
 
 	void user_dialog_callback(mp::user_info* info);
 
-	void skip_replay_changed_callback(window& window);
+	void skip_replay_changed_callback();
 
 	bool exit_hook(window& window);
 

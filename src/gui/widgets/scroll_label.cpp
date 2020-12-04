@@ -27,7 +27,7 @@
 #include "gui/widgets/window.hpp"
 #include "gettext.hpp"
 
-#include "utils/functional.hpp"
+#include <functional>
 
 #define LOG_SCOPE_HEADER get_control_type() + " [" + id() + "] " + __func__
 #define LOG_HEADER LOG_SCOPE_HEADER + ':'
@@ -46,7 +46,7 @@ scroll_label::scroll_label(const implementation::builder_scroll_label& builder)
 	, text_alignment_(builder.text_alignment)
 {
 	connect_signal<event::LEFT_BUTTON_DOWN>(
-		std::bind(&scroll_label::signal_handler_left_button_down, this, _2),
+		std::bind(&scroll_label::signal_handler_left_button_down, this, std::placeholders::_2),
 		event::dispatcher::back_pre_child);
 }
 
@@ -279,7 +279,7 @@ widget* builder_scroll_label::build() const
 	const auto conf = widget->cast_config_to<scroll_label_definition>();
 	assert(conf);
 
-	widget->init_grid(conf->grid);
+	widget->init_grid(*conf->grid);
 	widget->finalize_setup();
 
 	DBG_GUI_G << "Window builder: placed scroll label '" << id

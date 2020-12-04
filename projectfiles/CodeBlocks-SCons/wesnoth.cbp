@@ -181,6 +181,8 @@
 		<Unit filename="../../src/color.hpp" />
 		<Unit filename="../../src/color_range.cpp" />
 		<Unit filename="../../src/color_range.hpp" />
+		<Unit filename="../../src/commandline_argv.cpp" />
+		<Unit filename="../../src/commandline_argv.hpp" />
 		<Unit filename="../../src/commandline_options.cpp" />
 		<Unit filename="../../src/commandline_options.hpp" />
 		<Unit filename="../../src/config.cpp" />
@@ -1135,7 +1137,6 @@
 		<Unit filename="../../src/utils/const_clone.hpp" />
 		<Unit filename="../../src/utils/context_free_grammar_generator.cpp" />
 		<Unit filename="../../src/utils/context_free_grammar_generator.hpp" />
-		<Unit filename="../../src/utils/functional.hpp" />
 		<Unit filename="../../src/utils/general.hpp" />
 		<Unit filename="../../src/utils/irdya_datetime.cpp" />
 		<Unit filename="../../src/utils/irdya_datetime.hpp" />
@@ -1148,6 +1149,7 @@
 		<Unit filename="../../src/utils/name_generator.hpp" />
 		<Unit filename="../../src/utils/name_generator_factory.cpp" />
 		<Unit filename="../../src/utils/name_generator_factory.hpp" />
+		<Unit filename="../../src/utils/optional_fwd.hpp" />
 		<Unit filename="../../src/utils/parse_network_address.cpp" />
 		<Unit filename="../../src/utils/parse_network_address.hpp" />
 		<Unit filename="../../src/utils/reference_counter.hpp" />

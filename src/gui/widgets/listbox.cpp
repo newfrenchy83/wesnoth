@@ -32,12 +32,13 @@
 #include "gui/widgets/widget_helpers.hpp"
 #include "gui/widgets/window.hpp"
 #include "sdl/rect.hpp"
-#include "utils/functional.hpp"
-
-#include <boost/optional.hpp>
+#include <functional>
+#include "utils/optional_fwd.hpp"
 
 #define LOG_SCOPE_HEADER get_control_type() + " [" + id() + "] " + __func__
 #define LOG_HEADER LOG_SCOPE_HEADER + ':'
+
+using SORT_ORDER = preferences::SORT_ORDER;
 
 namespace gui2
 {
@@ -66,7 +67,7 @@ listbox::listbox(const implementation::builder_styled_widget& builder,
 grid& listbox::add_row(const string_map& item, const int index)
 {
 	assert(generator_);
-	grid& row = generator_->create_item(index, list_builder_, item, std::bind(&listbox::list_item_clicked, this, _1));
+	grid& row = generator_->create_item(index, *list_builder_, item, std::bind(&listbox::list_item_clicked, this, std::placeholders::_1));
 
 	resize_content(row);
 
@@ -76,7 +77,7 @@ grid& listbox::add_row(const string_map& item, const int index)
 grid& listbox::add_row(const std::map<std::string /* widget id */, string_map>& data, const int index)
 {
 	assert(generator_);
-	grid& row = generator_->create_item(index, list_builder_, data, std::bind(&listbox::list_item_clicked, this, _1));
+	grid& row = generator_->create_item(index, *list_builder_, data, std::bind(&listbox::list_item_clicked, this, std::placeholders::_1));
 
 	resize_content(row);
 
@@ -350,7 +351,7 @@ bool listbox::update_content_size()
 
 void listbox::place(const point& origin, const point& size)
 {
-	boost::optional<unsigned> vertical_scrollbar_position, horizontal_scrollbar_position;
+	utils::optional<unsigned> vertical_scrollbar_position, horizontal_scrollbar_position;
 
 	// Check if this is the first time placing the list box
 	if(get_origin() != point {-1, -1}) {
@@ -567,7 +568,7 @@ void listbox::finalize(builder_grid_const_ptr header,
 		//
 		if(toggle_button* selectable = find_widget<toggle_button>(&p, "sort_" + std::to_string(i), false, false)) {
 			// Register callback to sort the list.
-			connect_signal_notify_modified(*selectable, std::bind(&listbox::order_by_column, this, i, _1));
+			connect_signal_notify_modified(*selectable, std::bind(&listbox::order_by_column, this, i, std::placeholders::_1));
 
 			if(orders_.size() < max) {
 				orders_.resize(max);
@@ -581,7 +582,7 @@ void listbox::finalize(builder_grid_const_ptr header,
 		swap_grid(&get_grid(), content_grid(), footer->build(), "_footer_grid");
 	}
 
-	generator_->create_items(-1, list_builder_, list_data, std::bind(&listbox::list_item_clicked, this, _1));
+	generator_->create_items(-1, *list_builder_, list_data, std::bind(&listbox::list_item_clicked, this, std::placeholders::_1));
 	swap_grid(nullptr, content_grid(), generator_, "_list_grid");
 }
 
@@ -594,20 +595,20 @@ void listbox::order_by_column(unsigned column, widget& widget)
 
 	for(auto& pair : orders_) {
 		if(pair.first != nullptr && pair.first != &selectable) {
-			pair.first->set_value(SORT_NONE);
+			pair.first->set_value(preferences::SORT_ORDER::NONE);
 		}
 	}
 
-	SORT_ORDER order = static_cast<SORT_ORDER>(selectable.get_value());
+	SORT_ORDER order {static_cast<SORT_ORDER::type>(selectable.get_value())};
 
-	if(static_cast<unsigned int>(order) > orders_[column].second.size()) {
+	if(static_cast<unsigned int>(order.v) > orders_[column].second.size()) {
 		return;
 	}
 
-	if(order == SORT_NONE) {
+	if(order == SORT_ORDER::NONE) {
 		order_by(std::less<unsigned>());
 	} else {
-		order_by(orders_[column].second[order - 1]);
+		order_by(orders_[column].second[order.v - 1]);
 	}
 
 	if(callback_order_change_ != nullptr) {
@@ -650,7 +651,7 @@ void listbox::set_active_sorting_option(const order_pair& sort_by, const bool se
 	// Set the sorting toggle widgets' value (in this case, its state) to the given sorting
 	// order. This is necessary since the widget's value is used to determine the order in
 	// @ref order_by_column in lieu of a direction being passed directly.
-	w.set_value(static_cast<int>(sort_by.second));
+	w.set_value(static_cast<int>(sort_by.second.v));
 
 	order_by_column(sort_by.first, dynamic_cast<widget&>(w));
 
@@ -664,19 +665,19 @@ const listbox::order_pair listbox::get_active_sorting_option()
 	for(unsigned int column = 0; column < orders_.size(); ++column) {
 		selectable_item* w = orders_[column].first;
 
-		if(w && w->get_value() != SORT_NONE) {
-			return std::make_pair(column, static_cast<SORT_ORDER>(w->get_value()));
+		if(w && w->get_value() != SORT_ORDER::NONE) {
+			return std::make_pair(column, static_cast<SORT_ORDER::type>(w->get_value()));
 		}
 	}
 
-	return std::make_pair(-1, SORT_NONE);
+	return std::make_pair(-1, SORT_ORDER::NONE);
 }
 
 void listbox::mark_as_unsorted()
 {
 	for(auto& pair : orders_) {
 		if(pair.first != nullptr) {
-			pair.first->set_value(SORT_NONE);
+			pair.first->set_value(SORT_ORDER::NONE);
 		}
 	}
 }
@@ -984,7 +985,7 @@ widget* builder_listbox::build() const
 	const auto conf = widget->cast_config_to<listbox_definition>();
 	assert(conf);
 
-	widget->init_grid(conf->grid);
+	widget->init_grid(*conf->grid);
 
 	widget->finalize(header, footer, list_data);
 
@@ -1089,7 +1090,7 @@ widget* builder_horizontal_listbox::build() const
 	const auto conf = widget->cast_config_to<listbox_definition>();
 	assert(conf);
 
-	widget->init_grid(conf->grid);
+	widget->init_grid(*conf->grid);
 
 	widget->finalize(nullptr, nullptr, list_data);
 
@@ -1194,7 +1195,7 @@ widget* builder_grid_listbox::build() const
 	const auto conf = widget->cast_config_to<listbox_definition>();
 	assert(conf);
 
-	widget->init_grid(conf->grid);
+	widget->init_grid(*conf->grid);
 
 	widget->finalize(nullptr, nullptr, list_data);
 

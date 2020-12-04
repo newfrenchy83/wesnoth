@@ -45,11 +45,12 @@
 #include "formula/string_utils.hpp"
 #include "preferences/game.hpp"
 #include "gettext.hpp"
+#include "help/help.hpp"
 #include "preferences/lobby.hpp"
 #include "playmp_controller.hpp"
 #include "wesnothd_connection.hpp"
 
-#include "utils/functional.hpp"
+#include <functional>
 
 static lg::log_domain log_lobby("lobby");
 #define DBG_LB LOG_STREAM(debug, log_lobby)
@@ -171,8 +172,11 @@ mp_lobby::~mp_lobby()
 void mp_lobby::post_build(window& win)
 {
 	/*** Local hotkeys. ***/
+	win.register_hotkey(hotkey::HOTKEY_HELP,
+		std::bind(&mp_lobby::show_help_callback, this));
+
 	win.register_hotkey(hotkey::HOTKEY_PREFERENCES,
-		std::bind(&mp_lobby::show_preferences_button_callback, this, std::ref(win)));
+		std::bind(&mp_lobby::show_preferences_button_callback, this));
 }
 
 namespace
@@ -737,7 +741,7 @@ void mp_lobby::pre_show(window& window)
 	window.set_enter_disabled(true);
 
 	// Exit hook to add a confirmation when quitting the Lobby.
-	window.set_exit_hook(std::bind(&mp_lobby::exit_hook, this, std::ref(window)));
+	window.set_exit_hook(std::bind(&mp_lobby::exit_hook, this, std::placeholders::_1));
 
 	chatbox_ = find_widget<chatbox>(&window, "chat", false, true);
 
@@ -751,7 +755,7 @@ void mp_lobby::pre_show(window& window)
 
 	connect_signal_mouse_left_click(
 		find_widget<button>(&window, "show_preferences", false),
-		std::bind(&mp_lobby::show_preferences_button_callback, this, std::ref(window)));
+		std::bind(&mp_lobby::show_preferences_button_callback, this));
 
 	connect_signal_mouse_left_click(
 		find_widget<button>(&window, "join_global", false),
@@ -780,7 +784,7 @@ void mp_lobby::pre_show(window& window)
 	}
 
 	connect_signal_notify_modified(replay_options,
-		std::bind(&mp_lobby::skip_replay_changed_callback, this, std::ref(window)));
+		std::bind(&mp_lobby::skip_replay_changed_callback, this));
 
 	filter_friends_ = find_widget<toggle_button>(&window, "filter_with_friends", false, true);
 	filter_ignored_ = find_widget<toggle_button>(&window, "filter_without_ignored", false, true);
@@ -802,7 +806,7 @@ void mp_lobby::pre_show(window& window)
 
 	connect_signal_pre_key_press(
 			*filter_text_,
-			std::bind(&mp_lobby::game_filter_keypress_callback, this, _5));
+			std::bind(&mp_lobby::game_filter_keypress_callback, this, std::placeholders::_5));
 
 	chatbox_->room_window_open(N_("lobby"), true, false);
 	chatbox_->active_window_changed();
@@ -1042,7 +1046,13 @@ void mp_lobby::refresh_lobby()
 	network_connection_.send_data(config("refresh_lobby"));
 }
 
-void mp_lobby::show_preferences_button_callback(window& window)
+void mp_lobby::show_help_callback()
+{
+	help::help_manager help_manager(&game_config_);
+	help::show_help();
+}
+
+void mp_lobby::show_preferences_button_callback()
 {
 	gui2::dialogs::preferences_dialog::display(game_config_);
 
@@ -1051,7 +1061,7 @@ void mp_lobby::show_preferences_button_callback(window& window)
 	 *
 	 * @todo This might no longer be needed when gui2 is done.
 	 */
-	const SDL_Rect rect = window.video().screen_area();
+	const SDL_Rect rect = CVideo::get_singleton().screen_area();
 
 	gui2::settings::gamemap_width  += rect.w - gui2::settings::screen_width;
 	gui2::settings::gamemap_height += rect.h - gui2::settings::screen_height;
@@ -1063,7 +1073,7 @@ void mp_lobby::show_preferences_button_callback(window& window)
 	 *
 	 * @todo This might no longer be needed when gui2 is done.
 	 */
-	window.invalidate_layout();
+	get_window()->invalidate_layout();
 
 	refresh_lobby();
 }
@@ -1155,10 +1165,10 @@ void mp_lobby::user_dialog_callback(mp::user_info* info)
 	refresh_lobby();
 }
 
-void mp_lobby::skip_replay_changed_callback(window& window)
+void mp_lobby::skip_replay_changed_callback()
 {
 	// TODO: this prefence should probably be controlled with an enum
-	const int value = find_widget<menu_button>(&window, "replay_options", false).get_value();
+	const int value = find_widget<menu_button>(get_window(), "replay_options", false).get_value();
 	preferences::set_skip_mp_replay(value == 1);
 	preferences::set_blindfold_replay(value == 2);
 }

@@ -1587,6 +1587,9 @@
     <ClCompile Include="..\..\src\scripting\lua_color.cpp">
       <Filter>Scripting</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\units\orb_status.cpp">
+      <Filter>Units</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\addon\client.hpp">
@@ -2480,9 +2483,6 @@
     <ClInclude Include="..\..\src\utils\context_free_grammar_generator.hpp">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\utils\functional.hpp">
-      <Filter>utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\utils\general.hpp">
       <Filter>utils</Filter>
     </ClInclude>
@@ -3083,6 +3083,12 @@
     </ClInclude>
     <ClInclude Include="..\..\src\scripting\lua_color.hpp">
       <Filter>Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\units\orb_status.hpp">
+      <Filter>Units</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\utils\optional_fwd.hpp">
+      <Filter>utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

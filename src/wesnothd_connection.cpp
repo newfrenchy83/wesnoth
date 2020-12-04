@@ -17,7 +17,7 @@
 #include "gettext.hpp"
 #include "log.hpp"
 #include "serialization/parser.hpp"
-#include "utils/functional.hpp"
+#include <functional>
 
 #include <cstdint>
 #include <deque>
@@ -71,7 +71,7 @@ wesnothd_connection::wesnothd_connection(const std::string& host, const std::str
 {
 	MPTEST_LOG;
 	resolver_.async_resolve(boost::asio::ip::tcp::resolver::query(host, service),
-		std::bind(&wesnothd_connection::handle_resolve, this, _1, _2));
+		std::bind(&wesnothd_connection::handle_resolve, this, std::placeholders::_1, std::placeholders::_2));
 
 	// Starts the worker thread. Do this *after* the above async_resolve call or it will just exit immediately!
 	worker_thread_ = std::thread([this]() {
@@ -117,7 +117,7 @@ void wesnothd_connection::handle_resolve(const error_code& ec, resolver::iterato
 void wesnothd_connection::connect(resolver::iterator iterator)
 {
 	MPTEST_LOG;
-	socket_.async_connect(*iterator, std::bind(&wesnothd_connection::handle_connect, this, _1, iterator));
+	socket_.async_connect(*iterator, std::bind(&wesnothd_connection::handle_connect, this, std::placeholders::_1, iterator));
 	LOG_NW << "Connecting to " << iterator->endpoint().address() << '\n';
 }
 
@@ -151,7 +151,7 @@ void wesnothd_connection::handshake()
 		[](const error_code& ec, std::size_t) { if(ec) { throw system_error(ec); } });
 
 	boost::asio::async_read(socket_, boost::asio::buffer(&handshake_response_.binary, 4),
-		std::bind(&wesnothd_connection::handle_handshake, this, _1));
+		std::bind(&wesnothd_connection::handle_handshake, this, std::placeholders::_1));
 }
 
 // worker thread
@@ -194,16 +194,23 @@ void wesnothd_connection::send_data(const configr_of& request)
 {
 	MPTEST_LOG;
 
-	// C++11 doesn't allow lambda captuting by moving. This could maybe use std::unique_ptr in c++14;
-	std::shared_ptr<boost::asio::streambuf> buf_ptr(new boost::asio::streambuf());
+#if BOOST_VERSION >= 106600
+	auto buf_ptr = std::make_unique<boost::asio::streambuf>();
+#else
+	auto buf_ptr = std::make_shared<boost::asio::streambuf>();
+#endif
 
 	std::ostream os(buf_ptr.get());
 	write_gz(os, request);
 
-	// TODO: should I capture a shared_ptr for this?
+	// No idea why io_service::post doesn't like this lambda while asio::post does.
+#if BOOST_VERSION >= 106600
+	boost::asio::post(io_service_, [this, buf_ptr = std::move(buf_ptr)]() mutable {
+#else
 	io_service_.post([this, buf_ptr]() {
+#endif
 		DBG_NW << "In wesnothd_connection::send_data::lambda\n";
-		send_queue_.push(buf_ptr);
+		send_queue_.push(std::move(buf_ptr));
 
 		if(send_queue_.size() == 1) {
 			send();
@@ -377,8 +384,8 @@ void wesnothd_connection::send()
 	bufs.push_front(boost::asio::buffer(reinterpret_cast<const char*>(&payload_size_), 4));
 
 	boost::asio::async_write(socket_, bufs,
-		std::bind(&wesnothd_connection::is_write_complete, this, _1, _2),
-		std::bind(&wesnothd_connection::handle_write, this, _1, _2));
+		std::bind(&wesnothd_connection::is_write_complete, this, std::placeholders::_1, std::placeholders::_2),
+		std::bind(&wesnothd_connection::handle_write, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 // worker thread
@@ -387,8 +394,8 @@ void wesnothd_connection::recv()
 	MPTEST_LOG;
 
 	boost::asio::async_read(socket_, read_buf_,
-		std::bind(&wesnothd_connection::is_read_complete, this, _1, _2),
-		std::bind(&wesnothd_connection::handle_read, this, _1, _2));
+		std::bind(&wesnothd_connection::is_read_complete, this, std::placeholders::_1, std::placeholders::_2),
+		std::bind(&wesnothd_connection::handle_read, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 // main thread

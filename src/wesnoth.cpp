@@ -14,6 +14,7 @@
 
 #include "addon/manager.hpp"
 #include "build_info.hpp"
+#include "commandline_argv.hpp"
 #include "commandline_options.hpp" // for commandline_options, etc
 #include "config.hpp"              // for config, config::error, etc
 #include "cursor.hpp"              // for set, CURSOR_TYPE::NORMAL, etc
@@ -49,7 +50,7 @@
 #include "serialization/schema_validator.hpp" // for strict_validation_enabled and schema_validator
 #include "sound.hpp"                   // for commit_music_changes, etc
 #include "statistics.hpp"              // for fresh_stats
-#include "utils/functional.hpp"
+#include <functional>
 #include "game_version.hpp"        // for version_info
 #include "video.hpp"          // for CVideo
 #include "wesconfig.h"        // for PACKAGE
@@ -363,7 +364,7 @@ static int process_command_args(const commandline_options& cmdline_opts)
 	// Options that don't change behavior based on any others should be checked alphabetically below.
 
 	if(cmdline_opts.log) {
-		for(const auto& log_pair : cmdline_opts.log.get()) {
+		for(const auto& log_pair : cmdline_opts.log.value()) {
 			const std::string log_domain = log_pair.second;
 			const int severity = log_pair.first;
 			if(!lg::set_log_domain_severity(log_domain, severity)) {
@@ -553,7 +554,16 @@ static int process_command_args(const commandline_options& cmdline_opts)
 		}
 		schema_validation::schema_validator validator(schema_path);
 		validator.set_create_exceptions(false); // Don't crash if there's an error, just go ahead anyway
-		return handle_validate_command(*cmdline_opts.validate_wml, validator, boost::get_optional_value_or(cmdline_opts.preprocess_defines, {}));
+		return handle_validate_command(*cmdline_opts.validate_wml, validator,
+			cmdline_opts.preprocess_defines.value_or<decltype(cmdline_opts.preprocess_defines)::value_type>({}));
+	}
+
+	if(cmdline_opts.preprocess_defines || cmdline_opts.preprocess_input_macros || cmdline_opts.preprocess_path) {
+		// It would be good if this was supported for running tests too, possibly for other uses.
+		// For the moment show an error message instead of leaving the user wondering why it doesn't work.
+		std::cerr << "That --preprocess-* option is only supported when using --preprocess or --validate-wml.\n";
+		// Return an error status other than -1, because in our caller -1 means no error
+		return -2;
 	}
 
 	// Not the most intuitive solution, but I wanted to leave current semantics for now
@@ -801,10 +811,6 @@ static int do_gameloop(const std::vector<std::string>& args)
 	plugins.set_callback("exit", [](const config& cfg) { safe_exit(cfg["code"].to_int(0)); }, false);
 
 	for(;;) {
-		// reset the TC, since a game can modify it, and it may be used
-		// by images in add-ons or campaigns dialogs
-		image::set_team_colors();
-
 		statistics::fresh_stats();
 
 		if(!game->is_loading()) {
@@ -944,58 +950,6 @@ static int do_gameloop(const std::vector<std::string>& args)
 	}
 }
 
-#ifdef _WIN32
-static bool parse_commandline_argument(const char*& next, const char* end, std::string& res)
-{
-	// strip leading whitespace
-	while(next != end && *next == ' ') {
-		++next;
-	}
-
-	if(next == end) {
-		return false;
-	}
-
-	bool is_excaped = false;
-
-	for(; next != end; ++next) {
-		if(*next == ' ' && !is_excaped) {
-			break;
-		} else if(*next == '"' && !is_excaped) {
-			is_excaped = true;
-			continue;
-		} else if(*next == '"' && is_excaped && next + 1 != end && *(next + 1) == '"') {
-			res.push_back('"');
-			++next;
-			continue;
-		} else if(*next == '"' && is_excaped) {
-			is_excaped = false;
-			continue;
-		} else {
-			res.push_back(*next);
-		}
-	}
-
-	return true;
-}
-
-static std::vector<std::string> parse_commandline_arguments(std::string input)
-{
-	const char* start = &input[0];
-	const char* end = start + input.size();
-
-	std::string buffer;
-	std::vector<std::string> res;
-
-	while(parse_commandline_argument(start, end, buffer)) {
-		res.emplace_back();
-		res.back().swap(buffer);
-	}
-
-	return res;
-}
-#endif
-
 #ifndef _WIN32
 static void wesnoth_terminate_handler(int)
 {
@@ -1023,14 +977,10 @@ int wesnoth_main(int argc, char** argv)
 int main(int argc, char** argv)
 #endif
 {
+	auto args = read_argv(argc, argv);
+	assert(!args.empty());
+
 #ifdef _WIN32
-	UNUSED(argc);
-	UNUSED(argv);
-
-	// windows argv is ansi encoded by default
-	std::vector<std::string> args =
-		parse_commandline_arguments(unicode_cast<std::string>(std::wstring(GetCommandLineW())));
-
 	// Some switches force a Windows console to be attached to the process even
 	// if Wesnoth is an IMAGE_SUBSYSTEM_WINDOWS_GUI executable because they
 	// turn it into a CLI application. Also, --wconsole in particular attaches
@@ -1068,14 +1018,7 @@ int main(int argc, char** argv)
 	}
 
 	lg::early_log_file_setup();
-#else
-	std::vector<std::string> args;
-	for(int i = 0; i < argc; ++i) {
-		args.push_back(std::string(argv[i]));
-	}
 #endif
-
-	assert(!args.empty());
 
 	if(SDL_Init(SDL_INIT_TIMER) < 0) {
 		fprintf(stderr, "Couldn't initialize SDL: %s\n", SDL_GetError());

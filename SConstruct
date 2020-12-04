@@ -188,7 +188,7 @@ if env['ccache']: env.Tool('ccache')
 if env["forum_user_handler"]:
     boost_version = "1.66"
 else:
-    boost_version = "1.56"
+    boost_version = "1.59"
 
 
 def SortHelpText(a, b):
@@ -372,6 +372,7 @@ if env["prereqs"]:
         conf.CheckBoost("iostreams", require_version = boost_version) & \
         conf.CheckBoostIostreamsGZip() & \
         conf.CheckBoostIostreamsBZip2() & \
+        conf.CheckBoost("program_options", require_version = boost_version) & \
         conf.CheckBoost("random", require_version = boost_version) & \
         conf.CheckBoost("smart_ptr", header_only = True) & \
 	CheckAsio(conf) & \
@@ -404,7 +405,6 @@ if env["prereqs"]:
     have_client_prereqs = have_client_prereqs & conf.CheckCairo(min_version = "1.10")
     have_client_prereqs = have_client_prereqs & conf.CheckPango("cairo", require_version = "1.22.0")
     have_client_prereqs = have_client_prereqs & conf.CheckPKG("fontconfig")
-    have_client_prereqs = have_client_prereqs & conf.CheckBoost("program_options", require_version = boost_version)
     have_client_prereqs = have_client_prereqs & conf.CheckBoost("regex")
     if not have_client_prereqs:
         Warning("Client prerequisites are not met. wesnoth cannot be built.")
@@ -545,6 +545,10 @@ for env in [test_env, client_env, env]:
 # #
 
         debug_flags = env["opt"]+"-DDEBUG -ggdb3"
+        if "mingw" in env["TOOLS"]:
+            debug_flags += " -Wa,-mbig-obj"
+            debug_flags = Split(debug_flags)
+            debug_flags.append("${ '-O3' if TARGET.name == 'gettext.o' else '' }") # workaround for "File too big" errors
 
         if env["glibcxx_debug"] == True:
             glibcxx_debug_flags = "_GLIBCXX_DEBUG _GLIBCXX_DEBUG_PEDANTIC"

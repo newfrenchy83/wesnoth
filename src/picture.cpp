@@ -33,7 +33,7 @@
 
 #include <SDL2/SDL_image.h>
 
-#include "utils/functional.hpp"
+#include <functional>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/functional/hash_fwd.hpp>
@@ -179,9 +179,6 @@ std::set<std::string> precached_dirs;
 std::map<surface, surface> reversed_images_;
 
 int red_adjust = 0, green_adjust = 0, blue_adjust = 0;
-
-/** List of colors used by the TC image modification */
-std::vector<std::string> team_colors;
 
 unsigned int zoom = tile_size;
 unsigned int cached_zoom = 0;
@@ -703,20 +700,6 @@ void set_color_adjustment(int r, int g, int b)
 		lit_scaled_images_.flush();
 		reversed_images_.clear();
 	}
-}
-
-void set_team_colors(const std::vector<std::string>* colors)
-{
-	if(colors == nullptr) {
-		team_colors.clear();
-	} else {
-		team_colors = *colors;
-	}
-}
-
-const std::vector<std::string>& get_team_colors()
-{
-	return team_colors;
 }
 
 void set_zoom(unsigned int amount)
