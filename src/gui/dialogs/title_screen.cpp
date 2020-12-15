@@ -173,7 +173,7 @@ static void make_screenshot()
 	surface screenshot = CVideo::get_singleton().getSurface().clone();
 	if(screenshot) {
 		std::string filename = filesystem::get_screenshot_dir() + "/" + _("Screenshot") + "_";
-		filename = filesystem::get_next_filename(filename, ".png");
+		filename = filesystem::get_next_filename(filename, ".jpg");
 		gui2::dialogs::screenshot_notification::display(filename, screenshot);
 	}
 }
@@ -424,7 +424,7 @@ void title_screen::pre_show(window& win)
 
 void title_screen::on_resize()
 {
-	get_window()->set_retval(REDRAW_BACKGROUND);
+	set_retval(REDRAW_BACKGROUND);
 }
 
 void title_screen::update_tip(const bool previous)
@@ -493,7 +493,7 @@ void title_screen::hotkey_callback_select_tests()
 	int choice = dlg.selected_index();
 	if(choice >= 0) {
 		game_.set_test(options[choice]);
-		get_window()->set_retval(LAUNCH_GAME);
+		set_retval(LAUNCH_GAME);
 	}
 }
 

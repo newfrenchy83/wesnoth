@@ -23,10 +23,8 @@
 #include "server/common/server_base.hpp"
 #include "server/wesnothd/player_connection.hpp"
 
-#include <boost/shared_array.hpp>
-
-#include <boost/asio/signal_set.hpp>
 #include <boost/asio/steady_timer.hpp>
+
 #include <random>
 
 namespace wesnothd
@@ -172,7 +170,6 @@ private:
 
 	simple_wml::document version_query_response_;
 	simple_wml::document login_response_;
-	simple_wml::document join_lobby_response_;
 	simple_wml::document games_and_users_list_;
 
 	metrics metrics_;

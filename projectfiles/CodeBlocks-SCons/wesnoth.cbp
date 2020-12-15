@@ -497,6 +497,8 @@
 		<Unit filename="../../src/gui/dialogs/addon/connect.hpp" />
 		<Unit filename="../../src/gui/dialogs/addon/install_dependencies.cpp" />
 		<Unit filename="../../src/gui/dialogs/addon/install_dependencies.hpp" />
+		<Unit filename="../../src/gui/dialogs/addon/license_prompt.cpp" />
+		<Unit filename="../../src/gui/dialogs/addon/license_prompt.hpp" />
 		<Unit filename="../../src/gui/dialogs/addon/manager.cpp" />
 		<Unit filename="../../src/gui/dialogs/addon/manager.hpp" />
 		<Unit filename="../../src/gui/dialogs/addon/uninstall_list.cpp" />
@@ -893,6 +895,8 @@
 		<Unit filename="../../src/playturn.hpp" />
 		<Unit filename="../../src/playturn_network_adapter.cpp" />
 		<Unit filename="../../src/playturn_network_adapter.hpp" />
+		<Unit filename="../../src/preferences/advanced.cpp" />
+		<Unit filename="../../src/preferences/advanced.hpp" />
 		<Unit filename="../../src/preferences/credentials.cpp" />
 		<Unit filename="../../src/preferences/credentials.hpp" />
 		<Unit filename="../../src/preferences/display.cpp" />
