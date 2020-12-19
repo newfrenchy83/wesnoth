@@ -10,6 +10,8 @@
  ### Units
  ### User interface
  ### WML Engine
+   * Extent special_id_active and special_type_active to abilities used like weapon.
+   * abilities used like weapon can call [leading_anim] now.
  ### Miscellaneous and Bug Fixes
 
 ## Version 1.15.8
@@ -49,8 +51,6 @@
    * Link awareness is now configured on a per-instance basis for labels/scroll labels instead of globally in their definition.
  ### WML Engine
    * Add a overwrite_specials option for weapon special abilities to allow the effect of the ability to take precedence over the effect of any identical weapon special.
-   * Extent special_id_active and special_type_active to abilities used like weapon.
-   * abilities used like weapon can call [leading_anim] now.
  ### Miscellaneous and Bug Fixes
    * Fixed several possible crashes in wmllint
    * Screenshots now default to JPG instead of PNG
