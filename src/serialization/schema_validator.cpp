@@ -227,7 +227,7 @@ bool schema_validator::read_config_file(const std::string& filename)
  * assume they all are on their place due to parser algorithm
  * and validation logic
  */
-void schema_validator::open_tag(const std::string& name, const config& parent, int start_line, const std::string& file, bool addittion)
+void schema_validator::open_tag(const std::string& name, const config& parent, int start_line, const std::string& file, bool addition)
 {
 	if(name.empty()) {
 		// Opened the root tag; nothing special to do here
@@ -240,7 +240,7 @@ void schema_validator::open_tag(const std::string& name, const config& parent, i
 			if(!tag) {
 				wrong_tag_error(file, start_line, name, stack_.top()->get_name(), create_exceptions_);
 			} else {
-				if(!addittion) {
+				if(!addition) {
 					counter& cnt = counter_.top()[name];
 					++cnt.cnt;
 					counter& total_cnt = counter_.top()[""];
@@ -340,11 +340,6 @@ void schema_validator::validate_key(
 			queue_message(cfg, EXTRA_KEY, file, start_line, 0, active_tag().get_name(), name);
 		}
 	}
-}
-
-void schema_validator::queue_message(const config& cfg, message_type t, const std::string& file, int line, int n, const std::string& tag, const std::string& key, const std::string& value)
-{
-	cache_.top()[&cfg].emplace_back(t, file, line, n, tag, key, value);
 }
 
 const wml_tag& schema_validator::active_tag() const
@@ -583,7 +578,7 @@ void schema_self_validator::validate_key(const config& cfg, const std::string& n
 		} else if(tag_name == "tag" && name == "super") {
 			for(auto super : utils::split(cfg["super"])) {
 				referenced_tag_paths_.emplace_back(super, file, start_line, tag_name);
-				derivations_.emplace(std::make_pair(current_path(), super));
+				derivations_.emplace(current_path(), super);
 			}
 		} else if(condition_nesting_ == 0 && tag_name == "tag" && name == "name") {
 			tag_stack_.top() = value;
@@ -608,7 +603,7 @@ std::string schema_self_validator::current_path() const
 
 bool schema_self_validator::reference::operator<(const reference& other) const
 {
-	return std::make_tuple(file_, line_) < std::make_tuple(other.file_, other.line_);
+	return std::tie(file_, line_) < std::tie(other.file_, other.line_);
 }
 
 bool schema_self_validator::reference::match(const std::set<std::string>& with)
