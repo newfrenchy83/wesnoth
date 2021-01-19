@@ -1,4 +1,23 @@
-## Version 1.15.8+dev
+## Version 1.15.9+dev
+ ### Add-ons client
+ ### Add-ons server
+ ### Campaigns
+ ### Editor
+ ### Multiplayer
+ ### Lua API
+   * Upgrade to Lua 5.3.6.
+ ### Packaging
+ ### Terrain
+ ### Translations
+   * Updated translations: Catalan, Czech
+ ### Units
+ ### User interface
+ ### WML Engine
+   * Extent 'special_id_active' and 'special_type_active' to abilities used like weapon.
+   * abilities used like weapon can call [leading_anim] now.
+ ### Miscellaneous and Bug Fixes
+
+## Version 1.15.9
  ### Add-ons client
  ### Add-ons server
  ### Campaigns
@@ -18,8 +37,6 @@
  ### User interface
  ### WML Engine
    * New `[set_variable]` options: reverse=yes, min=list, max=list
-   * Extent 'special_id_active' and 'special_type_active' to abilities used like weapon.
-   * abilities used like weapon can call [leading_anim] now.
  ### Miscellaneous and Bug Fixes
    * Fixed `[terrain_defaults]` and `[resistance_defaults]` (issue #5308).
 
