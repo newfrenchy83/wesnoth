@@ -1205,8 +1205,7 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 			return true;
 		}
 		
-		adjacent_loc_array_t adjacent;
-		get_adjacent_tiles(self_loc_,adjacent.data());
+		const auto adjacent = get_adjacent_tiles(self_loc_);
 		for(unsigned i = 0; i < adjacent.size(); ++i) {
 			const unit_map::const_iterator it = units.find(adjacent[i]);
 			if (it == units.end() || it->incapacitated())
@@ -1241,8 +1240,7 @@ bool attack_type::get_special_ability_bool(const std::string& special, bool spec
 			return true;
 		}
 		
-		adjacent_loc_array_t adjacent;
-		get_adjacent_tiles(other_loc_,adjacent.data());
+		const auto adjacent = get_adjacent_tiles(other_loc_);
 		for(unsigned i = 0; i < adjacent.size(); ++i) {
 			const unit_map::const_iterator it = units.find(adjacent[i]);
 			if (it == units.end() || it->incapacitated())
