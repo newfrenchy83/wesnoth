@@ -657,7 +657,7 @@ void unit_attack(display * disp, game_board & board,
 
 	animator.add_animation(defender.shared_from_this(), defender_anim, def->get_location(), true, text, {255, 0, 0});
 
-	const std::vector<std::string> leader_tags{"leadership", "damage", "chance_to_hit", "berserk", "swarm", "drains", "heal_on_hit", "plague", "slow", "petrifies", "firststrike", "poison"};
+	const std::vector<std::string> leader_tags{"leadership", "damage", "chance_to_hit", "berserk", "swarm", "drains", "heal_on_hit", "plague", "slow", "petrifies", "firststrike", "poison", "weapon_anim"};
 	if(!leader_tags.empty()) {
 		for(auto& special : leader_tags) {
 			unit_ability_list abilities(att->get_location());
