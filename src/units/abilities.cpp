@@ -1223,7 +1223,7 @@ bool unit::get_adj_ability_bool(const config& special, const std::string& tag_na
 bool unit::get_self_ability_bool_weapon(const config& special, const std::string& tag_name, const map_location& loc, const_attack_ptr weapon, const_attack_ptr opp_weapon) const
 {
 	if (ability_active(tag_name, special, loc) &&
-		ability_affects_self(tag_name, special, loc)&&
+		ability_affects_self(tag_name, special, loc) &&
 		ability_affects_weapon(special, weapon, false) &&
 		ability_affects_weapon(special, opp_weapon, true))
 	{
@@ -1238,7 +1238,7 @@ bool unit::get_adj_ability_bool_weapon(const config& special, const std::string&
 	const auto adjacent = get_adjacent_tiles(loc);
 	if (affects_side(special, side(), from.side()) &&
 		from.ability_active(tag_name, special, adjacent[dir]) &&
-		ability_affects_adjacent(tag_name,  special, dir, loc, from)&&
+		ability_affects_adjacent(tag_name,  special, dir, loc, from) &&
 		ability_affects_weapon(special, weapon, false) &&
 		ability_affects_weapon(special, opp_weapon, true))
 	{
