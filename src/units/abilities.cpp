@@ -1273,7 +1273,7 @@ bool attack_type::check_adj_abilities_impl(const_attack_ptr self_attack, const_a
  */
 bool attack_type::get_special_ability_bool(const std::string& special, bool special_id, bool special_tags) const
 {
-    static std::set<std::string> included_tags{"damage", "chance_to_hit", "berserk", "swarm", "drains", "heal_on_hit", "plague", "slow", "petrifies", "firststrike", "poison"};
+	static std::set<std::string> included_tags{"damage", "chance_to_hit", "berserk", "swarm", "drains", "heal_on_hit", "plague", "slow", "petrifies", "firststrike", "poison"};
 	const unit_map& units = display::get_singleton()->get_units();
 	assert(display::get_singleton());
 	if(self_){
