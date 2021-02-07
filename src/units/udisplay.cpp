@@ -656,6 +656,7 @@ void unit_attack(display * disp, game_board & board,
 		att->get_location(), damage, hit_type, weapon, secondary_attack, swing);
 
 	animator.add_animation(defender.shared_from_this(), defender_anim, def->get_location(), true, text, {255, 0, 0});
+
 	unit_ability_list abilities = attacker.get_abilities_weapons("leadership", weapon, secondary_attack);
 	for(auto& special : attack.checking_tags()) {
 		abilities.append(weapon->list_ability(special));
