@@ -131,7 +131,7 @@ private:
 	 * @param special The special ability type who is being checked.
 	 */
 	bool check_self_abilities(const config& cfg, const std::string& special) const;
-	/** check_self_abilities : return an boolean value for checking of activities of abilities used like weapon
+	/** check_adj_abilities : return an boolean value for checking of activities of abilities used like weapon
 	 * @return True if the special @a special is active.
 	 * @param cfg the config to one special ability checked.
 	 * @param special The special ability type who is being checked.
