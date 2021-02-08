@@ -165,7 +165,7 @@ private:
 	);
 
 
-	/** check_adj_abilities_impl : return an boolean value for checking of activities of abilities used like weapon
+	/** check_adj_abilities_impl : return an boolean value for checking of activities of abilities used like weapon in unit adjacent to fighter
 	 * @return True if the special @a tag_name is active.
 	 * @param self_attack the attack used by unit who fight.
 	 * @param other_attack the attack used by opponent.
