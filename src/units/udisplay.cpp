@@ -565,10 +565,6 @@ void unit_sheath_weapon(const map_location& primary_loc, unit_ptr primary_unit,
 	if(secondary_unit) {
 		secondary_unit->anim_comp().set_standing();
 	}
-	const_attack_ptr weapon= primary_attack;
-	if(!primary_attack){
-		weapon = secondary_attack;
-	}
 	reset_helpers(primary_unit.get(),secondary_unit.get());
 
 }
