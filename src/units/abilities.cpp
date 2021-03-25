@@ -1112,6 +1112,8 @@ static bool overwrite_special_affects_opponent(const config& special, bool is_at
 	const std::string& apply_to = special["overwrite_specials_to"];
 	if ( apply_to.empty() )
 		return false;
+	if ( apply_to == "none" )
+		return false;
 	if ( apply_to == "both" )
 		return true;
 	if ( apply_to == "opponent" )
@@ -1128,6 +1130,8 @@ static bool overwrite_special_affects_self(const config& special, bool is_attack
 		//log_scope("overwrite_special_affects_self");
 	const std::string& apply_to = special["overwrite_specials_to"];
 	if ( apply_to.empty() )
+		return false;
+	if ( apply_to == "none" )
 		return false;
 	if ( apply_to == "both" )
 		return true;
