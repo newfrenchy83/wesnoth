@@ -12,6 +12,7 @@
  ### Units
  ### User interface
  ### WML Engine
+   * overwrite_specials=yes/no replaced by overwrite_specials=none/self/opponent/defender/attacker
  ### Miscellaneous and Bug Fixes
 
 ## Version 1.15.11
