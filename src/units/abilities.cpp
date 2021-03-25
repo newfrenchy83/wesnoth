@@ -1106,6 +1106,39 @@ namespace { // Helpers for attack_type::special_active()
 //units (abilities of type 'aura') or else on all types of weapons even if the
 //beneficiary unit does not have a corresponding weapon
 //(defense against ranged weapons abilities for a unit that only has melee attacks)
+static bool overwrite_special_affects_opponent(const config& special, bool is_attacker)
+{
+		//log_scope("overwrite_special_affects_self");
+	const std::string& apply_to = special["overwrite_specials_to"];
+	if ( apply_to.empty() )
+		return false;
+	if ( apply_to == "both" )
+		return true;
+	if ( apply_to == "opponent" )
+		return true;
+	if ( !is_attacker  &&  apply_to == "attacker" )
+		return true;
+	if ( is_attacker &&  apply_to == "defender")
+		return true;
+	return false;
+}
+
+static bool overwrite_special_affects_self(const config& special, bool is_attacker)
+{
+		//log_scope("overwrite_special_affects_self");
+	const std::string& apply_to = special["overwrite_specials_to"];
+	if ( apply_to.empty() )
+		return false;
+	if ( apply_to == "both" )
+		return true;
+	if ( apply_to == "self" )
+		return true;
+	if ( is_attacker  &&  apply_to == "attacker" )
+		return true;
+	if ( !is_attacker &&  apply_to == "defender")
+		return true;
+	return false;
+}
 
 unit_ability_list attack_type::list_ability(const std::string& ability) const
 {
@@ -1115,7 +1148,7 @@ unit_ability_list attack_type::list_ability(const std::string& ability) const
 	if(self_) {
 		abil_list.append((*self_).get_abilities(ability, self_loc_));
 		for(unit_ability_list::iterator i = abil_list.begin(); i != abil_list.end();) {
-			if(!((*i->ability_cfg)["overwrite_specials"].to_bool() && special_active(*i->ability_cfg, AFFECT_SELF, ability, true, "filter_student"))) {
+			if(!(overwrite_special_affects_self(*i->ability_cfg, is_attacker_) && special_active(*i->ability_cfg, AFFECT_SELF, ability, true, "filter_student"))) {
 				i = abil_list.erase(i);
 			} else {
 				++i;
@@ -1137,7 +1170,7 @@ unit_ability_list attack_type::list_ability(const std::string& ability) const
 	if(other_) {
 		abil_other_list.append((*other_).get_abilities(ability, other_loc_));
 		for(unit_ability_list::iterator i = abil_other_list.begin(); i != abil_other_list.end();) {
-			if(!((*i->ability_cfg)["overwrite_specials"].to_bool() && special_active_impl(other_attack_, shared_from_this(), *i->ability_cfg, AFFECT_OTHER, ability, true, "filter_student"))) {
+			if(!(overwrite_special_affects_opponent(*i->ability_cfg, !is_attacker_) && special_active_impl(other_attack_, shared_from_this(), *i->ability_cfg, AFFECT_OTHER, ability, true, "filter_student"))) {
 				i = abil_other_list.erase(i);
 			} else {
 				++i;
@@ -1157,7 +1190,7 @@ unit_ability_list attack_type::list_ability(const std::string& ability) const
 	abil_list.append(abil_other_list);
 	unit_ability_list temp_list = abil_list;
 	for(unit_ability_list::iterator i = temp_list.begin(); i != temp_list.end();) {
-		if(!(*i->ability_cfg)["overwrite_specials"].to_bool()) {
+		if(!((*i->ability_cfg)["overwrite_specials_to"] == "both")) {
 			i = temp_list.erase(i);
 		} else {
 			++i;
@@ -1173,7 +1206,7 @@ unit_ability_list attack_type::get_special_ability(const std::string& ability) c
 {
 	unit_ability_list abil_list = list_ability(ability);
 	for(unit_ability_list::iterator i = abil_list.begin(); i != abil_list.end();) {
-		if((*i->ability_cfg)["overwrite_specials"].to_bool()) {
+		if(!(*i->ability_cfg)["overwrite_specials_to"].empty()) {
 			return abil_list;
 		}
 		++i;
