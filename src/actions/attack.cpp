@@ -197,8 +197,8 @@ battle_context_unit_stats::battle_context_unit_stats(nonempty_unit_const_ptr up,
 	int damage_multiplier = 100;
 
 	// Time of day bonus.
-	damage_multiplier += combat_modifier(
-			resources::gameboard->units(), resources::gameboard->map(), u_loc, u.alignment(), u.is_fearless());
+	damage_multiplier += weapon->specials_alignment(combat_modifier(
+			resources::gameboard->units(), resources::gameboard->map(), u_loc, u.alignment(), u.is_fearless()), u.is_fearless());
 
 	// Leadership bonus.
 	int leader_bonus = under_leadership(u, u_loc, weapon, opp_weapon);
@@ -1598,6 +1598,59 @@ int under_leadership(const unit &u, const map_location& loc, const_attack_ptr we
 	unit_ability_list abil = u.get_abilities_weapons("leadership", loc, weapon, opp_weapon);
 	unit_abilities::effect leader_effect(abil, 0, false, nullptr, true);
 	return leader_effect.get_composite_value();
+}
+
+int attack_type::specials_alignment(int combat_modifier, bool is_fearless) const
+{
+	//if "alignment" attribute not eqauls to string in checking_alignment chain,
+	// or not "special_alignment special/abilities then alignment_type returned by default.
+	const std::set<std::string> checking_alignment = {"neutral", "lawful", "chaotic", "liminal"};
+	unit_ability_list abil_list = get_specials_and_abilities("special_alignment");
+	for(unit_ability_list::iterator i = abil_list.begin(); i != abil_list.end();) {
+		if(checking_alignment.count((*i->ability_cfg)["alignment"].str()) == 0){
+			i = abil_list.erase(i);
+		} else {
+			++i;
+		}
+	}
+	if(abil_list.empty()){
+		return combat_modifier;
+	}
+
+	//if list no empty then lawful_bonus and max_liminal_bonus calculated and aplied to alignment specified
+	assert(display::get_singleton());
+	const unit_map& units = display::get_singleton()->get_units();
+	const gamemap& map = resources::gameboard->map();
+	const tod_manager& tod_m = *resources::tod_manager;
+	const time_of_day& effective_tod = tod_m.get_illuminated_time_of_day(units, map, self_loc_);
+	const int lawful_bonus = effective_tod.lawful_bonus;
+	const int max_liminal_bonus = tod_m.get_max_liminal_bonus();
+	int bonus_value= 0;
+	int lawful_value =0;
+	int chaotic_value = 0;
+	int liminal_value = 0;
+	for(const auto& i : abil_list) {
+		//for what unit_alignment will be used in calculation, add a special with alignment="unit_alignment"
+		//in list. "neutral" alignment not specified here because bonus=0 but in checking_alignment chain only.
+		if(original_value == 0 && (*i.ability_cfg)["alignment"].str() == "neutral") {
+			combat_modifier = 0;
+		}
+		else if(lawful_value==0 && (*i.ability_cfg)["alignment"].str() == "lawful") {
+			lawful_value = lawful_bonus;
+		}
+		else if(chaotic_value == 0 && (*i.ability_cfg)["alignment"].str() == "chaotic") {
+			chaotic_value = -lawful_bonus;
+		}
+		else if(liminal_value == 0 && (*i.ability_cfg)["alignment"].str() == "liminal") {
+			liminal_value = max_liminal_bonus - std::abs(lawful_bonus);
+		}
+	}
+	//final calculation of bonus_value equals to sum of different alignment present in the list.
+	bonus_value = combat_modifier + lawful_value + chaotic_value + liminal_value;
+	if(is_fearless) {
+		bonus_value = std::max<int>(bonus_value, 0);
+	}
+	return bonus_value;
 }
 
 int combat_modifier(const unit_map& units,

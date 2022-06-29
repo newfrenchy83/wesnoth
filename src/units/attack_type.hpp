@@ -84,6 +84,7 @@ public:
 	std::vector<std::pair<t_string, t_string>> special_tooltips(boost::dynamic_bitset<>* active_list = nullptr) const;
 	std::string weapon_specials(bool is_backstab=false) const;
 	std::string weapon_specials_value(const std::set<std::string> checking_tags) const;
+	int specials_alignment(int combat_modifier=0, bool is_fearless=false) const;
 
 	/** Calculates the number of attacks this weapon has, considering specials. */
 	void modified_attacks(bool is_backstab, unsigned & min_attacks,
