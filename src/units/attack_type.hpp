@@ -27,6 +27,7 @@
 #include <boost/dynamic_bitset_fwd.hpp>
 
 #include "units/ptr.hpp" // for attack_ptr
+#include "units/unit_alignments.hpp"
 
 class unit_ability_list;
 class unit_type;
@@ -84,6 +85,7 @@ public:
 	std::vector<std::pair<t_string, t_string>> special_tooltips(boost::dynamic_bitset<>* active_list = nullptr) const;
 	std::string weapon_specials(bool is_backstab=false) const;
 	std::string weapon_specials_value(const std::set<std::string> checking_tags) const;
+	unit_alignments::type specials_alignment() const;
 
 	/** Calculates the number of attacks this weapon has, considering specials. */
 	void modified_attacks(bool is_backstab, unsigned & min_attacks,

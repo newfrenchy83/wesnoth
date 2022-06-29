@@ -198,7 +198,7 @@ battle_context_unit_stats::battle_context_unit_stats(nonempty_unit_const_ptr up,
 
 	// Time of day bonus.
 	damage_multiplier += combat_modifier(
-			resources::gameboard->units(), resources::gameboard->map(), u_loc, u.alignment(), u.is_fearless());
+			resources::gameboard->units(), resources::gameboard->map(), u_loc, weapon->specials_alignment(), u.is_fearless());
 
 	// Leadership bonus.
 	int leader_bonus = under_leadership(u, u_loc, weapon, opp_weapon);
@@ -1602,6 +1602,57 @@ int under_leadership(const unit &u, const map_location& loc, const_attack_ptr we
 	unit_ability_list abil = u.get_abilities_weapons("leadership", loc, weapon, opp_weapon);
 	unit_abilities::effect leader_effect(abil, 0, false, nullptr, true);
 	return leader_effect.get_composite_value();
+}
+
+static void alignment_list(unit_ability_list& abil_list)
+{	//check if have abilities or specials alignment and remove alignment bad specified
+	const std::set<std::string> checking_alignment = {"neutral", "lawful", "chaotic", "liminal"};
+	for(unit_ability_list::iterator i = abil_list.begin(); i != abil_list.end();) {
+		if(checking_alignment.count((*i->ability_cfg)["alignment"].str()) == 0){
+			i = abil_list.erase(i);
+		} else {
+			++i;
+		}
+	}
+}
+
+static std::pair<int, bool>alignment_bonus(unit_ability_list& abil_list, const std::string& alignment, int bonus_value)
+{
+	for(const auto& i : abil_list) {
+		if((*i.ability_cfg)["alignment"].str() == alignment) {
+			return {bonus_value, true};
+		}
+	}
+	return {0, false};
+}
+
+unit_alignments::type attack_type::specials_alignment() const
+{
+	unit_alignments::type alignment = (*self_).alignment();
+	unit_alignments::type temp_alignment = (*self_).alignment();
+	unit_ability_list abil_list = get_specials_and_abilities("attack_alignment");
+	alignment_list(abil_list);
+	if(abil_list.empty()){
+		return alignment;
+	}
+	bool is_liminal = alignment_bonus(abil_list, "liminal");
+	bool is_neutral = alignment_bonus(abil_list, "neutral");
+	bool is_lawful = alignment_bonus(abil_list, "lawful");
+	bool is_chaotic = alignment_bonus(abil_list, "chaotic");
+	std::string str_alignment;
+	if(is_liminal){str_alignment = "liminal";}
+	else if((is_neutral && !is_lawful && !is_chaotic) || (is_lawful && is_chaotic)){str_alignment = "neutral";}
+	else if( is_lawful){str_alignment = "lawful";}
+	else if( is_chaotic){str_alignment = "chaotic";}
+	auto new_align = unit_alignments::get_enum(str_alignment);
+	const unit& up = (*self_);
+	unit &ur = const_cast<unit&>(up);
+	if(new_align) {
+		(ur).set_alignment(*new_align);
+		alignment = *new_align;
+		(ur).set_alignment(temp_alignment);
+	}
+	return alignment;
 }
 
 int combat_modifier(const unit_map& units,
