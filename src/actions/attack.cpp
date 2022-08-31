@@ -1616,41 +1616,42 @@ static void alignment_list(unit_ability_list& abil_list)
 	}
 }
 
-static std::pair<int, bool>alignment_bonus(unit_ability_list& abil_list, const std::string& alignment, int bonus_value)
+static bool alignment_bonus(unit_ability_list& abil_list, const std::string& alignment)
 {
 	for(const auto& i : abil_list) {
 		if((*i.ability_cfg)["alignment"].str() == alignment) {
-			return {bonus_value, true};
+			return true;
 		}
 	}
-	return {0, false};
+	return false;
+}
+
+static std::string choose_alignment(unit_ability_list abil_list)
+{
+	std::string str_alignment;
+	bool is_liminal = alignment_bonus(abil_list, "liminal");
+	bool is_neutral = alignment_bonus(abil_list, "neutral");
+	bool is_lawful = alignment_bonus(abil_list, "lawful");
+	bool is_chaotic = alignment_bonus(abil_list, "chaotic");
+	if(is_liminal){str_alignment = "liminal";}
+	else if((is_neutral && !is_lawful && !is_chaotic) || (is_lawful && is_chaotic)){str_alignment = "neutral";}
+	else if( is_lawful){str_alignment = "lawful";}
+	else if( is_chaotic){str_alignment = "chaotic";}
+	return str_alignment;
 }
 
 unit_alignments::type attack_type::specials_alignment() const
 {
 	unit_alignments::type alignment = (*self_).alignment();
-	unit_alignments::type temp_alignment = (*self_).alignment();
 	unit_ability_list abil_list = get_specials_and_abilities("attack_alignment");
 	alignment_list(abil_list);
 	if(abil_list.empty()){
-		return alignment;
+		return (*self_).alignment();
 	}
-	bool is_liminal = alignment_bonus(abil_list, "liminal");
-	bool is_neutral = alignment_bonus(abil_list, "neutral");
-	bool is_lawful = alignment_bonus(abil_list, "lawful");
-	bool is_chaotic = alignment_bonus(abil_list, "chaotic");
-	std::string str_alignment;
-	if(is_liminal){str_alignment = "liminal";}
-	else if((is_neutral && !is_lawful && !is_chaotic) || (is_lawful && is_chaotic)){str_alignment = "neutral";}
-	else if( is_lawful){str_alignment = "lawful";}
-	else if( is_chaotic){str_alignment = "chaotic";}
+	const std::string str_alignment = choose_alignment(abil_list);
 	auto new_align = unit_alignments::get_enum(str_alignment);
-	const unit& up = (*self_);
-	unit &ur = const_cast<unit&>(up);
 	if(new_align) {
-		(ur).set_alignment(*new_align);
 		alignment = *new_align;
-		(ur).set_alignment(temp_alignment);
 	}
 	return alignment;
 }
