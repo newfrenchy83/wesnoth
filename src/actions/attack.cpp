@@ -1626,7 +1626,7 @@ static bool alignment_bonus(unit_ability_list& abil_list, const std::string& ali
 	return false;
 }
 
-static std::string choose_alignment(unit_ability_list abil_list)
+static void choose_alignment(unit_ability_list& abil_list, unit_alignments::type& alignment)
 {
 	std::string str_alignment;
 	bool is_liminal = alignment_bonus(abil_list, "liminal");
@@ -1637,7 +1637,10 @@ static std::string choose_alignment(unit_ability_list abil_list)
 	else if((is_neutral && !is_lawful && !is_chaotic) || (is_lawful && is_chaotic)){str_alignment = "neutral";}
 	else if( is_lawful){str_alignment = "lawful";}
 	else if( is_chaotic){str_alignment = "chaotic";}
-	return str_alignment;
+	auto new_align = unit_alignments::get_enum(str_alignment);
+	if(new_align) {
+		alignment = *new_align;
+	}
 }
 
 unit_alignments::type attack_type::specials_alignment() const
@@ -1648,11 +1651,7 @@ unit_alignments::type attack_type::specials_alignment() const
 	if(abil_list.empty()){
 		return (*self_).alignment();
 	}
-	const std::string str_alignment = choose_alignment(abil_list);
-	auto new_align = unit_alignments::get_enum(str_alignment);
-	if(new_align) {
-		alignment = *new_align;
-	}
+	choose_alignment(abil_list, alignment);
 	return alignment;
 }
 
