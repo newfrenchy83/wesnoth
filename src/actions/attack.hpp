@@ -281,6 +281,12 @@ void attack_unit_and_advance(const map_location& attacker,
  */
 int under_leadership(const unit &u, const map_location& loc, const_attack_ptr weapon = nullptr, const_attack_ptr opp_weapon = nullptr);
 
+/** under_alignment_abilities : return an unit alignment value different of unit_type alignment if a [unit_alignment] abilitie valid  is detected.
+ * @param u the unit checked.
+ * @param loc localisation of unit checked.
+ */
+unit_alignments::type under_alignment_abilities(const unit &u, const map_location& loc);
+
 /**
  * Returns the amount that a unit's damage should be multiplied by
  * due to the current time of day.

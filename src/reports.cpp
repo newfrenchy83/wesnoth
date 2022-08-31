@@ -370,10 +370,11 @@ static config unit_alignment(reports::context & rc, const unit* u, const map_loc
 {
 	if (!u) return config();
 	std::ostringstream str, tooltip;
-	const std::string align = unit_type::alignment_description(u->alignment(), u->gender());
-	const std::string align_id = unit_alignments::get_string(u->alignment());
+	unit_alignments::type alignment = under_alignment_abilities(*u, hex);
+	const std::string align = unit_type::alignment_description(alignment, u->gender());
+	const std::string align_id = unit_alignments::get_string(alignment);
 	const time_of_day effective_tod = get_visible_time_of_day_at(rc, hex);
-	int cm = combat_modifier(effective_tod, u->alignment(), u->is_fearless());
+	int cm = combat_modifier(effective_tod, alignment, u->is_fearless());
 
 	color_t color = font::weapon_color;
 	if (cm != 0)

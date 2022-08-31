@@ -1643,13 +1643,25 @@ static void choose_alignment(unit_ability_list& abil_list, unit_alignments::type
 	}
 }
 
+unit_alignments::type under_alignment_abilities(const unit &u, const map_location& loc)
+{
+	unit_alignments::type alignment = u.alignment();
+	unit_ability_list abil_list = u.get_abilities("unit_alignment", loc);
+	alignment_list(abil_list);
+	if(abil_list.empty()){
+		return u.alignment();
+	}
+	choose_alignment(abil_list, alignment);
+	return alignment;
+}
+
 unit_alignments::type attack_type::specials_alignment() const
 {
-	unit_alignments::type alignment = (*self_).alignment();
+	unit_alignments::type alignment = under_alignment_abilities((*self_), self_loc_);
 	unit_ability_list abil_list = get_specials_and_abilities("attack_alignment");
 	alignment_list(abil_list);
 	if(abil_list.empty()){
-		return (*self_).alignment();
+		return alignment;
 	}
 	choose_alignment(abil_list, alignment);
 	return alignment;
