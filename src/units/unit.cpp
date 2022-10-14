@@ -1395,12 +1395,114 @@ bool unit::has_ability_by_id(const std::string& ability) const
 	return false;
 }
 
-void unit::remove_ability_by_id(const std::string& ability)
+static bool matches_if_present_in_filter(const config& filter, const config& cfg, const std::string& attribute, bool def)
+{
+	if(filter[attribute].empty()) {
+		return true;
+	}
+
+	return filter[attribute].to_bool() == cfg[attribute].to_bool(def);
+}
+
+static bool string_matches_if_present_in_filter(const config& filter, const config& cfg, const std::string& attribute, const std::string& def)
+{
+	if(filter[attribute].empty()) {
+		return true;
+	}
+
+	return filter[attribute].str() == cfg[attribute].str(def);
+}
+
+static bool string_matches_if_present_in_filter_split(const config& filter, const config& cfg, const std::string& attribute, const std::string& def)
+{
+	if(filter[attribute].empty()) {
+		return true;
+	}
+
+	const std::vector<std::string> filter_attribute = utils::split(filter[attribute]);
+	return ( std::find(filter_attribute.begin(), filter_attribute.end(), cfg[attribute].str(def)) != filter_attribute.end() );
+}
+
+static bool matches_ability_filter(const config & cfg, const std::string& tag_name, const config & filter, bool split_filter_as_list)
+{
+	if(!matches_if_present_in_filter(filter, cfg, "affect_self", true))
+		return false;
+
+	if(!matches_if_present_in_filter(filter, cfg, "affect_allies", true))
+		return false;
+
+	if(!matches_if_present_in_filter(filter, cfg, "affect_enemies", false))
+		return false;
+
+	if(!matches_if_present_in_filter(filter, cfg, "cumulative", false))
+		return false;
+
+	if(!split_filter_as_list){
+		if(!string_matches_if_present_in_filter(filter, cfg, "id", ""))
+			return false;
+
+		if(!string_matches_if_present_in_filter(filter, cfg, "apply_to", "self"))
+			return false;
+
+		if(!string_matches_if_present_in_filter(filter, cfg, "overwrite_specials", "none"))
+			return false;
+
+		if(!string_matches_if_present_in_filter(filter, cfg, "active_on", "both"))
+			return false;
+
+	} else {
+		const std::vector<std::string> filter_type = utils::split(filter["tag_name"]);
+		if ( !filter_type.empty() && std::find(filter_type.begin(), filter_type.end(), tag_name) == filter_type.end() )
+			return false;
+
+		if(!string_matches_if_present_in_filter_split(filter, cfg, "id", ""))
+			return false;
+
+		if(!string_matches_if_present_in_filter_split(filter, cfg, "apply_to", "self"))
+			return false;
+
+		if(!string_matches_if_present_in_filter_split(filter, cfg, "overwrite_specials", "none"))
+			return false;
+
+		if(!string_matches_if_present_in_filter_split(filter, cfg, "active_on", "both"))
+			return false;
+	}
+
+	// Passed all tests.
+	return true;
+}
+
+bool unit::ability_matches_filter(const config & cfg, const std::string& tag_name, const config & filter) const
+{
+	// Handle the basic filter.
+	bool matches = matches_ability_filter(cfg, tag_name, filter, true);
+
+	// Handle [and], [or], and [not] with in-order precedence
+	for (const config::any_child condition : filter.all_children_range() )
+	{
+		// Handle [and]
+		if ( condition.key == "and" )
+			matches = matches && ability_matches_filter(cfg, tag_name, condition.cfg);
+
+		// Handle [or]
+		else if ( condition.key == "or" )
+			matches = matches || ability_matches_filter(cfg, tag_name, condition.cfg);
+
+		// Handle [not]
+		else if ( condition.key == "not" )
+			matches = matches && !ability_matches_filter(cfg, tag_name, condition.cfg);
+	}
+
+	return matches;
+}
+
+void unit::remove_ability_by_attribute(const config& filter, bool split_filter_as_list)
 {
 	set_attr_changed(UA_ABILITIES);
 	config::all_children_iterator i = abilities_.ordered_begin();
 	while (i != abilities_.ordered_end()) {
-		if(i->cfg["id"] == ability) {
+		bool ability_matchs = !split_filter_as_list ? matches_ability_filter(i->cfg, i->key, filter, false) : ability_matches_filter(i->cfg, i->key, filter);
+		if(ability_matchs) {
 			i = abilities_.erase(i);
 		} else {
 			++i;
@@ -2120,8 +2222,11 @@ void unit::apply_builtin_effect(std::string apply_to, const config& effect)
 	} else if(apply_to == "remove_ability") {
 		if(const config& ab_effect = effect.child("abilities")) {
 			for(const config::any_child ab : ab_effect.all_children_range()) {
-				remove_ability_by_id(ab.cfg["id"]);
+				remove_ability_by_attribute(ab.cfg, false);
 			}
+		}
+		if(const config& fab_effect = effect.child("filter_ability")) {
+			remove_ability_by_attribute(fab_effect, true);
 		}
 	} else if(apply_to == "image_mod") {
 		LOG_UT << "applying image_mod";

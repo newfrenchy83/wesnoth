@@ -1754,10 +1754,19 @@ public:
 	bool has_ability_by_id(const std::string& ability) const;
 
 	/**
-	 * Removes a unit's abilities with a specific ID.
-	 * @param ability The type of ability (tag name) to remove.
+	 * Removes a unit's abilities with a specific ID or other attribute.
+	 * @param filter the config of ability to remove.
+	 * @param split_filter_as_list if attribute checked was in tag abilities or in filter tag
 	 */
-	void remove_ability_by_id(const std::string& ability);
+	void remove_ability_by_attribute(const config& filter, bool split_filter_as_list);
+
+	/**
+	 * Verify what abilities attributes match with filter.
+	 * @param cfg the config of ability to check.
+	 * @param tag_name the tag name of ability to check.
+	 * @param filter the filter used for checking.
+	 */
+	bool ability_matches_filter(const config & cfg, const std::string& tag_name, const config & filter) const;
 
 
 private:
