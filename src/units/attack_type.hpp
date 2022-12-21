@@ -160,6 +160,13 @@ private:
 	 * @param from unit adjacent to self_ is checked.
 	 */
 	bool check_adj_abilities(const config& cfg, const std::string& special, int dir, const unit& from) const;
+	/** anti_special_or_ability : return an boolean value if detect ability/specials to overwrite, if yes, the special/ability is overwrited.
+	 * @return True if the @a special and/or @a type of special/ability is matched.
+	 * @param special the config to one special ability checked.
+	 * @param type The special ability type who is being checked.
+	 * @param whom Check if special applied to self or other when one_side_only option is true, if option true and [overwrite_specials] and special applied to same side(self or other), special is overwrited.
+	 */
+	bool anti_special_or_ability(const config& special , const std::string& type, AFFECTS whom) const;
 	bool special_active(const config& special, AFFECTS whom, const std::string& tag_name,
 	                    const std::string& filter_self ="filter_self") const;
 
