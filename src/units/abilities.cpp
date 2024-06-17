@@ -798,7 +798,7 @@ bool attack_type::has_special(const std::string& special, bool simple_check, boo
 	}
 	auto other_lock = other_attack_->update_variables_recursion(special);
 	if(!other_lock) {
-		return false;
+		return true;
 	}
 
 	std::vector<special_match> special_tag_matches;
@@ -1396,7 +1396,7 @@ namespace { // Helpers for attack_type::special_active()
 		if(weapon){
 			lock = weapon->update_variables_recursion(tag_name);
 			if(!lock) {
-				return false;
+				return true;
 			}
 		}
 
@@ -1667,7 +1667,7 @@ bool attack_type::has_weapon_ability(const std::string& special, bool special_id
 {
 	auto lock = update_variables_recursion(special);
 	if(!lock){
-		return false;
+		return true;
 	}
 	const unit_map& units = get_unit_map();
 	if(self_){
@@ -1721,7 +1721,7 @@ bool attack_type::has_weapon_ability(const std::string& special, bool special_id
 	if(other_attack_){
 		other_lock = other_attack_->update_variables_recursion(special);
 		if(!other_lock) {
-			return false;
+			return true;
 		}
 	}
 
