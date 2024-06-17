@@ -583,3 +583,49 @@ void attack_type::write(config& cfg) const
 	cfg["parry"] = parry_;
 	cfg.add_child("specials", specials_);
 }
+
+attack_type::recursion_guard attack_type::update_variables_recursion(const std::string& tag_name) const
+{
+	// this shouldn't be const, but replacing the const-and-mutable mess in attack_type is a big task
+	if(num_recursion_ < RECURSION_LIMIT) {
+		// TODO what to do with check_tag_name_ ?
+		return recursion_guard(*this);
+	}
+	return recursion_guard();
+}
+
+attack_type::recursion_guard::recursion_guard() = default;
+
+attack_type::recursion_guard::recursion_guard(const attack_type& weapon)
+	: parent(weapon.shared_from_this())
+{
+	weapon.num_recursion_++;
+}
+
+attack_type::recursion_guard::recursion_guard(attack_type::recursion_guard&& other)
+{
+	std::swap(parent, other.parent);
+}
+
+attack_type::recursion_guard::operator bool() const {
+	return bool(parent);
+}
+
+attack_type::recursion_guard& attack_type::recursion_guard::operator=(attack_type::recursion_guard&& other)
+{
+	// This is only intended to move ownership to a longer-living variable. Assigning to an instance that
+	// already has a parent implies that the caller is going to recurse and needs a recursion allocation,
+	// but is accidentally dropping one of the allocations that it already has; hence the asserts.
+	assert(this != &other);
+	assert(!parent);
+	std::swap(parent, other.parent);
+	return *this;
+}
+
+attack_type::recursion_guard::~recursion_guard()
+{
+	if(parent) {
+		assert(parent->num_recursion_ > 0);
+		parent->num_recursion_--;
+	}
+}
