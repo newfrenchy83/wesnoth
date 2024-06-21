@@ -1355,6 +1355,17 @@ namespace { // Helpers for attack_type::special_active()
 	}
 
 	/**
+	 * Reinitialise variables used for prevent infinite recursion.
+	 * @param self_attack       this unit's attack
+	 * @param other_attack      the other unit's attack
+	 */
+	void reinitialise_recursion_variables(const_attack_ptr& self_attack, const_attack_ptr& other_attack)
+	{
+		if(self_attack){self_attack->reinitialise_variables_recursion();}
+		if(other_attack){other_attack->reinitialise_variables_recursion();}
+	}
+
+	/**
 	 * Determines if a unit/weapon combination matches the specified child
 	 * (normally a [filter_*] child) of the provided filter.
 	 * @param[in]  u           A unit to filter.
@@ -1365,6 +1376,7 @@ namespace { // Helpers for attack_type::special_active()
 	 * @param[in]  for_listing
 	 * @param[in]  child_tag   The tag of the child filter to use.
 	 * @param[in]  tag_name    Parameter used for don't have infinite recusion for some filter attribute.
+	 * @param[in]  num_rec    Parameter used for prevent infinite recusion in other case.
 	 */
 	static bool special_unit_matches(unit_const_ptr & u,
 		                             unit_const_ptr & u2,
@@ -1372,7 +1384,7 @@ namespace { // Helpers for attack_type::special_active()
 		                             const_attack_ptr weapon,
 		                             const config & filter,
 									 const bool for_listing,
-		                             const std::string & child_tag, const std::string& tag_name)
+		                             const std::string & child_tag, const std::string& tag_name, int num_rec)
 	{
 		if (for_listing && !loc.valid())
 			// The special's context was set to ignore this unit, so assume we pass.
@@ -1440,9 +1452,11 @@ unit_ability_list attack_type::get_weapon_ability(const std::string& ability) co
 			return special_active(*i.ability_cfg, AFFECT_SELF, ability, "filter_student");
 		});
 	}
+
 	if(other_attack_ && other_attack_->check_tag_name() == ability ){
 		return {};
 	}
+
 	if(other_) {
 		abil_list.append_if((*other_).get_abilities(ability, other_loc_), [&](const unit_ability& i) {
 			return special_active_impl(other_attack_, shared_from_this(), *i.ability_cfg, AFFECT_OTHER, ability, "filter_student");
