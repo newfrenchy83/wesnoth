@@ -1451,6 +1451,21 @@ namespace { // Helpers for attack_type::special_active()
 		return false;
 	}
 
+	//if attributes specific to [abilities] are on a special in [specials]
+	//then it will be inactive
+	bool forbidden_ability_attributes(const config & cfg)
+	{
+		if(cfg.has_attribute("affect_self"))
+			return false;
+		if(cfg.has_attribute("affect_allies"))
+			return false;
+		if(cfg.has_attribute("affect_enemies"))
+			return false;
+		if(cfg.has_child("affect_adjacent"))
+			return false;
+		return true;
+	}
+
 	/**
 	 * Print "Recursion limit reached" log messages, including deduplication if the same problem has
 	 * already been logged.
@@ -2249,6 +2264,12 @@ bool attack_type::special_active_impl(
 	bool is_attacker = self_attack ? self_attack->is_attacker_ : !other_attack->is_attacker_;
 	bool is_for_listing = self_attack ? self_attack->is_for_listing_ : other_attack->is_for_listing_;
 	//log_scope("special_active");
+
+
+	//if filter_self == "filter_self" then it's in [specials] tads and
+	//abilities specific attributes are illegal
+	if(!in_abilities_tag && !forbidden_ability_attributes(special))
+		return false;
 
 
 	// Does this affect the specified unit?
