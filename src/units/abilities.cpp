@@ -1614,12 +1614,12 @@ unit_ability_list attack_type::overwrite_special_overwriter(unit_ability_list ov
 			auto oi = (*i.ability_cfg).optional_child("overwrite");
 			double l = 0;
 			if(oi && !oi["priority"].empty()){
-				l = oi["priority"].to_double(0);
+				l = oi["priority"] == "priority_max" ? INT_MAX : oi["priority"].to_double(0);
 			}
 			auto oj = (*j.ability_cfg).optional_child("overwrite");
 			double r = 0;
 			if(oj && !oj["priority"].empty()){
-				r = oj["priority"].to_double(0);
+				r = oj["priority"] == "priority_max" ? INT_MAX : oj["priority"].to_double(0);
 			}
 			return l > r;
 		});
@@ -1642,12 +1642,19 @@ bool attack_type::overwrite_special_checking(unit_ability_list& overwriters, con
 		bool affect_side = ((*j.ability_cfg)["overwrite_specials"] == "one_side");
 		// the overwriter's priority, default of 0
 		auto overwrite_specials = (*j.ability_cfg).optional_child("overwrite");
-		double priority = overwrite_specials ? overwrite_specials["priority"].to_double(0) : 0.00;
+		double priority = 0.00;
+		if(overwrite_specials){
+			priority = overwrite_specials["priority"] != "priority_max" ? overwrite_specials["priority"].to_double(0) : INT_MAX;
+		}
 		// the cfg being checked for whether it will be overwritten
 		auto has_overwrite_specials = cfg.optional_child("overwrite");
+		double cfg_priority = 0.00;
+		if(has_overwrite_specials){
+			cfg_priority = has_overwrite_specials["priority"] != "priority_max" ? has_overwrite_specials["priority"].to_double(0) : INT_MAX;
+		}
 		// if the overwriter's priority is greater than 0, then true if the cfg being checked has a higher priority
 		// else true
-		bool prior = (priority > 0) ? (has_overwrite_specials && has_overwrite_specials["priority"].to_double(0) >= priority) : true;
+		bool prior = (priority > 0) ? (cfg_priority >= priority) : true;
 		// true if the cfg being checked affects one or both sides and doesn't have a higher priority, or if it doesn't affect one or both sides
 		// aka whether the cfg being checked can potentially be overwritten by the current overwriter
 		bool is_overwritable = (overwrite_special_affects(cfg) && !prior) || !overwrite_special_affects(cfg);
