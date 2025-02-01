@@ -446,18 +446,16 @@ bool unit::ability_active_impl(const std::string& ability,const config& cfg,cons
 		std::size_t count = 0;
 		unit_filter ufilt{ vconfig(i) };
 		ufilt.set_use_flat_tod(illuminates);
-		std::vector<map_location::direction> dirs = map_location::parse_directions(i["adjacent"]);
+		std::vector<map_location::direction> dirs = i["adjacent"].empty() ? map_location::all_directions() : map_location::parse_directions(i["adjacent"]);
 		for (const map_location::direction index : dirs)
 		{
-			if (index == map_location::direction::indeterminate)
-				continue;
 			unit_map::const_iterator unit = units.find(adjacent[static_cast<int>(index)]);
 			if (unit == units.end())
-				return false;
+				continue;
 			if (!ufilt(*unit, *this))
-				return false;
+				continue;
 			if((*this).id() == (*unit).id())
-				return false;
+				continue;
 			if (i.has_attribute("is_enemy")) {
 				const display_context& dc = resources::filter_con->get_disp_context();
 				if (i["is_enemy"].to_bool() != dc.get_team(unit->side()).is_enemy(side_)) {
@@ -466,10 +464,9 @@ bool unit::ability_active_impl(const std::string& ability,const config& cfg,cons
 			}
 			count++;
 		}
-		if (i["count"].empty() && count != dirs.size()) {
-			return false;
-		}
-		if (!in_ranges<int>(count, utils::parse_ranges_unsigned(i["count"].str()))) {
+		static std::vector<std::pair<int,int>> default_counts = utils::parse_ranges_unsigned("1-6");
+		config::attribute_value i_count =i["count"];
+		if(!in_ranges<int>(count, !i_count.blank() ? utils::parse_ranges_unsigned(i_count) : default_counts)){
 			return false;
 		}
 	}
@@ -480,21 +477,17 @@ bool unit::ability_active_impl(const std::string& ability,const config& cfg,cons
 		terrain_filter adj_filter(vconfig(i), resources::filter_con, false);
 		adj_filter.flatten(illuminates);
 
-		std::vector<map_location::direction> dirs = map_location::parse_directions(i["adjacent"]);
+		std::vector<map_location::direction> dirs = i["adjacent"].empty() ? map_location::all_directions() : map_location::parse_directions(i["adjacent"]);
 		for (const map_location::direction index : dirs)
 		{
-			if (index == map_location::direction::indeterminate) {
-				continue;
-			}
 			if(!adj_filter.match(adjacent[static_cast<int>(index)])) {
-				return false;
+				continue;
 			}
 			count++;
 		}
-		if (i["count"].empty() && count != dirs.size()) {
-			return false;
-		}
-		if (!in_ranges<int>(count, utils::parse_ranges_unsigned(i["count"].str()))) {
+		static std::vector<std::pair<int,int>> default_counts = utils::parse_ranges_unsigned("1-6");
+		config::attribute_value i_count =i["count"];
+		if(!in_ranges<int>(count, !i_count.blank() ? utils::parse_ranges_unsigned(i_count) : default_counts)){
 			return false;
 		}
 	}
@@ -2343,15 +2336,13 @@ bool attack_type::special_active_impl(
 	for (const config &i : special.child_range("filter_adjacent"))
 	{
 		std::size_t count = 0;
-		std::vector<map_location::direction> dirs = map_location::parse_directions(i["adjacent"]);
+		std::vector<map_location::direction> dirs = i["adjacent"].empty() ? map_location::all_directions() : map_location::parse_directions(i["adjacent"]);
 		unit_filter filter{ vconfig(i) };
 		for (const map_location::direction index : dirs)
 		{
-			if (index == map_location::direction::indeterminate)
-				continue;
 			unit_map::const_iterator unit = units.find(adjacent[static_cast<int>(index)]);
 			if (unit == units.end() || !filter.matches(*unit, adjacent[static_cast<int>(index)], *self))
-				return false;
+				continue;
 			if (i.has_attribute("is_enemy")) {
 				const display_context& dc = resources::filter_con->get_disp_context();
 				if (i["is_enemy"].to_bool() != dc.get_team(unit->side()).is_enemy(self->side())) {
@@ -2360,10 +2351,9 @@ bool attack_type::special_active_impl(
 			}
 			count++;
 		}
-		if (i["count"].empty() && count != dirs.size()) {
-			return false;
-		}
-		if (!in_ranges<int>(count, utils::parse_ranges_unsigned(i["count"].str()))) {
+		static std::vector<std::pair<int,int>> default_counts = utils::parse_ranges_unsigned("1-6");
+		config::attribute_value i_count =i["count"];
+		if(!in_ranges<int>(count, !i_count.blank() ? utils::parse_ranges_unsigned(i_count) : default_counts)){
 			return false;
 		}
 	}
@@ -2372,21 +2362,18 @@ bool attack_type::special_active_impl(
 	for (const config &i : special.child_range("filter_adjacent_location"))
 	{
 		std::size_t count = 0;
-		std::vector<map_location::direction> dirs = map_location::parse_directions(i["adjacent"]);
+		std::vector<map_location::direction> dirs = i["adjacent"].empty() ? map_location::all_directions() : map_location::parse_directions(i["adjacent"]);
 		terrain_filter adj_filter(vconfig(i), resources::filter_con, false);
 		for (const map_location::direction index : dirs)
 		{
-			if (index == map_location::direction::indeterminate)
-				continue;
 			if(!adj_filter.match(adjacent[static_cast<int>(index)])) {
-				return false;
+				continue;
 			}
 			count++;
 		}
-		if (i["count"].empty() && count != dirs.size()) {
-			return false;
-		}
-		if (!in_ranges<int>(count, utils::parse_ranges_unsigned(i["count"].str()))) {
+		static std::vector<std::pair<int,int>> default_counts = utils::parse_ranges_unsigned("1-6");
+		config::attribute_value i_count =i["count"];
+		if(!in_ranges<int>(count, !i_count.blank() ? utils::parse_ranges_unsigned(i_count) : default_counts)){
 			return false;
 		}
 	}
