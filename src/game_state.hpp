@@ -56,6 +56,13 @@ public:
 	const std::unique_ptr<actions::undo_list> undo_stack_;
 	int player_number_;
 	int next_player_number_;
+
+	/**
+	 * when used define radius max for check unit wh own a ability with [affect_distant] tag.
+	 */
+	std::optional<int> affect_distant_max_radius_;
+	std::optional<int> affect_distant_max_radius() const {return affect_distant_max_radius_;}
+
 	/** True if healing should be done at the beginning of the next side turn */
 	bool do_healing_;
 	bool victory_when_enemies_defeated_;

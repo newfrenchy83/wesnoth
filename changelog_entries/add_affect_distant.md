@@ -1,0 +1,2 @@
+### WML Engine
+* add a [affect_distant]radius= tag for affect units distant to owner to ability coupled with the affect_distant_max_radius option in scenario/era/resources/campaign mandatory for its operation.

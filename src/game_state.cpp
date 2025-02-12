@@ -66,6 +66,9 @@ game_state::game_state(const config& level, play_controller& pc)
 		el_data.transient.carryover_report = false;
 		end_level_data_ = el_data;
 	}
+	if(level.has_attribute("affect_distant_max_radius")){
+		affect_distant_max_radius_ = level["affect_distant_max_radius"].to_int();
+	}
 }
 
 game_state::~game_state() {}
@@ -220,6 +223,9 @@ void game_state::write(config& cfg) const
 	if(!in_phase(game_data::INITIAL, game_data::PRELOAD)) {
 		cfg["playing_team"] = player_number_ - 1;
 		cfg["next_player_number"] = next_player_number_;
+	}
+	if(affect_distant_max_radius_){
+		cfg["affect_distant_max_radius"] = *affect_distant_max_radius_;
 	}
 	cfg["server_request_number"] = server_request_number_;
 	cfg["do_healing"] = do_healing_;

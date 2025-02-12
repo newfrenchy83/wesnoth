@@ -372,6 +372,11 @@ void saved_game::load_non_scenario(const std::string& type, const std::string& i
 
 		mp_settings_.update_addon_requirements(non_scenario);
 
+		// Copy affect_distant_max_radius
+		if(cfg->has_attribute("affect_distant_max_radius")){
+			starting_point_["affect_distant_max_radius"] = cfg["affect_distant_max_radius"];
+		}
+
 		// Copy events
 		for(const config& modevent : cfg->child_range("event")) {
 			if(modevent["enable_if"].empty()
