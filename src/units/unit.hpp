@@ -1786,26 +1786,6 @@ public:
 	 * @param opp_weapon the attack used by opponent to unit checked.
 	 */
 	bool get_self_ability_bool_weapon(const config& special, const std::string& tag_name, const map_location& loc, const const_attack_ptr& weapon = nullptr, const const_attack_ptr& opp_weapon = nullptr) const;
-	/** Checks whether this unit is affected by a given ability, and that that ability is active.
-	 * @return True if the ability @a tag_name is active.
-	 * @param cfg the const config to one of abilities @a ability checked.
-	 * @param ability name of ability type checked.
-	 * @param loc location of the unit checked.
-	 * @param from unit adjacent to @a this is checked in case of [affect_adjacent] abilities.
-	 * @param dir direction to research a unit adjacent to @a this.
-	 */
-	bool get_adj_ability_bool(const config& cfg, const std::string& ability, int dir, const map_location& loc, const unit& from) const;
-	/** Checks whether this unit is affected by a given ability of leadership type
-	 * @return True if the ability @a tag_name is active.
-	 * @param special the const config to one of abilities @a tag_name checked.
-	 * @param tag_name name of ability type checked.
-	 * @param loc location of the unit checked.
-	 * @param from unit adjacent to @a this is checked in case of [affect_adjacent] abilities.
-	 * @param dir direction to research a unit adjacent to @a this.
-	 * @param weapon the attack used by unit checked in this function.
-	 * @param opp_weapon the attack used by opponent to unit checked.
-	 */
-	bool get_adj_ability_bool_weapon(const config& special, const std::string& tag_name, int dir, const map_location& loc, const unit& from, const const_attack_ptr& weapon=nullptr, const const_attack_ptr& opp_weapon = nullptr) const;
 
 	/** Checks whether this unit is affected by a given ability, and that that ability is active.
 	 * @return True if the ability @a tag_name is active.
@@ -1976,16 +1956,6 @@ private:
 	 * @returns true if it is active
 	 */
 	bool ability_active_impl(const std::string& ability, const config& cfg, const map_location& loc) const;
-
-	/**
-	 * Check if an ability affects adjacent units.
-	 * @param ability The type (tag name) of the ability
-	 * @param cfg an ability WML structure
-	 * @param loc The location on which to resolve the ability
-	 * @param from The "other unit" for filter matching
-	 * @param dir The direction the unit is facing
-	 */
-	bool ability_affects_adjacent(const std::string& ability, const config& cfg, int dir, const map_location& loc, const unit& from) const;
 
 	/**
 	 * Check if an ability affects distant units.

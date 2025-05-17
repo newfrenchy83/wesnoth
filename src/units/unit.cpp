@@ -414,13 +414,13 @@ unit::unit(unit_ctor_t)
 
 void unit::set_has_ability_distant()
 {
-	// check if unit own abilitis with [affect_distant]
+	// check if unit own abilities with [affect_adjacent/distant]
 	// else variables are false or erased.
 	affect_distant_.clear();
 	has_ability_distant_ = false;
 	has_ability_distant_image_ = false;
 	for(const auto [key, ability] : abilities_.all_children_view()) {
-		if(ability.has_child("affect_distant")) {
+		if(ability.has_child("affect_adjacent") || ability.has_child("affect_distant")) {
 			if(!affect_distant_[key]) {
 				affect_distant_[key] = true;
 			}
