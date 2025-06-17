@@ -104,6 +104,10 @@ public:
 
 	/** Returns the damage per attack of this weapon, considering specials. */
 	double modified_damage() const;
+	/** Return the defense value, considering specials.
+	 * @param cth The chance_to_hit value modified or not by function.
+	 */
+	int modified_chance_to_hit(int cth) const;
 
 	/** Return the special weapon value, considering specials.
 	 * @param abil_list The list of special checked.
@@ -111,7 +115,7 @@ public:
 	 */
 	int composite_value(const unit_ability_list& abil_list, int base_value) const;
 	/** Returns list for weapon like abilities for each ability type. */
-	unit_ability_list get_weapon_ability(const std::string& ability) const;
+	unit_ability_list get_weapon_ability(const std::string& ability, bool inverse_affect = false) const;
 	/**
 	 * @param special the tag name to check for
 	 * @return list which contains get_weapon_ability and get_specials list for each ability type, with overwritten items removed
