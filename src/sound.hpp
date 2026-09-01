@@ -33,23 +33,26 @@ std::vector<std::string> enumerate_drivers();
 
 struct driver_status
 {
-	bool initialized;
-	int frequency;
-	SDL_AudioFormat format;
-	int channels;
-	int chunk_size;
+	bool initialized{false};
+	int frequency{0};
+	SDL_AudioFormat format{SDL_AUDIO_UNKNOWN};
+	int channels{0};
 
 	static driver_status query();
 };
 
 bool init_sound();
 void close_sound();
-void reset_sound();
 
 void stop_music();
 void stop_sound();
 void stop_UI_sound();
 void stop_bell();
+
+void restart_music();
+void restart_sound();
+void restart_bell();
+void restart_UI_sound();
 
 // Read config entry, alter track list accordingly.
 void play_music_config(const config &music_node, bool allow_interrupt_current_track = false, int i = -1);
@@ -65,8 +68,9 @@ void play_music();
 
 // Change parameters of a playing sound, given its id
 void reposition_sound(unsigned id, unsigned int distance);
-#define DISTANCE_SILENT 255
-#define DISTANCE_NONE   0
+
+constexpr inline int distance_silent = 255;
+constexpr inline int distance_none = 0;
 
 // Check if there's a sound associated with given id playing
 bool is_sound_playing(int id);
@@ -106,17 +110,55 @@ public:
 // Save music playlist for snapshot
 void write_music_play_list(config& snapshot);
 
-int get_music_volume();
-int get_sound_volume();
-void set_music_volume(int vol);
-void set_sound_volume(int vol);
-void set_bell_volume(int vol);
-void set_UI_volume(int vol);
+class volume
+{
+public:
+	constexpr explicit volume(float factor)
+		: gain(factor)
+	{
+	}
 
-utils::optional<unsigned int> get_current_track_index();
+	constexpr static volume from_percent(float percentage)
+	{ return volume{percentage / 100.f}; }
+
+	constexpr float as_percent() const
+	{ return gain * 100.f; }
+
+	/** Implicit conversion for use with SDL. */
+	constexpr operator float() const
+	{ return gain; }
+
+	constexpr auto operator*(const volume& other) const
+	{ return volume{gain * other.gain}; }
+
+	constexpr auto operator/(const volume& other) const
+	{ return volume{gain / other.gain}; }
+
+	constexpr auto operator+(const volume& other) const
+	{ return volume{gain + other.gain}; }
+
+	constexpr auto operator-(const volume& other) const
+	{ return volume{gain - other.gain}; }
+
+private:
+	float gain{1.0};
+};
+
+constexpr inline volume silence{0.f};
+constexpr inline volume full_volume{1.f};
+constexpr inline volume max_volume{1.28f};
+
+volume get_music_volume();
+volume get_sound_volume();
+
+void set_music_volume(volume vol);
+void set_sound_volume(volume vol);
+void set_bell_volume(volume vol);
+void set_UI_volume(volume vol);
+
+utils::optional<std::size_t> get_current_track_index();
 std::shared_ptr<sound::music_track> get_current_track();
 std::shared_ptr<sound::music_track> get_previous_music_track();
-void set_previous_track(std::shared_ptr<music_track>);
 unsigned int get_num_tracks();
 void remove_track(unsigned int i);
 void play_track(unsigned int i);

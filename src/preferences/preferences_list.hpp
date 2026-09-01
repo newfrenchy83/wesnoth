@@ -216,8 +216,6 @@ struct preferences_list_defines
 	ADDPREF(random_faction_mode)
 	/** whether to remember passwords typed into password fields */
 	ADDPREF(remember_password)
-	/** audio sample rate */
-	ADDPREF(sample_rate)
 	/** whether to save replays of games */
 	ADDPREF(save_replays)
 	/** the scroll speed */
@@ -254,8 +252,6 @@ struct preferences_list_defines
 	ADDPREF(skip_mp_replay)
 	/** whether to play non-UI sounds */
 	ADDPREF(sound)
-	/** audio buffer size */
-	ADDPREF(sound_buffer_size)
 	/** the volume for playing sounds */
 	ADDPREF(sound_volume)
 	/** list of the last selected single player modifications */
@@ -497,7 +493,6 @@ struct preferences_list_defines
 		pixel_scale,
 		random_faction_mode,
 		remember_password,
-		sample_rate,
 		save_replays,
 		scroll,
 		scroll_threshold,
@@ -516,7 +511,6 @@ struct preferences_list_defines
 		skip_ai_moves,
 		skip_mp_replay,
 		sound,
-		sound_buffer_size,
 		sound_volume,
 		sp_modifications,
 		stop_music_in_background,

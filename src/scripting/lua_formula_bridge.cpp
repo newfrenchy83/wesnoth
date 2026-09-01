@@ -159,8 +159,8 @@ void luaW_pushfaivariant(lua_State* L, const variant& val) {
 			const auto& atk = atk_ref->get_attack_type();
 			luaW_pushweapon(L, atk.shared_from_this());
 		} else if(auto team_ref = callable_cast<team_callable*>(val)) {
-			auto t = team_ref->get_team();
-			luaW_pushteam(L, t);
+			auto& t = team_ref->get_team();
+			luaW_pushteam(L, const_cast<team&>(t));
 		} else if(auto loc_ref = callable_cast<location_callable*>(val)) {
 			luaW_pushlocation(L, loc_ref->loc());
 		} else {
@@ -301,14 +301,14 @@ variant lua_formula_bridge::fwrapper::evaluate(const formula_callable& variables
 
 static int impl_formula_collect(lua_State* L)
 {
-	lua_formula_bridge::fwrapper* form = static_cast<lua_formula_bridge::fwrapper*>(lua_touserdata(L, 1));
+	lua_formula_bridge::fwrapper* form = static_cast<lua_formula_bridge::fwrapper*>(luaL_checkudata(L, 1, formulaKey));
 	form->~fwrapper();
 	return 0;
 }
 
 static int impl_formula_tostring(lua_State* L)
 {
-	lua_formula_bridge::fwrapper* form = static_cast<lua_formula_bridge::fwrapper*>(lua_touserdata(L, 1));
+	lua_formula_bridge::fwrapper* form = static_cast<lua_formula_bridge::fwrapper*>(luaL_checkudata(L, 1, formulaKey));
 	const std::string str = form->str();
 	lua_pushlstring(L, str.c_str(), str.size());
 	return 1;

@@ -700,92 +700,68 @@ void prefs::keepalive_timeout(int seconds)
 	preferences_[prefs_list::keepalive_timeout] = std::abs(seconds);
 }
 
-std::size_t prefs::sound_buffer_size()
+sound::volume prefs::music_volume()
 {
-	// Sounds don't sound good on Windows unless the buffer size is 4k,
-	// but this seems to cause crashes on other systems...
-	#ifdef _WIN32
-		const std::size_t buf_size = 4096;
-	#else
-		const std::size_t buf_size = 1024;
-	#endif
-
-	return preferences_[prefs_list::sound_buffer_size].to_int(buf_size);
+	return sound::volume::from_percent(preferences_[prefs_list::music_volume].to_double(100.f));
 }
 
-void prefs::save_sound_buffer_size(const std::size_t size)
-{
-	const std::string new_size = std::to_string(size);
-	if (preferences_[prefs_list::sound_buffer_size] == new_size)
-		return;
-
-	preferences_[prefs_list::sound_buffer_size] = new_size;
-
-	sound::reset_sound();
-}
-
-int prefs::music_volume()
-{
-	return preferences_[prefs_list::music_volume].to_int(100);
-}
-
-void prefs::set_music_volume(int vol)
+void prefs::set_music_volume(sound::volume vol)
 {
 	if(music_volume() == vol) {
 		return;
 	}
 
-	preferences_[prefs_list::music_volume] = vol;
+	preferences_[prefs_list::music_volume] = vol.as_percent();
 	sound::set_music_volume(music_volume());
 }
 
-int prefs::sound_volume()
+sound::volume prefs::sound_volume()
 {
-	return preferences_[prefs_list::sound_volume].to_int(100);
+	return sound::volume::from_percent(preferences_[prefs_list::sound_volume].to_double(100.f));
 }
 
-void prefs::set_sound_volume(int vol)
+void prefs::set_sound_volume(sound::volume vol)
 {
 	if(sound_volume() == vol) {
 		return;
 	}
 
-	preferences_[prefs_list::sound_volume] = vol;
+	preferences_[prefs_list::sound_volume] = vol.as_percent();
 	sound::set_sound_volume(sound_volume());
 }
 
-int prefs::bell_volume()
+sound::volume prefs::bell_volume()
 {
-	return preferences_[prefs_list::bell_volume].to_int(100);
+	return sound::volume::from_percent(preferences_[prefs_list::bell_volume].to_double(100.f));
 }
 
-void prefs::set_bell_volume(int vol)
+void prefs::set_bell_volume(sound::volume vol)
 {
 	if(bell_volume() == vol) {
 		return;
 	}
 
-	preferences_[prefs_list::bell_volume] = vol;
+	preferences_[prefs_list::bell_volume] = vol.as_percent();
 	sound::set_bell_volume(bell_volume());
 }
 
 // old pref name had uppercase UI
-int prefs::ui_volume()
+sound::volume prefs::ui_volume()
 {
 	if(preferences_.has_attribute(prefs_list::ui_volume)) {
-		return preferences_[prefs_list::ui_volume].to_int(100);
+		return sound::volume::from_percent(preferences_[prefs_list::ui_volume].to_double(100.f));
 	} else {
-		return preferences_["UI_volume"].to_int(100);
+		return sound::volume::from_percent(preferences_["UI_volume"].to_double(100.f));
 	}
 }
 
-void prefs::set_ui_volume(int vol)
+void prefs::set_ui_volume(sound::volume vol)
 {
 	if(ui_volume() == vol) {
 		return;
 	}
 
-	preferences_[prefs_list::ui_volume] = vol;
+	preferences_[prefs_list::ui_volume] = vol.as_percent();
 	sound::set_UI_volume(ui_volume());
 }
 
@@ -794,23 +770,18 @@ bool prefs::turn_bell()
 	return preferences_[prefs_list::turn_bell].to_bool(true);
 }
 
-bool prefs::set_turn_bell(bool ison)
+bool prefs::set_turn_bell(bool is_on)
 {
-	if(!turn_bell() && ison) {
+	// TODO: the source of truth should be the sound system itself, not prefs
+	if(is_on && !turn_bell()) {
 		preferences_[prefs_list::turn_bell] = true;
-		if(!music_on() && !sound() && !ui_sound_on()) {
-			if(!sound::init_sound()) {
-				preferences_[prefs_list::turn_bell] = false;
-				return false;
-			}
-		}
-	} else if(turn_bell() && !ison) {
+		sound::restart_bell();
+	} else if(!is_on && turn_bell()) {
 		preferences_[prefs_list::turn_bell] = false;
 		sound::stop_bell();
-		if(!music_on() && !sound() && !ui_sound_on())
-			sound::close_sound();
 	}
-	return true;
+
+	return is_on;
 }
 
 // old pref name had uppercase UI
@@ -823,23 +794,18 @@ bool prefs::ui_sound_on()
 	}
 }
 
-bool prefs::set_ui_sound(bool ison)
+bool prefs::set_ui_sound(bool is_on)
 {
-	if(!ui_sound_on() && ison) {
+	// TODO: the source of truth should be the sound system itself, not prefs
+	if(is_on && !ui_sound_on()) {
 		preferences_[prefs_list::ui_sound] = true;
-		if(!music_on() && !sound() && !turn_bell()) {
-			if(!sound::init_sound()) {
-				preferences_[prefs_list::ui_sound] = false;
-				return false;
-			}
-		}
-	} else if(ui_sound_on() && !ison) {
+		sound::restart_UI_sound();
+	} else if(!is_on && ui_sound_on()) {
 		preferences_[prefs_list::ui_sound] = false;
 		sound::stop_UI_sound();
-		if(!music_on() && !sound() && !turn_bell())
-			sound::close_sound();
 	}
-	return true;
+
+	return is_on;
 }
 
 bool prefs::message_bell()
@@ -852,22 +818,18 @@ bool prefs::sound()
 	return preferences_[prefs_list::sound].to_bool(true);
 }
 
-bool prefs::set_sound(bool ison) {
-	if(!sound() && ison) {
+bool prefs::set_sound(bool is_on)
+{
+	// TODO: the source of truth should be the sound system itself, not prefs
+	if(is_on && !sound()) {
 		preferences_[prefs_list::sound] = true;
-		if(!music_on() && !turn_bell() && !ui_sound_on()) {
-			if(!sound::init_sound()) {
-				preferences_[prefs_list::sound] = false;
-				return false;
-			}
-		}
-	} else if(sound() && !ison) {
+		sound::restart_sound();
+	} else if(!is_on && sound()) {
 		preferences_[prefs_list::sound] = false;
 		sound::stop_sound();
-		if(!music_on() && !turn_bell() && !ui_sound_on())
-			sound::close_sound();
 	}
-	return true;
+
+	return is_on;
 }
 
 bool prefs::music_on()
@@ -875,25 +837,18 @@ bool prefs::music_on()
 	return preferences_[prefs_list::music].to_bool(true);
 }
 
-bool prefs::set_music(bool ison) {
-	if(!music_on() && ison) {
+bool prefs::set_music(bool is_on)
+{
+	// TODO: the source of truth should be the sound system itself, not prefs
+	if(is_on && !music_on()) {
 		preferences_[prefs_list::music] = true;
-		if(!sound() && !turn_bell() && !ui_sound_on()) {
-			if(!sound::init_sound()) {
-				preferences_[prefs_list::music] = false;
-				return false;
-			}
-		}
-		else
-			sound::play_music();
-	} else if(music_on() && !ison) {
+		sound::restart_music();
+	} else if(!is_on && music_on()) {
 		preferences_[prefs_list::music] = false;
-		if(!sound() && !turn_bell() && !ui_sound_on())
-			sound::close_sound();
-		else
-			sound::stop_music();
+		sound::stop_music();
 	}
-	return true;
+
+	return is_on;
 }
 
 int prefs::scroll_speed()
@@ -952,22 +907,6 @@ void prefs::add_alias(const std::string &alias, const std::string &command)
 optional_const_config prefs::get_alias()
 {
 	return get_child(prefs_list::alias);
-}
-
-unsigned int prefs::sample_rate()
-{
-	return preferences_[prefs_list::sample_rate].to_int(44100);
-}
-
-void prefs::save_sample_rate(const unsigned int rate)
-{
-	if (sample_rate() == rate)
-		return;
-
-	preferences_[prefs_list::sample_rate] = rate;
-
-	// If audio is open, we have to re set sample rate
-	sound::reset_sound();
 }
 
 bool prefs::confirm_load_save_from_different_version()

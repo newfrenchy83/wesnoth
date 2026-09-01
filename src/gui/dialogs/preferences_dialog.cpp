@@ -29,6 +29,7 @@
 #include "hotkey/hotkey_item.hpp"
 #include "lexical_cast.hpp"
 #include "resources.hpp"
+#include "sound.hpp"
 #include "theme.hpp"
 #include "video.hpp"
 
@@ -601,15 +602,15 @@ void preferences_dialog::initialize_callbacks()
 	initialize_sound_option_group("sfx",
 		[]         { return prefs::get().sound(); },
 		[](bool v) { return prefs::get().set_sound(v); },
-		[]         { return prefs::get().sound_volume(); },
-		[](int v)  {        prefs::get().set_sound_volume(v); });
+		[]         { return prefs::get().sound_volume().as_percent(); },
+		[](int v)  {        prefs::get().set_sound_volume(sound::volume::from_percent(v)); });
 
 	/* MUSIC */
 	initialize_sound_option_group("music",
 		[]         { return prefs::get().music_on(); },
 		[](bool v) { return prefs::get().set_music(v); },
-		[]         { return prefs::get().music_volume(); },
-		[](int v)  {        prefs::get().set_music_volume(v); });
+		[]         { return prefs::get().music_volume().as_percent(); },
+		[](int v)  {        prefs::get().set_music_volume(sound::volume::from_percent(v)); });
 
 	register_bool("sound_toggle_stop_music_in_background", true,
 		[]() {return prefs::get().stop_music_in_background();},
@@ -619,15 +620,15 @@ void preferences_dialog::initialize_callbacks()
 	initialize_sound_option_group("bell",
 		[]         { return prefs::get().turn_bell(); },
 		[](bool v) { return prefs::get().set_turn_bell(v); },
-		[]         { return prefs::get().bell_volume(); },
-		[](int v)  {        prefs::get().set_bell_volume(v); });
+		[]         { return prefs::get().bell_volume().as_percent(); },
+		[](int v)  {        prefs::get().set_bell_volume(sound::volume::from_percent(v)); });
 
 	/* UI FX */
 	initialize_sound_option_group("uisfx",
 		[]         { return prefs::get().ui_sound_on(); },
 		[](bool v) { return prefs::get().set_ui_sound(v); },
-		[]         { return prefs::get().ui_volume(); },
-		[](int v)  {        prefs::get().set_ui_volume(v); });
+		[]         { return prefs::get().ui_volume().as_percent(); },
+		[](int v)  {        prefs::get().set_ui_volume(sound::volume::from_percent(v)); });
 
 	//
 	// MULTIPLAYER PANEL
@@ -814,7 +815,7 @@ void preferences_dialog::initialize_callbacks()
 	connect_signal_notify_modified(advanced,
 		[this, &advanced](auto&&...) { on_advanced_prefs_list_select(advanced); });
 
-	on_advanced_prefs_list_select(advanced);
+	on_advanced_prefs_list_select(advanced, true);
 
 	//
 	// HOTKEYS PANEL
@@ -1051,12 +1052,15 @@ void preferences_dialog::hotkey_filter_callback()
 	find_widget<listbox>("list_hotkeys").set_row_shown(res);
 }
 
-void preferences_dialog::on_advanced_prefs_list_select(listbox& list)
+void preferences_dialog::on_advanced_prefs_list_select(listbox& list, const bool initial)
 {
 	const int selected_row = list.get_selected_row();
 	const auto& pref = prefs::get().get_advanced_preferences()[selected_row];
 
-	if(pref.type == preferences::option::avd_type::SPECIAL) {
+	// In Japanese language sorting, Reach Map Options becomes the first item and is selected
+	// automatically before the user has made any choice. Skip SPECIAL preferences if
+	// Preferences is still being built (initial == true). GitHub #11136.
+	if(!initial && pref.type == preferences::option::avd_type::SPECIAL) {
 		if(pref.field == "logging") {
 			gui2::dialogs::log_settings::display();
 		} else if(pref.field == "orb_color") {

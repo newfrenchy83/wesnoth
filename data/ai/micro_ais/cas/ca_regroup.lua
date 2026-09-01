@@ -133,8 +133,14 @@ function return_table:execution(cfg,data)
     -- remember that the threat evaluations already also factor in each unit's alignment for a +/- 25%
     -- and remember that we consider our units' next-turn moves, but only our enemies' this-turn moves
     local function is_safe_hex( hex, enemy_adjustment )
-        local this_turn_lawful_bonus = wesnoth.schedule.get_time_of_day(nil,          wesnoth.current.turn                            ).lawful_bonus;
-        local next_turn_lawful_bonus = wesnoth.schedule.get_time_of_day(nil, math.min(wesnoth.current.turn+1, wesnoth.scenario.turns) ).lawful_bonus;
+        -- get_time_of_day() throws errors if we try to get a turn number past the turn limit
+        -- so set next_turn to wesnoth.current.turn+1, but never greater than wesnoth.scenario.turns (if it's not -1 / infinite turns)
+        local next_turn = wesnoth.current.turn + 1;
+        if wesnoth.scenario.turns>0 then next_turn=math.min(next_turn, wesnoth.scenario.turns) end
+
+        local next_turn_lawful_bonus = wesnoth.schedule.get_time_of_day(nil, next_turn           ).lawful_bonus;
+        local this_turn_lawful_bonus = wesnoth.schedule.get_time_of_day(nil, wesnoth.current.turn).lawful_bonus;
+
         local is_good_tod = (
             (cfg.retreat_tod=='none') or -- if retreat_tod=none, assume it's always a good ToD
             (cfg.retreat_tod=='nighttime' and this_turn_lawful_bonus>=0) or
@@ -287,7 +293,7 @@ function return_table:execution(cfg,data)
     local retreatmap_leader = location_set.of_pairs(wesnoth.current.map.find{ T['filter'](cfg.filter_retreat_target) });
     for x,y in retreatmap_leader:clone():iter() do
         -- only guard near-leader hexes that're actually threatened
-		-- only consider enemies: comparing allies-vs-enemies might lead to a situation where we don't try to guard our leader because we have tons of units hiding behind him
+        -- only consider enemies: comparing allies-vs-enemies might lead to a situation where we don't try to guard our leader because we have tons of units hiding behind him
         if threatmap[{x,y}].enemies<=0 then retreatmap_leader:remove(x,y) end
     end
     locationset_expand(retreatmap_leader, cfg.leader_protect_radius, { skip_impassable=true, skip_unwalkable=skip_unwalkable });
@@ -723,7 +729,7 @@ function return_table:execution(cfg,data)
             if next(already_occupied)~=nil and already_occupied[1].id~=myunit.id then goto next_hex end
 
             -- 2) add value depending on the terrain (for us, not to the base hex)
-			local value = hex.value;
+            local value = hex.value;
             local defense = myunit:defense_on( wesnoth.current.map.get{x,y}.terrain );
             value = value + VALUE__defense * defense;
 
@@ -1045,11 +1051,12 @@ function return_table:execution(cfg,data)
                 T.filter_location{ x=leader.x, y=leader.y, radius=cfg.leader_protect_radius+2 },
             });
             local hex = threatmap[{leader.x,leader.y}];
-                if #nearby_allies<=0 and #nearby_enemies>=4 and hex.enemies/4>hex.allies then frustration = frustration + 3
-            elseif #nearby_allies<=2 and #nearby_enemies>=2 and hex.enemies/3>hex.allies then frustration = frustration + 2
-            elseif #nearby_allies<=4 and #nearby_enemies>=0 and hex.enemies/2>hex.allies then frustration = frustration + 1
-            else                                                                              frustration = math.max(0, frustration - 1) end
---             wesnoth.interface.add_chat_message('frustration: '..frustration)
+                if #nearby_allies<=0 and #nearby_enemies>=4 and hex.enemies/3.0>hex.allies then frustration = frustration + 3
+            elseif #nearby_allies<=2 and #nearby_enemies>=2 and hex.enemies/2.0>hex.allies then frustration = frustration + 2
+            elseif #nearby_allies<=4 and #nearby_enemies>=0 and hex.enemies/1.5>hex.allies then frustration = frustration + 1
+            elseif #nearby_allies<=4 and #nearby_enemies>=0 and hex.enemies/0.8>hex.allies then frustration = frustration + 0
+            else                                                                                frustration = math.max(0, frustration - 1) end
+--            wesnoth.interface.add_chat_message('frustration: '..old_frustration..'->'..frustration)
 
             -- no matter how long we've been frustrated for, only require a single turn of safety to restore our normal AI
             if frustration>5 then frustration=5 end
@@ -1061,6 +1068,7 @@ function return_table:execution(cfg,data)
             -- use zone_guardian to force even suicidal attacks
             if frustration>=5 and old_frustration<5 then
                 wesnoth.game_events.fire('leader_frustrated', leader);
+--                wesnoth.interface.add_chat_message('triggering leader frustration!')
                 wesnoth.wml_actions.micro_ai({
                     ca_id='frustration_zone_guardian_'..leader.id,
                     ai_type='zone_guardian',

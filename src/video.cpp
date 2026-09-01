@@ -34,7 +34,7 @@
 #endif
 #endif
 
-#include <SDL3/SDL.h>
+#include <SDL3/SDL_init.h>
 #include <SDL3/SDL_render.h> // SDL_Texture
 
 #include <cassert>
@@ -232,7 +232,7 @@ bool update_framebuffer()
 	max_scale_ = std::min(
 		osize.x / pref_constants::min_window_width,
 		osize.y / pref_constants::min_window_height);
-	max_scale_ = std::min(max_scale_, pref_constants::max_pixel_scale);
+	max_scale_ = std::clamp(max_scale_, 1, pref_constants::max_pixel_scale);
 
 	// Determine best pixel scale according to preference and window size
 	int scale = 1;

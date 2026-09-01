@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wesnoth-1.18\n"
 "Report-Msgid-Bugs-To: https://bugs.wesnoth.org/\n"
-"POT-Creation-Date: 2026-06-23 03:16 UTC\n"
+"POT-Creation-Date: 2026-08-18 15:19 UTC\n"
 "PO-Revision-Date: 2026-01-30 20:23+0800\n"
 "Last-Translator: vimacs <vimacs.hacks@gmail.com>\n"
 "Language-Team: Wesnoth Simplified Chinese Team\n"
@@ -584,7 +584,7 @@ msgstr "梅尔·古斯拉克"
 #. Appears in S01, where she's an apprentice of Mel Guthrak, and sometimes copies his motions (plays her animation) when he recruits.
 #. She reappears in S13, where Terraent can recruit her to the player's side.
 #: data/campaigns/Eastern_Invasion/scenarios/01_Eastern_Invasion.cfg:210
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1073
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1092
 msgid "Gaennell"
 msgstr "盖内尔"
 
@@ -608,7 +608,7 @@ msgstr "移动任意单位到你的营地外 (10,15) 位置的活板门"
 #: data/campaigns/Eastern_Invasion/scenarios/02_The_Escape_Tunnel.cfg:226
 #: data/campaigns/Eastern_Invasion/scenarios/02_The_Escape_Tunnel.cfg:508
 #: data/campaigns/Eastern_Invasion/scenarios/03_An_Unexpected_Appearance.cfg:169
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:174
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:175
 #: data/campaigns/Eastern_Invasion/scenarios/04b_Ill_Humors.cfg:301
 #: data/campaigns/Eastern_Invasion/scenarios/04b_Ill_Humors.cfg:563
 #: data/campaigns/Eastern_Invasion/scenarios/04c_Mal-Ravanals_Capital.cfg:430
@@ -768,7 +768,7 @@ msgstr "如果你想死，以后有足够的时间满足你的愿望的。"
 #: data/campaigns/Eastern_Invasion/scenarios/01_Eastern_Invasion.cfg:844
 #: data/campaigns/Eastern_Invasion/scenarios/05_Northern_Outpost.cfg:545
 #: data/campaigns/Eastern_Invasion/scenarios/05_Northern_Outpost.cfg:1116
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1146
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1165
 #: data/campaigns/Eastern_Invasion/scenarios/14_The_Drowned_Plains.cfg:922
 #: data/campaigns/Eastern_Invasion/scenarios/14_The_Drowned_Plains.cfg:926
 #: data/campaigns/Eastern_Invasion/scenarios/14_The_Drowned_Plains.cfg:1219
@@ -1268,40 +1268,40 @@ msgid "Addogin"
 msgstr "阿道金"
 
 #. [objective]: condition=win
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:159
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:160
 msgid "Move any unit to the signpost in the northwest"
 msgstr "移动任意单位到西北方的路标"
 
 #. [objective]: condition=win
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:164
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:165
 msgid "Kill Addogin (bonus reward)"
 msgstr "杀了阿道金（附加奖励）"
 
 #. [note]
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:183
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:184
 msgid ""
 "Control 10 villages or kill Addogin to force the mercenaries to retreat."
 msgstr "控制10个村庄或者杀了阿道金以强迫雇佣军撤退。"
 
 #. [message]: speaker=Vaelya
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:200
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:201
 msgid "Greetings, travelers! I hope you find our forest hospitable."
 msgstr "你们好，旅行者！希望你们感受到我们森林的热情。"
 
 #. [message]: speaker=Gweddry
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:204
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:205
 msgid "Indeed, and you have my thanks for allowing us entry."
 msgstr "的确，我非常感谢你允许我们进来。"
 
 #. [message]: speaker=Vaelya
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:208
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:209
 msgid ""
 "What brings you to our lands? Long has it has been since men of Wesnoth "
 "presented themselves to us."
 msgstr "是什么把你们带到了我们的领地？韦诺人很久没有在我们面前出现过了。"
 
 #. [message]: speaker=Gweddry
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:212
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:213
 msgid ""
 "I’m afraid Wesnoth has been invaded by fell undead, although I am glad to "
 "see they have not yet entered this forest. We have come here seeking refuge "
@@ -1312,7 +1312,7 @@ msgstr ""
 
 #. [message]: speaker=Vaelya
 #. followed by a delay and then the elves switching from allies to enemies
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:217
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:218
 msgid ""
 "I am sorry to hear of your misfortune. Our scouts had spotted undead in this "
 "area, but I am shocked to hear that they are attacking Wesnoth. And if they "
@@ -1322,7 +1322,7 @@ msgstr ""
 "在攻击韦诺。如果他们在追捕你，那么……"
 
 #. [message]: speaker=Vaelya
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:230
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:231
 msgid ""
 "My heart aches with the weight of this decision, but if you are being "
 "pursued by undead I am afraid I cannot allow you entry. You are welcome to "
@@ -1333,7 +1333,7 @@ msgstr ""
 "在我们的土地外旅行，但我不能冒着给我的人民带来毁灭的风险。"
 
 #. [message]: speaker=Dacyn
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:234
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:235
 msgid ""
 "So much for forest hospitality. Elf, you know full well that going around "
 "will take us days of forced march, time which we can hardly afford. We "
@@ -1343,12 +1343,12 @@ msgstr ""
 "们几乎负担不起。我们和你一样鄙视亡灵。让我们通过吧。"
 
 #. [message]: speaker=Gweddry
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:238
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:239
 msgid "Vaelya, surely you can find it in your heart to grant us passage?"
 msgstr "薇莉娅，你在心里找不到允许我们通过的理由吗？"
 
 #. [message]: speaker=Vaelya
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:242
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:243
 msgid ""
 "I wish I could, but I would spare my people the fate of undeath. I must take "
 "precautions to protect these lands."
@@ -1357,37 +1357,37 @@ msgstr ""
 "地。"
 
 #. [message]: speaker=Vaelya
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:246
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:247
 msgid ""
 "In fact, I confess that since hearing of the undead I have stooped so low as "
 "to hire a mercenary company..."
 msgstr "事实上，我承认自从听说亡灵之后，我就卑微地雇佣了一队雇佣军……"
 
 #. [message]: speaker=Vaelya
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:250
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:251
 msgid "... Addogin, please escort these Wesnothians away to the east."
 msgstr "……阿道金，请把这些韦诺人送到东方去。"
 
 #. [message]: speaker=Addogin
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:258
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:259
 msgid "You heard the lady! Boys, it’s time to earn our keep!"
 msgstr "你听到了女士的话！男孩们，是时候自食其力了！"
 
 #. [unit]: type={ON_DIFFICULTY (Orcish Slayer) (Orcish Nightblade) (Orcish Nightblade)}, id=Nafga
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:269
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:270
 msgid "Nafga"
 msgstr "纳法加"
 
 #. [message]: speaker=Nafga
 #. What are your orders for me to perform, Addogin?
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:280
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:281
 msgid "And what about me?"
 msgstr "那我呢？"
 
 #. [message]: speaker=Addogin
 #. "you" being a single male Orcish Slayer or Orcish Nightblade
 #. later in the campaign, it's revealed that the necromancers are buying corpses, and a lot are being sold
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:286
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:287
 msgid ""
 "Into the forest with you. If it comes to bloodshed, strike at them from "
 "behind. And don’t even think of running off with any corpses before I can "
@@ -1397,12 +1397,12 @@ msgstr ""
 "前，也不要想带着任何尸体逃跑！"
 
 #. [message]: speaker=Gweddry
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:305
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:306
 msgid "There must be some way to resolve this without fighting..."
 msgstr "一定有一种方法可以在不战斗的情况下解决这个问题……"
 
 #. [message]: speaker=Dacyn
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:309
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:310
 msgid ""
 "Finding another path westwards would cause great delay, which would cost "
 "Wesnoth many lives. We will fight our way through the mercenaries, through "
@@ -1412,7 +1412,7 @@ msgstr ""
 "雇佣军战斗，穿过精灵，从另一边出去。"
 
 #. [message]: speaker=Gweddry
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:314
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:315
 msgid ""
 "... hmm, mercenaries are not known for their loyalty. If we can show we are "
 "gaining ground, they may turn and run. If we can defeat their leader, the "
@@ -1422,37 +1422,37 @@ msgstr ""
 "身逃跑。如果我们能够击败他们的首领，结果可能会更好。"
 
 #. [message]: speaker=Nafga
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:333
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:334
 msgid ""
 "Bloodshed, hahaha! Nafga will kill the humans and keep the bounty all for "
 "himself!"
 msgstr "血腥，哈哈哈！纳法加将会杀死人类，所有的赏金都归他自己！"
 
 #. [message]: speaker=Addogin
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:341
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:342
 msgid "No amount of money is worth dying for. Forget this, it’s time to bail!"
 msgstr "再多的钱也不值得为之而死。忘了这件事，该离开了！"
 
 #. [message]: speaker=Vaelya
 #. to the remaining mercenaries, who are orcs and human outlaws
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:364
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:365
 msgid "No, we need your help! Please come back!"
 msgstr "不，我们需要你们的帮助！请你们回来！"
 
 #. [message]: speaker=Addogin
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:368
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:369
 msgid "Sorry lady, but coin’s no good if you’re not alive to spend it."
 msgstr "对不起，女士，但如果你没命花钱，金币没有好处。"
 
 #. [message]: speaker=$found_unit.id
 #. the mercenaries decide it's time to retreat
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:395
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:396
 msgid "This ain’t lookin’ good. Those Wesnoth soldiers are <i>mean</i>."
 msgstr "这看起来不太好。那些韦诺士兵好<i>凶残</i>。"
 
 #. [message]: speaker=$second_unit.id
 #. capturing Addogin, spoken by the unit fighting him
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:415
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:416
 msgid ""
 "Oh no you don’t! You and your band of mercenaries have caused us enough "
 "trouble! How do we know you won’t rally your men and attack us again?"
@@ -1462,7 +1462,7 @@ msgstr ""
 
 #. [message]: speaker=Gweddry
 #. capturing Addogin
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:420
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:421
 msgid ""
 "I suppose we’ll have to bring him with us, at least for a time. Tie him up "
 "so he doesn’t run away."
@@ -1470,12 +1470,12 @@ msgstr ""
 "我认为我们不得不带他和我们一起，至少持续一段时间。把他绑住，这样他逃不掉。"
 
 #. [message]: speaker=Addogin
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:424
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:425
 msgid "Help! I was only doing my job!"
 msgstr "救命！我只是在做我的工作！"
 
 #. [message]: speaker=narrator
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:460
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:461
 msgid ""
 "Addogin has joined your side, but will be <b><i>slowed</i></b> and "
 "<b><i>unable to attack</i></b> as long as he remains tied up."
@@ -1484,32 +1484,32 @@ msgstr ""
 "不能攻击</i></b>。"
 
 #. [message]: speaker=Addogin
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:464
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:465
 msgid "I’m gettin’ too old for this..."
 msgstr "我年纪变得太大，干不了这个了……"
 
 #. [message]: speaker=Nafga
 #. last breath
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:497
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:498
 msgid "No! This is the first and last time I have failed a mission!"
 msgstr "不！这是我第一次任务失败，也是最后一次！"
 
 #. [message]: speaker=Vaelya
 #. last breath
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:510
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:511
 msgid "I only wanted... to protect my people..."
 msgstr "我只是想……保护我的人民……"
 
 #. [message]: speaker=unit
 #. The valley of the River Weldyn, although there's also a city with the same name.
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:547
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:548
 msgid ""
 "I’ve made it through the forest and I can see the valley Weldyn open on the "
 "other side!"
 msgstr "我已经穿过森林，可以看到另一边的维尔帝河谷了！"
 
 #. [message]: speaker=Dacyn
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:551
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:552
 msgid ""
 "Well done, we have crossed this forest without major delay. Now we must see "
 "what has become of Owaec and his garrison."
@@ -1518,20 +1518,20 @@ msgstr ""
 "他的驻军变成了什么样子。"
 
 #. [message]: speaker=Addogin
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:590
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:591
 msgid ""
 "What the?! Are you seeing this? Trees aren’t supposed to move like that."
 msgstr "什么？！你看到了吗？树不应该那样移动。"
 
 #. [message]: speaker=Vaelya
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:594
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:595
 msgid ""
 "The forest itself has come to our aid! Not in a hundred years have I "
 "witnessed such a wonder."
 msgstr "森林本身来帮助我们了！一百年来我从未见过如此奇观。"
 
 #. [message]: speaker=Dacyn
-#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:598
+#: data/campaigns/Eastern_Invasion/scenarios/04a_An_Elven_Interlude.cfg:599
 msgid ""
 "The fighting has awoken woses from the forest. Now they will surely deny us "
 "passage, and this delay will mean the end of Wesnoth..."
@@ -7720,81 +7720,87 @@ msgstr "沃凡"
 
 #. [event]
 #: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:472
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:849
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:922
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1004
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1086
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1253
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:868
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:941
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1023
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1105
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1272
 msgid "Gaoler"
 msgstr "狱卒"
 
+#. [event]
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:482
+#: data/campaigns/Eastern_Invasion/scenarios/14_The_Drowned_Plains.cfg:804
+msgid "150 gold"
+msgstr "150金币"
+
 #. [objective]: condition=win
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:485
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:504
 msgid "Rescue as many prisoners as possible (6 groups arrive soon)"
 msgstr "营救尽可能多的战俘（6组就要到来）"
 
 #. [objective]: condition=win
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:492
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:511
 msgid "Rescue as many prisoners as possible (5 groups arrive soon)"
 msgstr "营救尽可能多的战俘（5组就要到来）"
 
 #. [objective]: condition=win
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:499
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:518
 msgid "Rescue as many prisoners as possible (4 groups arrive soon)"
 msgstr "营救尽可能多的战俘（4组就要到来）"
 
 #. [objective]: condition=win
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:506
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:525
 msgid "Rescue as many prisoners as possible (3 groups arrive soon)"
 msgstr "营救尽可能多的战俘（3组就要到来）"
 
 #. [objective]: condition=win
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:513
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:532
 msgid "Rescue as many prisoners as possible (2 groups arrive soon)"
 msgstr "营救尽可能多的战俘（2组就要到来）"
 
 #. [objective]: condition=win
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:520
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:539
 msgid "Rescue as many prisoners as possible (1 group arrives soon)"
 msgstr "营救尽可能多的战俘（1组就要到来）"
 
 #. [objective]: condition=win
 #. Mal-Yrna, a female necromancer
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:528
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:547
 msgid "Defeat the southern necromancer"
 msgstr "击败南面的死灵法师"
 
 #. [objective]: condition=lose
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:532
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:551
 msgid "Death of Owaec"
 msgstr "欧瓦埃克死亡"
 
 #. [objective]: condition=lose
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:541
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:560
 msgid "Death of Terraent"
 msgstr "特拉恩特死亡"
 
 #. [note]
 #. two prisoners and one jailer per gang
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:557
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:576
 msgid "Prisoner gangs will alternate arriving on north and south paths."
 msgstr "每群战俘将会轮流沿北边和南边的路线到达。"
 
 #. [note]
 #. "enemy" in this case meaning "player's unit"
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:561
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:580
 msgid "Bats prefer to fly towards the nearest enemy."
 msgstr "蝙蝠倾向于飞向最近的敌人。"
 
 #. [message]: id=Owaec,Terraent
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:600
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:619
 msgid ""
 "Alas, my long days of riding have been for naught. I could not catch the "
 "undead scout before it could report back to its mistress!"
 msgstr ""
 
 #. [message]: id=Owaec,Terraent
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:604
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:623
 msgid ""
 "Gweddry had hoped we might take this necromancer by surprise. But now that "
 "she is alerted, and with the rest of our army yet weeks away, she will have "
@@ -7803,7 +7809,7 @@ msgstr ""
 
 #. [message]: speaker=Mal-Yrna
 #. speaking to a bat
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:614
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:633
 msgid ""
 "Minion, what’s this? Soldiers of Wesnoth approach from the north? That area "
 "should have been cleansed over a month ago."
@@ -7811,38 +7817,38 @@ msgstr ""
 "小兵，这是什么？韦诺士兵从北方逼近？那个区域应该在一个月前就被清理干净了。"
 
 #. [message]: speaker=Mal-Yrna
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:618
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:637
 msgid ""
 "No matter. Bring in the next batch of prisoners. I have need of them a "
 "little sooner than expected."
 msgstr "无论怎样，把下一批囚犯带来。我比预期的更早一些需要他们。"
 
 #. [message]: speaker=Vovan
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:626
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:645
 msgid "Wait a moment, can we talk about thi-"
 msgstr "等一下，我们可以谈谈这——"
 
 #. [message]
 #. Vovan has been turned into a ghoul, and the other prisoner has been too.
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:632
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:651
 msgid "I... Hunger..."
 msgstr "我……饿……"
 
 #. [message]: speaker=Owaec
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:637
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:656
 msgid ""
 "By the Clans, she wields slaves as weapons! This injustice will not stand!"
 msgstr "以氏族之名，她以奴隶为武器！这种不公不容存在！"
 
 #. [message]: speaker=Terraent
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:641
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:660
 msgid ""
 "By all that is holy, she wields slaves as weapons! This evil will not stand!"
 msgstr "凭所有神圣之物，她以奴隶为武器！这种邪恶不容存在！"
 
 #. [message]: id=Owaec,Terraent
 #. two dwarves, with a Deathblade as the jailer
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:655
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:674
 msgid ""
 "More prisoners approach from the northwest! I have not the time to depart "
 "and return with Gweddry, or those dwarves will surely be slain."
@@ -7851,14 +7857,14 @@ msgstr ""
 "会被杀死。"
 
 #. [message]: speaker=Owaec
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:659
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:678
 msgid ""
 "I may have failed my original mission, but in the name of the Clans, I will "
 "not fail these prisoners now!"
 msgstr "我可以在原来的任务下失败，但以氏族之名，我现在不会辜负这些战俘！"
 
 #. [message]: speaker=Terraent
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:663
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:682
 msgid ""
 "I may have failed my original mission, but by the holy Light, I will not "
 "fail these prisoners now!"
@@ -7866,37 +7872,37 @@ msgstr "我可以在原来的任务下失败，但在圣光之下，我现在不
 
 #. [message]: speaker=Mal-Yrna
 #. the speaker was renamed to Mal-Mana at the start
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:680
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:699
 msgid ""
 "Wait — I remember you! You’re one of the ones who fled from me last autumn "
 "near Soradoc!"
 msgstr "等等——我记得你了！你是去年秋天在索拉多克附近逃走的那些人之一！"
 
 #. [message]: speaker=Mal-Yrna
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:684
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:703
 msgid ""
 "This time I’ve traded my bats for ghouls. There’s no way you’ll escape now!"
 msgstr "这次我把蝙蝠换成食尸鬼。你现在逃不掉了！"
 
 #. [event]
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:815
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:834
 msgid "Nargaril"
 msgstr "纳加里尔"
 
 #. [event]
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:832
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:851
 msgid "Urmarol"
 msgstr "乌尔马若尔"
 
 #. [message]: speaker=Nargaril
 #. to a Deathblade
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:857
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:876
 msgid "Get yer filthy chains off my wrists, ye pile o’ bones!"
 msgstr "把你那臭气熏天的锁链从我的手腕上拿开，你这堆骨头！"
 
 #. [message]: speaker=Urmarol
 #. "Thank you kindly for freeing us! My runesmithing arts are not meant to be used outside of knalga, but I think now is an exception. I just hope the East Gate didn't fare too bad after I was captured..."
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:871
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:890
 msgid ""
 "Thank ye kindly fer freein’ us! Me runesmithin’ arts are not meant ta be "
 "used outside o’ Knalga, but methinks now is an exception. I just hope tha "
@@ -7906,30 +7912,30 @@ msgstr ""
 "我只希望我在被俘获之后，东门不要受太大的损害……"
 
 #. [event]
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:888
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:907
 msgid "Vinreddoc"
 msgstr "温雷多克"
 
 #. [event]
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:905
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:924
 msgid "Tunreoryr"
 msgstr "图内罗伊尔"
 
 #. [message]: speaker=Vinreddoc
 #. spoken between two prisoners, "them" being the undead forces
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:930
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:949
 msgid "How are there so many of them? Is this the end of all Wesnoth?"
 msgstr "他们怎么这么多？这是整个韦诺的终结了吗？"
 
 #. [message]: speaker=Tunreoryr
 #. spoken between two prisoners
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:935
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:954
 msgid "Don’t worry. I’m sure the Crown has a plan..."
 msgstr "别担心，我相信王国有计划……"
 
 #. [message]: speaker=Vinreddoc
 #. Vinreddoc is a mage, but with random gender
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:949
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:968
 msgid ""
 "Thank you! When the undead overran the academy I thought I was dead for "
 "sure. I just wonder what has happened to my friends..."
@@ -7938,45 +7944,45 @@ msgstr ""
 "事……"
 
 #. [message]: speaker=Terraent
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:953
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:972
 msgid "Take heart! As long as there is Light, hope always remains."
 msgstr "鼓起勇气！只要有光明，希望就永远存在。"
 
 #. [event]
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:970
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:989
 msgid "Ugzush"
 msgstr "乌兹什"
 
 #. [event]
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:987
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1006
 msgid "Hibro"
 msgstr "希布罗"
 
 #. [message]: speaker=Hibro
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1014
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1033
 msgid "I’ll take you all on! As soon as I get out of these chains..."
 msgstr "我会把你们全部干掉！只要我摆脱了这些锁链……"
 
 #. [message]: speaker=Gaoler_Orcs
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1018
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1037
 msgid "Silence. Orcs. March."
 msgstr "安静。兽人。前进。"
 
 #. [message]: speaker=Ugzush
 #. he's just been rescued
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1032
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1051
 msgid ""
 "Cruddy undead think they can chain me up! I’ll grind their bones into dust!"
 msgstr "脏兮兮的亡灵以为他们可以锁住我！我会把他们的骨头磨成尘土！"
 
 #. [event]
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1049
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1068
 msgid "Syner"
 msgstr "西纳"
 
 #. [message]: speaker=Gaennell
 #. this Dark Adept is a prisoner too
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1097
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1116
 msgid ""
 "I swear, it was an accident! Please, if you’ll just let me talk to Mel "
 "Guthrak, I’m sure this can all be straightened out."
@@ -7984,7 +7990,7 @@ msgstr "我发誓，这是意外！请让我和梅尔·古斯拉克谈谈，我�
 
 #. [message]: speaker=Syner
 #. to Gaennell
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1102
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1121
 msgid ""
 "Your time is done, necromancer. If I have one small comfort, it’s that I’ll "
 "get to watch you die alongside me."
@@ -7994,13 +8000,13 @@ msgstr ""
 
 #. [message]: speaker=Syner
 #. speaking of Gaennell
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1116
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1135
 msgid "I’m free! Now I’ll have the pleasure of killing this dark adept myself."
 msgstr "我自由了！现在我可以亲自享受杀掉这个黑暗狂徒的乐趣了。"
 
 #. [message]: speaker=Terraent
 #. speaking to Syner about Gaennell
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1129
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1148
 msgid ""
 "Stay your hand, man of Wesnoth! A killing in cold blood is no justice and "
 "revenge will bring you no peace."
@@ -8008,18 +8014,18 @@ msgstr "韦诺人，请手下留情！冷血杀人不算正义，复仇也不会
 
 #. [message]: speaker=Syner
 #. speaking of Gaennell
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1134
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1153
 msgid "Are you mad? That woman is a necromancer!"
 msgstr "你疯了吗？那个女人是死灵法师！"
 
 #. [message]: speaker=Gaennell
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1138
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1157
 msgid ""
 "...you might as well. They think I’m a traitor. I’m as good as dead already."
 msgstr "…你也可以。他们认为我是叛徒。 我已经死了 。"
 
 #. [message]: speaker=Terraent
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1142
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1161
 msgid ""
 "Then the choice is yours. Flee and face the world alone, or forswear your "
 "dark arts and join me to protect all that yet remains holy in this good "
@@ -8029,40 +8035,40 @@ msgstr ""
 "美好世界上尚存的一切神圣之物。"
 
 #. [message]: speaker=Gaennell
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1154
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1173
 msgid "Okay. No more necromancy. I’ll join you."
 msgstr "好吧。不再使用死灵术。我会加入你。"
 
 #. [message]: speaker=Owaec
 #. speaking to Syner, who has just killed Gaennell
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1199
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1218
 msgid "And so justice has been served! Such is the fate of all evildoers."
 msgstr "于是正义得到了伸张！这就是所有作恶者的命运。"
 
 #. [event]
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1219
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1238
 msgid "Scyla"
 msgstr "希拉"
 
 #. [event]
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1236
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1255
 msgid "Mame"
 msgstr "玛米"
 
 #. [message]: speaker=Gaoler_Merfolk
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1265
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1287
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1284
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1306
 msgid "March. Faster."
 msgstr "走。快点。"
 
 #. [message]: speaker=Mame
 #. a Mermaid Priestess as prisoner, the line ends with the jailer hitting her
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1270
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1289
 msgid "We’re going as fast as we can! Maybe if you’d let us swim-"
 msgstr "我们正在尽可能快地前进！也许你可以让我们游泳的—"
 
 #. [message]: speaker=Mame
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1300
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1319
 msgid ""
 "Thanks stranger! I do not recognize these lands, but I do recognize a kind "
 "heart when I meet one. Should I ever find my way home to the coast, I will "
@@ -8073,61 +8079,61 @@ msgstr ""
 
 #. [message]: id=Owaec,Terraent
 #. "we" being the speaker and the prisoners that they've rescued
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1311
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1330
 msgid "Now we come for you, necromancer!"
 msgstr "现在我们来找你了，死灵法师！"
 
 #. [message]: speaker=Mal-Yrna
 #. each bat-summoning event is triggered by the player rescuing prisoners
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1360
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1379
 msgid ""
 "Of course, just because I said I wouldn’t summon bats doesn’t mean I can’t..."
 msgstr "当然，我说我不召唤蝙蝠，并不代表我不能……"
 
 #. [message]: speaker=Mal-Yrna
 #. each bat-summoning event is triggered by the player rescuing prisoners
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1368
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1387
 msgid "My prisoners!! You’ll pay for that..."
 msgstr "我的俘虏！！你会为那件事付出代价……"
 
 #. [message]: speaker=Mal-Yrna
 #. this is a common misquote from the wizard of oz, she's talking to her bats
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1378
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1397
 msgid "Fly, my pretties, fly!"
 msgstr "飞吧，我的小可爱，飞吧！"
 
 #. [message]: speaker=Mal-Yrna
 #. to Terraent. She's summoning bats.
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1405
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1424
 msgid "Not again! Do not test me, paladin of Wesnoth..."
 msgstr "不要再来了！不要考验我，韦诺的圣骑士……"
 
 #. [message]: speaker=Mal-Yrna
 #. to Owaec. She's summoning bats.
 #. The text is an allusion to drowned plains, which the next scenario will reveal to be the current state of the Horse Clans' beloved plains.
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1414
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1433
 msgid "Not again! Do not test me, lord of the swamps..."
 msgstr "又来了！不要考验我，沼泽之主……"
 
 #. [message]: speaker=Mal-Yrna
 #. More prisoners rescued, more bats get summoned.
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1438
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1457
 msgid "You are starting to become rather irritating."
 msgstr "你开始变得有点让人生气了。"
 
 #. [message]: speaker=Mal-Yrna
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1460
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1479
 msgid "Enough! My bats will feast on your blood!"
 msgstr "够了！我的蝙蝠要享用你的血液！"
 
 #. [message]: speaker=Mal-Yrna
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1483
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1502
 msgid "Why won’t you just die?!"
 msgstr "你怎么不去死？！"
 
 #. [message]: speaker=Gweddry
 #. victory event, and the rest of the player's units catch up
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1567
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1586
 msgid ""
 "Hail, Terraent! We feared the worst when you did not return, yet here I find "
 "you alive and well!"
@@ -8137,7 +8143,7 @@ msgstr ""
 
 #. [message]: speaker=Gweddry
 #. victory event, and the rest of the player's units catch up
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1575
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1594
 msgid ""
 "Hail, Owaec! We feared the worst when you did not return, yet here I find "
 "you alive and well!"
@@ -8146,7 +8152,7 @@ msgstr ""
 "的！"
 
 #. [message]: speaker=Terraent
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1588
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1607
 msgid ""
 "Indeed! The Light blessed me with an opportunity to save many souls and I "
 "could not decline! Now the crossing is clear, and we may return to see what "
@@ -8156,7 +8162,7 @@ msgstr ""
 "们可以返回去看看我们的故乡变成了什么样子。"
 
 #. [message]: speaker=Owaec
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1595
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1614
 msgid ""
 "Huzzah! Today has been a great victory! I have rescued a great many "
 "prisoners and defeated a foul necromancer! Now the crossing is clear, and we "
@@ -8166,12 +8172,12 @@ msgstr ""
 "在渡口已经畅通无阻，我们可以返回去看看我们的故乡变成了什么样子。"
 
 #. [message]: speaker=Mal-Yrna
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1602
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1621
 msgid "You’re too late! Wesnoth is... already..."
 msgstr "你来晚了！韦诺…已经……"
 
 #. [message]: speaker=Dacyn
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1653
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1672
 msgid ""
 "Hail, Terraent! We feared the worst when you did not return, yet here I find "
 "you alive and well! But who is this you are fighting?"
@@ -8180,7 +8186,7 @@ msgstr ""
 "的！但是现在和你战斗的是谁？"
 
 #. [message]: speaker=Dacyn
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1660
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1679
 msgid ""
 "Hail, Owaec! We feared the worst when you did not return, yet here I find "
 "you alive and well! But who is this you are fighting?"
@@ -8190,7 +8196,7 @@ msgstr ""
 
 #. [message]: speaker=Mal-Yrna
 #. she dispatches a messenger bat after this, leading to Dacyn saying all is lost
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1667
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1686
 msgid ""
 "Can it be? Dacyn the mage? We thought you perished in the wild northlands, "
 "but now I find you alive and isolated from Wesnoth! I must inform Mal-"
@@ -8200,7 +8206,7 @@ msgstr ""
 "隔绝！我必须告诉玛尔-拉瓦纳尔！"
 
 #. [message]: speaker=Dacyn
-#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1693
+#: data/campaigns/Eastern_Invasion/scenarios/13_Spoils_of_War.cfg:1712
 msgid ""
 "Even if we triumph at this crossing, Mal-Ravanal will surely find and "
 "destroy us before we can reunite with Wesnoth..."
@@ -8414,11 +8420,6 @@ msgstr "175金币"
 #: data/campaigns/Eastern_Invasion/scenarios/14_The_Drowned_Plains.cfg:803
 msgid "55 gold"
 msgstr "55金币"
-
-#. [event]
-#: data/campaigns/Eastern_Invasion/scenarios/14_The_Drowned_Plains.cfg:804
-msgid "150 gold"
-msgstr "150金币"
 
 #. [event]
 #: data/campaigns/Eastern_Invasion/scenarios/14_The_Drowned_Plains.cfg:807
@@ -9214,7 +9215,7 @@ msgstr "室内"
 
 #. [unit]: id=Aeraeka, type=Arch Mage, gender=female
 #: data/campaigns/Eastern_Invasion/scenarios/15_Return_to_Wesnoth.cfg:755
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:101
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:102
 msgid "Aeraeka"
 msgstr "艾瑞卡"
 
@@ -10617,13 +10618,13 @@ msgstr ""
 "拦地照耀在维尔帝之上。"
 
 #. [event]
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:113
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:114
 msgid "Renaerawan"
 msgstr "瑞纳尔拉文"
 
 #. [message]: speaker=Renaerawan
 #. the speaker is a white mage who first appears in this epilogue
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:198
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:199
 msgid ""
 "We are gathered here today in remembrance of our dear colleague and friend, "
 "Dacyn, who fell even as he vanquished the arch-lich Mal-Ravanal."
@@ -10632,7 +10633,7 @@ msgstr ""
 "时就倒下了。"
 
 #. [message]: speaker=Renaerawan
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:202
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:203
 msgid ""
 "I knew Dacyn as a complicated man: ambitious yet loyal, proud yet wise. But "
 "above all, Dacyn sought to act for the good of Wesnoth, and today we honor "
@@ -10642,23 +10643,23 @@ msgstr ""
 "为韦诺的利益而行动，今天我们为此向他致敬。"
 
 #. [message]: speaker=Konrad
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:208
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:209
 msgid "Today we have won a great victory, yet it comes at great cost."
 msgstr "今天我们赢得了伟大的胜利，然而同样付出了巨大的代价。"
 
 #. [message]: speaker=Grug
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:212
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:213
 msgid "Grug sad! Magic man kind."
 msgstr "格拉格伤心！魔法人类。"
 
 #. [message]: speaker=Dolburras
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:216
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:217
 msgid ""
 "Ay. Too many ha’ died in this war, both my kinsmen at Knalga and yours here."
 msgstr "是的。在这场战争中死了太多人了，包括俺们纳尔迦的和你们的亲属。"
 
 #. [message]: speaker=Gweddry
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:220
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:221
 msgid ""
 "So many months of fighting... I feel as though I am awakening from a long "
 "nightmare."
@@ -10666,13 +10667,13 @@ msgstr "这么多月的战斗……我觉得自己就像从漫长的噩梦之中
 
 #. [message]: speaker=Owaec
 #. he's alive, this isn't a plaque on a tomb
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:225
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:226
 msgid ""
 "My duty is done; the Clans have been avenged. At last, I can rest in peace."
 msgstr "我的职责已经完成；氏族的仇已经报了。我终于可以安心地休息了。"
 
 #. [message]: speaker=Konrad
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:231
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:232
 msgid ""
 "Alas, our work is not yet complete. Mal-Ravanal’s host has been broken, but "
 "in its wake, chaos and disorder prevail throughout the countryside. We will "
@@ -10682,7 +10683,7 @@ msgstr ""
 "诺的乡村陷入了混乱和无序之中。我们要花几年……几十年……从这里的恶劣环境恢复。"
 
 #. [message]: speaker=Aeraeka
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:235
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:236
 msgid ""
 "Even now we should be sending what’s left of our armies to restore order "
 "throughout the land."
@@ -10692,7 +10693,7 @@ msgstr "哪怕是现在我们也应该派我们剩下的部队到各地恢复秩
 #. TODO for 1.19? Make clear who this is addressing, and make variations depending on whether it's to one person or two.
 #. To Owaec, Gweddry or both; but I only know that because I can see the condition and the alternative line if they're both dead.
 #. The "we" could be the royal pronoun (first person singular), but "we" as in "everyone in the Kingdom" fits too.
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:249
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:250
 msgid ""
 "It shall be so. But first, know that you have served Us, and Our Kingdom, "
 "full well. We are minded to reward you."
@@ -10703,7 +10704,7 @@ msgstr ""
 #. [message]: speaker=Konrad
 #. All three heroes are dead.
 #. The "we" could be the royal pronoun (first person singular), but "we" as in "everyone in the Kingdom" fits too.
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:259
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:260
 msgid ""
 "I had a mind to share this victory with those who made it possible, yet so "
 "many of them now lie dead. Lieutenant Gweddry, Lord Owaec, Advisor Dacyn, we "
@@ -10714,7 +10715,7 @@ msgstr ""
 
 #. [message]: speaker=Konrad
 #. the player chose to give Grug the plague staff
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:284
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:285
 msgid ""
 "Grug, a necromancer ogre is something wholly new to Us, but know that "
 "Wesnoth will never tolerate your kind. You shall surrender that accursed "
@@ -10727,12 +10728,12 @@ msgstr ""
 "将被判处死刑，并且你因此被驱逐出韦诺。请感谢我们的慈悲。"
 
 #. [message]: speaker=Grug
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:288
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:289
 msgid "Guh... Grug say no magic yes ok."
 msgstr "格…格拉格说没魔法是好。"
 
 #. [message]: speaker=Konrad
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:297
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:298
 msgid ""
 "Grug, Gweddry has told me of the help you and your tribe provided his men. "
 "We wish to offer you a new home in the Estmark Hills along with Our thanks."
@@ -10741,12 +10742,12 @@ msgstr ""
 "们在东界丘陵里安一个新家，以示感谢。"
 
 #. [message]: speaker=Grug
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:301
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:302
 msgid "(bowing clumsily) Grug say new home will make thanks with."
 msgstr "（笨拙地鞠躬）格拉格说新家要谢谢。"
 
 #. [message]: speaker=Konrad
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:321
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:322
 msgid ""
 "Dolburras, Owaec has told me of the help you provided his men; both your "
 "skill at arms and your tenacious spirit. We wish to offer you this finely "
@@ -10759,19 +10760,19 @@ msgstr ""
 
 #. [message]: speaker=Dolburras
 #. "Aye, I am honored. You have my sincerest thanks, your Majesty."
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:332
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:333
 msgid "Aye, I be honored. Ye have my sincerest thanks, yer Majesty."
 msgstr "是的，俺很荣幸。陛下，俺衷心感谢您。"
 
 #. [message]: speaker=Dolburras
 #. Owaec's dead
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:340
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:341
 msgid "Aye, I be honored. I only wish he were here to see the Clans avenged."
 msgstr "是的，俺很荣幸。俺只希望他能在这里看到有人为氏族复仇。"
 
 #. [message]: speaker=Konrad
 #. the player chose to give Addogin the plague staff
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:367
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:368
 msgid ""
 "Mercenary, <i>necromancer</i>, know that Wesnoth will never tolerate your "
 "kind. You shall surrender that accursed stave to be destroyed, you shall "
@@ -10783,7 +10784,7 @@ msgstr ""
 "逐出韦诺。请感谢我们的慈悲。"
 
 #. [message]: speaker=Addogin
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:371
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:372
 msgid ""
 "Yeah, figures. How did I let myself get caught up in all this anyways? "
 "Suppose I can always head north to those farmlands we passed by..."
@@ -10792,7 +10793,7 @@ msgstr ""
 "们路过的农田里……"
 
 #. [message]: speaker=Konrad
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:380
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:381
 msgid ""
 "Addogin, mercenary captain from the Estmarks. I have heard the story of how "
 "you entered Gweddry’s service against your will, but I have also heard that "
@@ -10805,7 +10806,7 @@ msgstr ""
 "为你提供皇家卫队的位置。"
 
 #. [message]: speaker=Addogin
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:384
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:385
 msgid ""
 "Sir, uh, milord, uh, King sir, I’m honored, really am, but I just wanna go "
 "home. If it’s alright with you, this old geezer will be haulin’ himself back "
@@ -10815,14 +10816,14 @@ msgstr ""
 "这个老头子回到东部，去享受迟来的退休生活了。"
 
 #. [message]: speaker=Konrad
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:389
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:390
 msgid ""
 "As you wish. Then take this chest of silver, that you may never again need "
 "raise sword for coin."
 msgstr "如你所愿。那么拿走这箱银子，从此以后你再也不需要举剑换金钱。"
 
 #. [message]: speaker=Konrad
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:409
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:410
 msgid ""
 "Hahid al-Ali, We know of your far-off people, but great distance has caused "
 "little contact between us. May it be thus no longer. If you accept, We would "
@@ -10832,7 +10833,7 @@ msgstr ""
 "状不再延续。若阁下愿意接受，吾等愿任命您为你我两界之间的大使。"
 
 #. [message]: speaker=Hahid al-Ali
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:413
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:414
 msgid ""
 "Me, ambassador to the barbarian kingdoms, what a thought! I am honored, and "
 "would be even more honored to learn that the job comes with... excellent pay "
@@ -10842,7 +10843,7 @@ msgstr ""
 "优厚的话，我会更加荣幸？"
 
 #. [message]: speaker=Konrad
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:431
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:432
 msgid ""
 "Sir Terraent, your service to the Crown and your unfailing optimism has been "
 "a beacon of light in these dark times. If you accept, we would appoint you "
@@ -10852,7 +10853,7 @@ msgstr ""
 "我将委派你指挥东界的河岸卫队。"
 
 #. [message]: speaker=Terraent
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:435
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:436
 msgid ""
 "It has been an honor to spread the holy Light in this kingdom, and I humbly "
 "accept your commission. May the Light shine ever-bright upon the pious."
@@ -10861,7 +10862,7 @@ msgstr "在王国散布圣光乃微臣之幸，受此大任，不胜惶恐。愿
 #. [message]: speaker=Konrad
 #. Gaennell’s previous crimes are held against her, regardless of whether or not she has the plague staff now.
 #. Terraent is alive, "speaks well of you" meaning he's asked the King to pardon Gaennell.
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:470
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:471
 msgid ""
 "As for you, <i>necromancer</i>. We are not as like as Terraent to show mercy "
 "unto evil, but he speaks well of you, and so mercy shall be shown. Go from "
@@ -10875,7 +10876,7 @@ msgstr ""
 #. [message]: speaker=Konrad
 #. Gaennell’s previous crimes are held against her, regardless of whether or not she has the plague staff now.
 #. Terraent is dead.
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:480
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:481
 msgid ""
 "As for you, <i>necromancer</i>. We are not as like as Terraent to show mercy "
 "unto evil, but in honor of his sacrifice We will show it now. Go from here a "
@@ -10887,12 +10888,12 @@ msgstr ""
 "道，你被禁止练习所有形式的魔法，否则将被判处死刑。"
 
 #. [message]: speaker=Gaennell
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:486
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:487
 msgid "<i>Forbidden to-</i>"
 msgstr "<i>禁止—</i>"
 
 #. [message]: speaker=Gaennell
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:490
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:491
 msgid ""
 "... as an adept I’d dreamt of one day standing in this palace, though "
 "under... different circumstances. Well, better that I get to keep my head, I "
@@ -10903,7 +10904,7 @@ msgstr ""
 
 #. [message]: speaker=Konrad
 #. a unit has the plague staff, but they're not one of the loyals. This version of the line is used if Gaennell is here.
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:515
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:516
 msgid ""
 "And the same goes for you, wielder of that accursed stave. You shall "
 "surrender it to be destroyed, and leave here forbidden to practice magic. Be "
@@ -10914,7 +10915,7 @@ msgstr ""
 
 #. [message]: speaker=Konrad
 #. a unit has the plague staff, but they're not one of the loyals, and the player doesn't have Gaennell
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:524
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:525
 msgid ""
 "As for you, <i>necromancer</i>. You shall surrender that accursed stave to "
 "be destroyed, and are hereby forbidden to practice magic in any form, at "
@@ -10924,32 +10925,32 @@ msgstr ""
 "习所有的魔法，否则将被判处死刑。请感谢我们的慈悲。"
 
 #. [message]: speaker=$plague_staff_wielder_id
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:530
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:531
 msgid "As you command, your Majesty."
 msgstr "遵命，陛下。"
 
 #. [message]: speaker=Konrad
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:551
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:552
 msgid ""
 "Owaec, last Prince of the Plains. You and your people have suffered much."
 msgstr "欧瓦埃克，平原的最后一位王子。你和你的人民遭受了很多苦难。"
 
 #. [message]: speaker=Owaec
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:555
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:556
 msgid ""
 "My Lord, the Clansmen gladly gave their lives for Wesnoth, and know that I "
 "would do the same without hesitation."
 msgstr "吾主，氏族勇士们甘愿为韦诺献出生命，并深知我会毫不犹豫地做同样的事。"
 
 #. [message]: speaker=Konrad
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:560
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:561
 msgid ""
 "The true test is not to die for one’s King, but to live for Him... Kneel, "
 "Owaec."
 msgstr "真正的考验不是为国王而死，而是为他而活……下跪，欧瓦埃克。"
 
 #. [message]: speaker=Konrad
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:565
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:566
 msgid ""
 "And arise, Sir Owaec, High Lord of the Horse Clans! Your people have been "
 "shattered, but We trust none more than you to make them whole again. Ride "
@@ -10960,7 +10961,7 @@ msgstr ""
 
 #. [message]: speaker=Konrad
 #. Owaec is dead too
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:574
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:575
 msgid ""
 "But alas, what of the Clansmen? Their horses have been scattered, their "
 "Lords were broken, and now the last prince has fallen defending the walls of "
@@ -10972,26 +10973,26 @@ msgstr ""
 "辉煌了。"
 
 #. [message]: speaker=Konrad
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:592
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:593
 msgid ""
 "And now what of the humble Gweddry; still but a lieutenant. It seems you are "
 "long-overdue for a promotion."
 msgstr "而现在，平凡的格威德利，仍然只是一个尉官；看来你已经很久没有晋升了。"
 
 #. [message]: speaker=Gweddry
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:596
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:597
 msgid "Sire, I but did my duty."
 msgstr "陛下，微臣只是尽职而已。"
 
 #. [message]: speaker=Konrad
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:601
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:602
 msgid ""
 "Quite. Now do not interrupt while I am doing mine... Kneel, Gweddry, "
 "lieutenant."
 msgstr "安静。现在不要打断我……单膝下跪，格威德利，尉官。"
 
 #. [message]: speaker=Konrad
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:606
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:607
 msgid ""
 "And arise, Gweddry, Earl of Estmark! The land for which you shed your blood "
 "shall be put under your hand to be made green again. May you ever prosper."
@@ -11000,7 +11001,7 @@ msgstr ""
 "繁荣昌盛。"
 
 #. [message]: speaker=Konrad
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:614
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:615
 msgid ""
 "And what of Gweddry... He had survived long, sacrificed much, only to meet "
 "his end here at the last. I wish he could have lived to see the peace he has "
@@ -11010,7 +11011,7 @@ msgstr ""
 "真希望他能活着看到他带来的和平。"
 
 #. [message]: speaker=Konrad
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:626
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:627
 msgid ""
 "Wesnoth is bowed, but thanks to the efforts of many heroes we stand yet "
 "unbroken. And now, at long last, the time has come to rebuild."
@@ -11019,7 +11020,7 @@ msgstr ""
 "到了。"
 
 #. [message]: speaker=Konrad
-#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:631
+#: data/campaigns/Eastern_Invasion/scenarios/18_Epilogue.cfg:632
 msgid ""
 "To each of you, take as Our first command to you your own wish! Go from "
 "here; secure our borders. Show all that the might of Wesnoth will endure!"
@@ -12808,19 +12809,19 @@ msgstr "<i>黑暗吞噬灵魂。</i>"
 #. [item_dialog_musttake]
 #. Button label for 'take an item'
 #: data/campaigns/Eastern_Invasion/utils/items.cfg:40
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1111
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1267
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1116
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1272
 msgid "Take"
 msgstr "拿走"
 
 #. [item_dialog]: description={ITEM_DESC}
 #. Button label for 'leave an item'
 #: data/campaigns/Eastern_Invasion/utils/items.cfg:42
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1112
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1117
 msgid "Leave"
 msgstr "留下"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:123
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:128
 msgid ""
 "<span size='small'><i>  This item is reusable if its wielder dies, and can "
 "be dropped by right clicking.</i></span>\n"
@@ -12833,7 +12834,7 @@ msgstr ""
 "<span size='small'><i>捡起道具会消耗你的移动和攻击次数。</i></span>\n"
 "<b></b>"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:128
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:133
 msgid ""
 "<span size='small'><i>This item <b>CANNOT</b> be dropped, and <b>CANNOT</b> "
 "be reused if its user dies.</i></span>\n"
@@ -12846,15 +12847,15 @@ msgstr ""
 "<span size='small'><i>  捡起道具会消耗你的移动和攻击次数。</i></span>\n"
 "<b></b>"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:142
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:147
 msgid "quiver"
 msgstr "箭筒"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:143
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:148
 msgid "Crystal Quiver"
 msgstr "水晶箭筒"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:144
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:149
 msgid ""
 "Arrows from this crystalline quiver glimmer with a pale magical light, "
 "<i><b>illuminating</b></i> the surrounding area and making your bow or "
@@ -12863,19 +12864,19 @@ msgstr ""
 "这个水晶箭筒中的箭闪烁着淡淡的魔光，<i><b>照明</b></i>周围的区域，使你的弓或"
 "弩变成<i><b>奥术</b></i>攻击。"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:164
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:169
 msgid "Drop Crystal Quiver"
 msgstr "放下水晶箭筒"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:184
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:189
 msgid "amulet"
 msgstr "护身符"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:185
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:190
 msgid "Holy Amulet"
 msgstr "神圣护身符"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:186
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:191
 msgid ""
 "Engraved with a consecrated symbol, this amulet will bless both your "
 "<i><b>melee</b></i> and <i><b>ranged</b></i> attacks with <i><b>arcane</b></"
@@ -12884,19 +12885,19 @@ msgstr ""
 "雕刻着神圣的符号，这个护身符将祝福你的<i><b>近战</b></i>和<i><b>远程</b></i>"
 "攻击形成<i><b>奥术</b></i>伤害。"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:205
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:210
 msgid "Drop Holy Amulet"
 msgstr "放下神圣护身符"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:219
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:224
 msgid "sentinel"
 msgstr "哨兵"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:220
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:225
 msgid "Shield of the Sentinel"
 msgstr "哨兵之盾"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:221
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:226
 msgid ""
 "Deep within this shield’s towering bulk, enchanted machinery whirrs faintly. "
 "Whenever an adjacent ally is hit by an attack, <i><b>this shield’s bearer is "
@@ -12905,19 +12906,19 @@ msgstr ""
 "在这面盾牌厚重的内部，被施过魔法的机械发出轻微的嗡鸣声。每当相邻盟友受到攻击"
 "时，<i><b>这面盾牌的持有者会代为承受攻击</b></i>。"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:243
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:248
 msgid "Drop Shield of the Sentinel"
 msgstr "放下哨兵之盾"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:573
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:578
 msgid "yetiburger"
 msgstr "雪人堡"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:574
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:579
 msgid "Yetiburger"
 msgstr "雪人堡"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:575
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:580
 msgid ""
 "Eating this funny tasting meat <i><b>doubles your hitpoints</b></i> and "
 "grants <i><b>immunity to cold</b></i>."
@@ -12925,15 +12926,15 @@ msgstr ""
 "食用这种味道有趣的肉<i><b>使你的生命值翻倍</b></i>，并赋予你<i><b>对寒冷的免"
 "疫</b></i>。"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:601
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:606
 msgid "ant ambrosia"
 msgstr "蚁蜜"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:602
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:607
 msgid "Ant Ambrosia"
 msgstr "蚁蜜"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:603
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:608
 msgid ""
 "This goopy honey-like substance makes you feel very sleepy... perhaps eating "
 "too much would be unwise.\n"
@@ -12947,16 +12948,16 @@ msgstr ""
 "移动，<span color='#00FF00'>+10</span> 生命值</b></i>。"
 
 #. [effect]: type=arcane
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:635
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:650
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:640
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:655
 msgid "baneblade"
 msgstr "毒刃"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:636
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:641
 msgid "Baneblade"
 msgstr "毒刃"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:637
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:642
 msgid ""
 "This incorporeal sword resembles those wielded by undead wraiths. Any mortal "
 "brave enough to wield it becomes <i><b>chaotic</b></i> and lashes out at "
@@ -12969,19 +12970,19 @@ msgstr ""
 "<i><b>6x4 奥术</b></i> 伤害，<i><b>吸血</b></i>，<i><b>狂暴</b></i>。在防守时"
 "总是会使用。"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:687
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:692
 msgid "Drop Baneblade"
 msgstr "放下毒刃"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:701
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:706
 msgid "barkskin"
 msgstr "树皮"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:702
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:707
 msgid "Potion of Barkskin"
 msgstr "树皮药水"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:703
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:708
 msgid ""
 "This potion bubbles as though over an open flame, yet is cool to the touch. "
 "Its drinker gains the <i><b>steadfast</b></i> ability and can <i><b>heal 2 "
@@ -12990,15 +12991,15 @@ msgstr ""
 "这种药水在明火上冒泡，但摸起来很凉。喝它的人获得<i><b>坚定</b></i>能力，"
 "<i><b>每回合恢复2点生命</b></i>，就像具有“康健”特质的矮人一样。"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:733
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:738
 msgid "ring"
 msgstr "指环"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:734
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:739
 msgid "Ring of Invisibility"
 msgstr "隐身之环"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:735
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:740
 msgid ""
 "This plain gold ring looks unremarkable, but its wearer gains "
 "<i><b>skirmisher</b></i> and <i><b>nightstalk</b></i>, becoming invisible in "
@@ -13007,19 +13008,19 @@ msgstr ""
 "这枚纯金戒指看起来毫不起眼，但佩戴者会获得<i><b>散兵</b></i>和<i><b>夜遁</"
 "b></i>技能，在黑暗中变得不可见。"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:759
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:764
 msgid "Drop Ring of Invisibility"
 msgstr "放下隐身之环"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:773
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:778
 msgid "staff"
 msgstr "法杖"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:789
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:794
 msgid "Plague Staff"
 msgstr "瘟疫法杖"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:790
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:795
 msgid ""
 "Looted from a dead necromancer, the wielder of this dark staff becomes "
 "<i><b>chaotic</b></i>, and can <i><b>recruit and recall</b></i> Walking "
@@ -13032,13 +13033,13 @@ msgstr ""
 
 #. [message]: speaker=Owaec
 #. said by Owaec, when the player tries to give them a necromancer's staff
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:801
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:806
 msgid "Do not insult me! No clansman will ever stoop to such black magic."
 msgstr ""
 
 #. [message]: speaker=Gweddry
 #. said by Gweddry, when the player tries to give them a necromancer's staff
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:809
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:814
 msgid ""
 "I already have an army of human soldiers — living soldiers. Let someone else "
 "use this staff."
@@ -13046,7 +13047,7 @@ msgstr ""
 
 #. [message]: speaker=Dacyn
 #. said by Dacyn, when the player tries to give them a necromancer's staff
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:817
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:822
 msgid ""
 "Tempting! Most tempting... but I fear it would be unwise for me to wield "
 "such a thing. That privilege passes onto another."
@@ -13054,7 +13055,7 @@ msgstr ""
 
 #. [message]: speaker=Hahid al-Ali
 #. said by Hahid al-Ali, a Dune Herbalist, when the player tries to give them a necromancer's staff
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:825
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:830
 msgid ""
 "Ha! Good joke! I’m not about to mess around with any of your foul northerner "
 "magic; necromancy was the cause of all this trouble in the first place."
@@ -13062,7 +13063,7 @@ msgstr ""
 
 #. [message]: speaker=Terraent
 #. said by Terraent, a Paladin, when the player tries to give them a necromancer's staff
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:833
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:838
 msgid ""
 "I serve the light, not this staff of foul darkness! We should cast away this "
 "thing and be done with it."
@@ -13070,7 +13071,7 @@ msgstr ""
 
 #. [message]: speaker=Konrad
 #. said by King Konrad, when the player tries to give them a necromancer's staff
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:841
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:846
 msgid ""
 "...what foul thing is this? Remove it from my presence; necromancy shall not "
 "take root in Wesnoth, not under my watch."
@@ -13078,7 +13079,7 @@ msgstr ""
 
 #. [message]: speaker=unit
 #. said by a White Mage, Mage of Light, or Paladin, when the player tries to give them a necromancer's staff
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:852
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:857
 msgid ""
 "No. I serve that which is good and light, and will not wield such a dark "
 "magical artifact."
@@ -13086,7 +13087,7 @@ msgstr ""
 
 #. [message]: speaker=unit
 #. said by a dunefolk, when the player tries to give them a necromancer's staff
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:863
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:868
 msgid ""
 "Fighting your northerners’ foul magic is bad enough. Don’t expect me to "
 "wield that — civilized cultures don’t mess around with magic."
@@ -13094,18 +13095,18 @@ msgstr ""
 
 #. [message]: speaker=unit
 #. said by one of the player's units, when the player tries to give them a necromancer's staff
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:870
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:875
 msgid ""
 "I will not wield such a dark magical artifact, though I shall not begrudge "
 "its use by my companions."
 msgstr "我不会使用这样的黑暗魔法造物，尽管我不会介意我的同伴们使用它。"
 
 #. [effect]: type=impact
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:883
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:888
 msgid "plague staff"
 msgstr "瘟疫法杖"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:962
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:967
 msgid "Drop Plague Staff"
 msgstr "放下瘟疫法杖"
 
@@ -13114,7 +13115,7 @@ msgstr "放下瘟疫法杖"
 #. randomly getting a falcon, spider, wolf or sand scorpion corpse. Here “crown” means “top of head”, or “top of cephalothorax”.
 #. Dacyn says this the first time a corpse is recruited, and this event could happen in almost any scenario from S07b onwards.
 #. Even before picking up the amulet, he’s showing a level of interest that might get a student expelled from the Academy on Alduin
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1007
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1012
 msgid ""
 "Fascinating. The necromantic magic concentrates in the subject’s crown, "
 "replacing its bestial soul. Unnatural, yet effective."
@@ -13123,19 +13124,19 @@ msgstr ""
 
 #. [message]: speaker=Owaec
 #. First time a corpse is recruited by the wielder of the plague staff.
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1012
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1017
 msgid "A disgusting abomination! I lament living in such times..."
 msgstr "令人作呕的怪物！我哀叹生活在这个时代……"
 
 #. [object]
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1070
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1075
 msgid "Gwza-Alswdan"
 msgstr "瓜扎-奥苏丹"
 
 #. [item_dialog]: description={ITEM_DESC}
 #. [item_dialog_musttake]
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1108
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1264
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1113
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1269
 msgid ""
 "<span size='small'><i>  (Elixirs only last for 1 scenario.)</i></span>\n"
 "<span size='small'><i>  Picking up an item consumes your moves and attack.</"
@@ -13146,66 +13147,66 @@ msgstr ""
 "<span size='small'><i>拾取物品会消耗你的移动和攻击机会。</i></span>\n"
 "<b></b>"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1137
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1142
 msgid "Elixir of Water Breathing"
 msgstr "水下呼吸药水"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1138
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1143
 msgid ""
 "This shimmering blue vial grants its drinker normal movement and defense in "
 "swamp and shallow water."
 msgstr "这个闪烁着蓝色光芒的药瓶能让饮使用者在沼泽和浅水中正常移动和防御。"
 
 #. [floating_text]
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1158
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1163
 msgid "<span color='#00FFFF' size='x-small'>water breathing</span>"
 msgstr "<span color='#00FFFF' size='x-small'>水下呼吸</span>"
 
 #. [trait]: id=TRAIT_waterbreathing
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1170
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1175
 msgid "waterbreathing"
 msgstr "水下呼吸"
 
 #. [trait]: id=TRAIT_waterbreathing
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1171
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1176
 msgid ""
 "An elixir of waterbreathing has given this unit normal movement and defense "
 "in swamp and shallow water."
 msgstr "水下呼吸药水让该单位在沼泽和浅水中拥有正常的移动和防御能力。"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1204
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1209
 msgid "Elixir of Elements"
 msgstr "元素药水"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1205
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1210
 msgid ""
 "This bubbling yellow vial grants immunity to both fire and cold. It also "
 "makes you sweat profusely."
 msgstr "这个沸腾的黄色药瓶能让你免疫火焰和冰寒。也会让你大汗淋漓。"
 
 #. [floating_text]
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1225
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1230
 msgid "<span color='#E8B923' size='x-small'>elemental resist</span>"
 msgstr "<span color='#E8B923' size='x-small'>元素抗性</span>"
 
 #. [trait]: id=TRAIT_elements
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1237
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1242
 msgid "elements"
 msgstr "元素"
 
 #. [trait]: id=TRAIT_elements
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1238
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1243
 msgid ""
 "An elixir of elements has given this unit immunity to both fire and cold."
 msgstr "元素药水赋予了这个单位对火焰和冰寒的免疫。"
 
 #. [item_dialog_musttake]
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1261
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1266
 msgid "Elixir of Haste"
 msgstr "疾行药水"
 
 #. [item_dialog_musttake]
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1263
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1268
 msgid ""
 "This saccharine green liquid grants +1 movement and +10% defense on all "
 "terrain. You may have difficulty standing still."
@@ -13214,27 +13215,27 @@ msgstr ""
 "站稳。"
 
 #. [floating_text]
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1286
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1291
 msgid "<span color='#0BDA51' size='x-small'>haste</span>"
 msgstr "<span color='#0BDA51' size='x-small'>疾行</span>"
 
 #. [trait]: id=TRAIT_haste
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1298
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1303
 msgid "haste"
 msgstr "疾行"
 
 #. [trait]: id=TRAIT_haste
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1299
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1304
 msgid ""
 "An elixir of haste has given this unit +1 movement and +10% defense on all "
 "terrain."
 msgstr "疾行药水使该单位在所有地形上移动+1且防御力提升10%。"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1337
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1342
 msgid "Elixir of Fury"
 msgstr "狂怒药水"
 
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1338
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1343
 msgid ""
 "The red liquid in this vial sloshes violently, as though trying to escape. "
 "Drinking it grants <b><i>unlimited melee attacks</i></b> and the "
@@ -13244,17 +13245,17 @@ msgstr ""
 "攻击次数</i></b>以及<b><i>狂暴</i></b>近战特攻。"
 
 #. [floating_text]
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1358
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1363
 msgid "<span color='#FF0000' size='x-small'>berserker fury</span>"
 msgstr "<span color='#FF0000' size='x-small'>狂战士之怒</span>"
 
 #. [trait]: id=TRAIT_fury
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1370
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1375
 msgid "fury"
 msgstr "狂怒"
 
 #. [trait]: id=TRAIT_fury
-#: data/campaigns/Eastern_Invasion/utils/items.cfg:1371
+#: data/campaigns/Eastern_Invasion/utils/items.cfg:1376
 msgid ""
 "An elixir of fury has given this unit <b><i>unlimited melee attacks</i></b> "
 "and the <b><i>berserk</i></b> melee special."

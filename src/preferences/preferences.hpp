@@ -66,6 +66,7 @@ enum class lobby_joins { show_none, show_friends, show_all };
 enum PREFERENCE_VIEW { VIEW_DEFAULT, VIEW_FRIENDS };
 };
 
+namespace sound { class volume; }
 namespace preferences
 {
 class acquaintance
@@ -270,26 +271,20 @@ public:
 	bool sound();
 	bool set_sound(bool ison);
 
-	unsigned int sample_rate();
-	void save_sample_rate(const unsigned int rate);
+	sound::volume sound_volume();
+	void set_sound_volume(sound::volume vol);
 
-	std::size_t sound_buffer_size();
-	void save_sound_buffer_size(const std::size_t size);
+	sound::volume bell_volume();
+	void set_bell_volume(sound::volume vol);
 
-	int sound_volume();
-	void set_sound_volume(int vol);
-
-	int bell_volume();
-	void set_bell_volume(int vol);
-
-	int ui_volume();
-	void set_ui_volume(int vol);
+	sound::volume ui_volume();
+	void set_ui_volume(sound::volume vol);
 
 	bool music_on();
 	bool set_music(bool ison);
 
-	int music_volume();
-	void set_music_volume(int vol);
+	sound::volume music_volume();
+	void set_music_volume(sound::volume vol);
 
 	bool turn_bell();
 	bool set_turn_bell(bool ison);
@@ -808,7 +803,6 @@ private:
 		prefs_list::skip_ai_moves,
 		prefs_list::skip_mp_replay,
 		prefs_list::sound,
-		prefs_list::sample_rate,
 		prefs_list::stop_music_in_background,
 		prefs_list::turbo,
 		prefs_list::turbo_speed,
@@ -866,7 +860,6 @@ private:
 		prefs_list::show_tips,
 		prefs_list::mp_server_program_name,
 		prefs_list::pixel_scale,
-		prefs_list::sound_buffer_size,
 		prefs_list::theme,
 		prefs_list::tile_size,
 		prefs_list::vsync,

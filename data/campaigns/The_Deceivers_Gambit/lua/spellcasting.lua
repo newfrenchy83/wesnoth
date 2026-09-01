@@ -243,6 +243,11 @@ function display_skills_dialog(selecting)
                                     gui.widget.close(dialog2)
                                 end
                             end
+
+                        -- attacks and passives are plain labels, so they can't be clicked or disabled.
+                        -- but polymorph still blocks them, so make that clear to the player (especially for important passives like Contingency)
+                        elseif (delfador.race~='human' and not skill.id:find('polymorph', 1, true)) then
+                            dialog2[buttonid].label = _"<span>  Blocked by\n  Polymorph</span>"
                         end
                     end
                     initialize_button("button"..i, skill2);
